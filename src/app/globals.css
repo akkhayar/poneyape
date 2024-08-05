@@ -3,7 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer base {
   :root {
     --background: rgb(248, 245, 247);
@@ -38,8 +37,8 @@
 
     --dark-grey-color: #474747;
     --mid-grey-color: #999;
-    --bg-1: #E5E5E0;
-    --neutral-lightest: #EEE;
+    --bg-1: #e5e5e0;
+    --neutral-lightest: #eee;
 
     --font-pyidaungsu: Pyidaungsu, serif;
   }
@@ -101,14 +100,12 @@
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
   }
-
 }
 
 body {
   color: rgb(var(--foreground-rgb));
   background: #fbf9f7;
 }
-
 
 .lang-mm {
   font-family: var(--font-pyidaungsu), serif;
@@ -121,7 +118,7 @@ body {
 }
 
 @layer components {
-  button.primary {
+  button.c-primary {
     border-radius: 5px;
     background: linear-gradient(90deg, #5d25c7 0%, #2252df 100%);
     color: white;
@@ -130,9 +127,21 @@ body {
     font-style: normal;
     font-weight: 500;
     line-height: 150%; /* 24px */
+    transition: all ease 200ms;
   }
 
-  button.outline {
+  button.c-primary:hover {
+    box-shadow:
+      0px 1px 2px 0px rgba(0, 0, 0, 0.3),
+      0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+  }
+
+  button.c-primary:active {
+    filter: opacity(0.88);
+    box-shadow: none;
+  }
+
+  button.c-outline {
     border-radius: 5px;
     border: 1px solid var(--primary);
     color: var(--primary);
@@ -142,5 +151,15 @@ body {
     font-weight: 500;
     line-height: 150%; /* 24px */
     outline: none;
+    transition: all ease 200ms;
+  }
+
+  button.c-outline.c-white {
+    border: 1px solid #fff;
+    color: #fff;
+  }
+
+  button.c-outline:hover {
+    border: 1px solid var(--Primary, #3d52d5);
   }
 }

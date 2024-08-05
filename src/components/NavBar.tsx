@@ -10,11 +10,11 @@ const NavBar = () => {
       <AuthModal show={showAuthModal} setShow={setShowAuthModal} />
 
       <section className="h-[60px] w-full bg-[#FFE89C]"></section>
-      <nav className="flex h-[72px] items-center justify-between gap-10 border-b border-solid border-b-bg1 bg-[#ffffff66] px-6 md:justify-normal md:px-16">
+      <nav className="flex h-[72px] items-center justify-between gap-10 border-b border-solid border-b-bg1 bg-[#ffffff66] px-6 lg:justify-normal lg:px-16">
         <div className="flex gap-2">
           <button
             type="button"
-            className="md:hidden"
+            className="lg:hidden"
             onClick={() => setShowMenuPage(true)}
           >
             <svg
@@ -65,9 +65,9 @@ const NavBar = () => {
             placeholder="Search..."
           />
         </div>
-        <div className="absolute left-0 top-0 h-screen w-screen overflow-y-hidden bg-white px-5 py-10 md:static md:h-fit md:w-fit md:bg-transparent">
+        <div className="absolute left-0 top-0 h-screen w-screen overflow-y-hidden bg-white px-5 py-10 lg:static lg:h-fit lg:w-fit lg:bg-transparent">
           <div
-            className="mb-8 border-b border-[#E5E5E0] pb-8 md:hidden"
+            className="mb-8 border-b border-[#E5E5E0] pb-8 lg:hidden"
             aria-label="Mobile Navigation Icon"
           >
             <a className="font-pyidaungsu text-[20px]">ပုံရိပ်</a>
@@ -80,7 +80,7 @@ const NavBar = () => {
             </button>
           </div>
           <ul
-            className="text-[#1B1B1B] md:flex md:gap-8"
+            className="text-[#1B1B1B] lg:flex lg:gap-8"
             aria-label="Navigation Items"
           >
             <li className="flex gap-4 py-4">
@@ -89,7 +89,7 @@ const NavBar = () => {
                 height="24"
                 viewBox="0 0 24 24"
                 fill="none"
-                className="md:hidden"
+                className="lg:hidden"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -106,7 +106,7 @@ const NavBar = () => {
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
-                className="md:hidden"
+                className="lg:hidden"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -131,7 +131,7 @@ const NavBar = () => {
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
-                className="md:hidden"
+                className="lg:hidden"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -149,7 +149,7 @@ const NavBar = () => {
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
-                className="md:hidden"
+                className="lg:hidden"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -163,9 +163,9 @@ const NavBar = () => {
               <h5 className="regular">Explore</h5>
             </li>
           </ul>
-          <button className="primary mt-6 w-full md:hidden" onClick={() => setShowAuthModal(true)}>REGISTER</button>
+          <button className="primary mt-6 w-full lg:hidden" onClick={() => setShowAuthModal(true)}>REGISTER</button>
           <div
-            className="mx-auto text-center md:hidden"
+            className="mx-auto text-center lg:hidden"
             aria-label="Mobile Navigation Copyright"
           >
             <a href="" className="text-midGrey">
@@ -196,7 +196,7 @@ const NavBar = () => {
             <option className="hover:text-black">ENG</option>
             <option>MY</option>
           </select>
-          <button className="primary hidden pb-6 md:block">REGISTER</button>
+          <button className="c-primary hidden pb-6 lg:block">REGISTER</button>
         </div>
       </nav>
     </>

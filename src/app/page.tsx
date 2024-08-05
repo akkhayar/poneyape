@@ -136,7 +136,6 @@ function createStringExtractor(language?: string | null) {
   return (title: string) => resources[language].translation[title];
 }
 
-
 export default function Home() {
   // const searchParams = useSearchParams();
   // const lang = searchParams.get("lang");
@@ -148,21 +147,25 @@ export default function Home() {
       <section className="md:py-[120px]md:px-16 flex flex-col gap-10 px-6 py-10">
         <div className="py-6 text-center md:mx-auto md:max-w-[1000px]">
           <h1 className="font-poppins text-[40px] font-bold leading-10 md:text-[86px] md:leading-[100%] md:tracking-[-3.44px]">
-            Elevating <span className="text-primary">Design Excellence</span> in
-            Myanmar
+            Elevating <span className="text-c-primary">Design Excellence</span>{" "}
+            in Myanmar
           </h1>
           <p className="py-10 md:mx-auto md:max-w-[800px]">
             {t("heroDescription")}
           </p>
-          <button
-            className="primary pb-6 md:hidden"
-          >
+          <button className="c-primary pb-6 md:hidden">
             {t("registerModalTitle")}
           </button>
         </div>
         <div className="flex flex-col gap-6">
-          <h3 className="semibold text-center">#1 of the month</h3>
-          <Image src="" alt="most-voted-site" className="h-[248px]" />
+          <h3 className="semibold mb-10 text-center">#1 of the month</h3>{" "}
+          <Image
+            src={"/eg.png"}
+            alt="cover-image"
+            width={624}
+            height={248}
+            className="mb-6 grow"
+          />
         </div>
         <div>
           <div>
@@ -187,59 +190,203 @@ export default function Home() {
         <div>
           <p className="semibold pb-6 text-center">Hot Trend 🔥</p>
           <h2 className="pb-10 text-center text-2xl font-[700]">NEUMORPHISM</h2>
-          <div className="flex flex-wrap gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             <WebsiteCard
-              coverImage="/eg.jpg"
+              id="eg"
+              coverImage="/eg.png"
               author="Ralph Edwards"
               tags={["Blog", "Corporate"]}
               title="Future Tracking"
             />
             <WebsiteCard
-              coverImage="/eg.jpg"
+              id="eg"
+              coverImage="/eg.png"
               author="Ralph Edwards"
               tags={["Blog", "Corporate"]}
               title="Future Tracking"
             />
             <WebsiteCard
-              coverImage="/eg.jpg"
+              id="eg"
+              coverImage="/eg.png"
               author="Ralph Edwards"
               tags={["Blog", "Corporate"]}
               title="Future Tracking"
             />
             <WebsiteCard
-              coverImage="/eg.jpg"
+              id="eg"
+              coverImage="/eg.png"
               author="Ralph Edwards"
               tags={["Blog", "Corporate"]}
               title="Future Tracking"
             />
             <WebsiteCard
-              coverImage="/eg.jpg"
+              id="eg"
+              coverImage="/eg.png"
               author="Ralph Edwards"
               tags={["Blog", "Corporate"]}
               title="Future Tracking"
             />
             <WebsiteCard
-              coverImage="/eg.jpg"
+              id="eg"
+              coverImage="/eg.png"
               author="Ralph Edwards"
               tags={["Blog", "Corporate"]}
               title="Future Tracking"
             />
             <WebsiteCard
-              coverImage="/eg.jpg"
+              id="eg"
+              coverImage="/eg.png"
               author="Ralph Edwards"
               tags={["Blog", "Corporate"]}
               title="Future Tracking"
             />
           </div>
-          <button className="mx-auto outline">{t("viewAll")}</button>
         </div>
+        <button className="c-outline mx-auto">{t("viewAll")}</button>
       </section>
       <section className="px-6 py-10 md:px-16 md:py-[120px]">
         <div className="mb-10 flex flex-col gap-4">
           <h3 className="semibold text-left">{t("popularWebsitesTitle")}</h3>
           <p>{t("popularWebsitesDescription")}</p>
         </div>
-        <div>Carousel</div>
+        <div
+          id="popular-sites"
+          className="relative w-full"
+          data-carousel="static"
+        >
+          <div className="relative h-[500px] overflow-hidden rounded-lg md:h-96">
+            <div className="hidden duration-700 ease-in-out" data-carousel-item>
+              <Image
+                src="/eg.png"
+                className="absolute left-1/2 top-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
+                alt="..."
+                width={500}
+                height={500}
+              />
+            </div>
+            <div className="hidden duration-700 ease-in-out" data-carousel-item>
+              <Image
+                src="/eg.png"
+                className="absolute left-1/2 top-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
+                alt="..."
+                width={500}
+                height={500}
+              />
+            </div>
+            <div className="hidden duration-700 ease-in-out" data-carousel-item>
+              <Image
+                src="/eg.png"
+                className="absolute left-1/2 top-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
+                alt="..."
+                width={500}
+                height={500}
+              />
+            </div>
+            <div className="hidden duration-700 ease-in-out" data-carousel-item>
+              <Image
+                src="/eg.png"
+                className="absolute left-1/2 top-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
+                alt="..."
+                width={500}
+                height={500}
+              />
+            </div>
+            <div className="hidden duration-700 ease-in-out" data-carousel-item>
+              <Image
+                src="/eg.png"
+                className="absolute left-1/2 top-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
+                alt="..."
+                width={500}
+                height={500}
+              />
+            </div>
+          </div>
+          <div className="absolute bottom-5 left-1/2 z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse">
+            <button
+              type="button"
+              className="h-3 w-3 rounded-full"
+              aria-current="true"
+              aria-label="Slide 1"
+              data-carousel-slide-to="0"
+            ></button>
+            <button
+              type="button"
+              className="h-3 w-3 rounded-full"
+              aria-current="false"
+              aria-label="Slide 2"
+              data-carousel-slide-to="1"
+            ></button>
+            <button
+              type="button"
+              className="h-3 w-3 rounded-full"
+              aria-current="false"
+              aria-label="Slide 3"
+              data-carousel-slide-to="2"
+            ></button>
+            <button
+              type="button"
+              className="h-3 w-3 rounded-full"
+              aria-current="false"
+              aria-label="Slide 4"
+              data-carousel-slide-to="3"
+            ></button>
+            <button
+              type="button"
+              className="h-3 w-3 rounded-full"
+              aria-current="false"
+              aria-label="Slide 5"
+              data-carousel-slide-to="4"
+            ></button>
+          </div>
+          <button
+            type="button"
+            className="group absolute start-0 top-0 z-30 flex h-full cursor-pointer items-center justify-center px-4 focus:outline-none"
+            data-carousel-prev
+          >
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-black group-hover:bg-white/50 group-focus:outline-none group-focus:ring-4 group-focus:ring-white dark:bg-gray-800/30 dark:group-hover:bg-gray-800/60 dark:group-focus:ring-gray-800/70">
+              <svg
+                className="h-4 w-4 text-white rtl:rotate-180 dark:text-gray-800"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 6 10"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 1 1 5l4 4"
+                />
+              </svg>
+              <span className="sr-only">Previous</span>
+            </span>
+          </button>
+          <button
+            type="button"
+            className="group absolute end-0 top-0 z-30 flex h-full cursor-pointer items-center justify-center px-4 focus:outline-none"
+            data-carousel-next
+          >
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-black group-hover:bg-white/50 group-focus:outline-none group-focus:ring-4 group-focus:ring-white dark:bg-gray-800/30 dark:group-hover:bg-gray-800/60 dark:group-focus:ring-gray-800/70">
+              <svg
+                className="h-4 w-4 text-white rtl:rotate-180 dark:text-gray-800"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 6 10"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m1 9 4-4-4-4"
+                />
+              </svg>
+              <span className="sr-only">Next</span>
+            </span>
+          </button>
+        </div>
       </section>
       <section className="bg-[#9191911a] px-6 py-10 md:px-16 md:py-[120px]">
         <h3 className="semibold mb-10 text-center">{t("testimonials")}</h3>
@@ -265,7 +412,7 @@ export default function Home() {
           <div className="flex flex-col gap-6">
             <h3 className="semibold">{t("tutorialTitle")}</h3>
             <p>{t("tutorialDescription")}</p>
-            <button className="primary mt-4 md:w-fit">
+            <button className="c-primary mt-4 md:w-fit">
               {t("tutorialButton")}
             </button>
           </div>
@@ -282,7 +429,7 @@ export default function Home() {
                 type="text"
                 placeholder="Enter your email"
               />
-              <button className="primary w-full md:w-fit">
+              <button className="c-primary w-full md:w-fit">
                 {t("ctaButton")}
               </button>
             </div>
@@ -307,7 +454,9 @@ export default function Home() {
             <h3 className="semibold mb-4">We are open for volunteers</h3>
             <p>{t("volunteeringDescription")}</p>
           </div>
-          <button className="primary w-full md:w-fit">{t("contactUs")}</button>
+          <button className="c-primary w-full md:w-fit">
+            {t("contactUs")}
+          </button>
         </div>
       </section>
       <section className="px-6 py-[120px] md:px-16">
