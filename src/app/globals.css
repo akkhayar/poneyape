@@ -1,11 +1,98 @@
+@import url("https://fonts.akkhayar.com/css2?fonts=Pyidaungsu;MyanmarTagu&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+
+@layer base {
+  :root {
+    --background: rgb(248, 245, 247);
+    --foreground: rgb(27, 27, 27);
+
+    --card: 0 0% 100%;
+    --card-foreground: 224 71.4% 4.1%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71.4% 4.1%;
+
+    --primary: #3d52d5;
+    --primary-foreground: 210 20% 98%;
+
+    --secondary: 220 14.3% 95.9%;
+    --secondary-foreground: 220.9 39.3% 11%;
+
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: 220 8.9% 46.1%;
+
+    --accent: 220 14.3% 95.9%;
+    --accent-foreground: 220.9 39.3% 11%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 20% 98%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 224 71.4% 4.1%;
+
+    --radius: 0.5rem;
+
+    --dark-grey-color: #474747;
+    --mid-grey-color: #999;
+    --bg-1: #E5E5E0;
+    --neutral-lightest: #EEE;
+
+    --font-pyidaungsu: Pyidaungsu, serif;
+  }
+
+  input {
+    border: 1px solid var(--Black, #1b1b1b);
+    background: var(--White, #fff);
+    padding: 12px;
+  }
+
+  h3.semibold {
+    /* Eng/H3/Semibold */
+    font-family: var(--font-poppins), serif;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 120%; /* 38.4px */
+  }
+
+  h5.semibold {
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 27px */
+  }
+
+  h5.regular {
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 27px */
+  }
+
+  .body.regular {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 24px */
+  }
+
+  p.semibold {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 24px */
+  }
+
+  .small.medium {
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 18px */
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -14,20 +101,46 @@
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
   }
+
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: #fbf9f7;
+}
+
+
+.lang-mm {
+  font-family: var(--font-pyidaungsu), serif;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+@layer components {
+  button.primary {
+    border-radius: 5px;
+    background: linear-gradient(90deg, #5d25c7 0%, #2252df 100%);
+    color: white;
+    padding: 10px 24px;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 24px */
+  }
+
+  button.outline {
+    border-radius: 5px;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    padding: 10px 24px;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 24px */
+    outline: none;
   }
 }

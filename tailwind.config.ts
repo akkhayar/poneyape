@@ -13,6 +13,22 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      colors: {
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: "var(--primary)",
+        midGrey: "var(--mid-grey-color)",
+        darkGrey: "var(--dark-grey-color)",
+        bg1: "var(--bg-1)",
+        neutralLightest: "var(--neutral-lightest)",
+      },
+    },
+    fontFamily: {
+      poppins: ["var(--font-poppins)"],
+      pyidaungsu: ["var(--font-pyidaungsu)"],
     },
   },
   plugins: [],
