@@ -1,8 +1,10 @@
 "use client";
 import WebsiteCard from "@/components/WebsiteCard";
 import Testimonial from "@/components/Testimonial";
+import AuthModal from "@/components/AuthModal";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 const resources: {
   [language: string]: { translation: { [title: string]: string } };
@@ -134,23 +136,27 @@ function createStringExtractor(language?: string | null) {
   return (title: string) => resources[language].translation[title];
 }
 
+
 export default function Home() {
-  const searchParams = useSearchParams();
-  const lang = searchParams.get("lang");
+  // const searchParams = useSearchParams();
+  // const lang = searchParams.get("lang");
+  const lang = "en";
   const t = createStringExtractor(lang);
 
   return (
     <div className={`lang-${lang}`}>
-      <section className="py-10 px-6 md:py-[120px]md:px-16 flex flex-col gap-10">
+      <section className="md:py-[120px]md:px-16 flex flex-col gap-10 px-6 py-10">
         <div className="py-6 text-center md:mx-auto md:max-w-[1000px]">
-          <h1 className="font-poppins text-[40px] font-bold leading-10  md:text-[86px] md:leading-[100%] md:tracking-[-3.44px]">
+          <h1 className="font-poppins text-[40px] font-bold leading-10 md:text-[86px] md:leading-[100%] md:tracking-[-3.44px]">
             Elevating <span className="text-primary">Design Excellence</span> in
             Myanmar
           </h1>
-          <p className="py-10 md:max-w-[800px] md:mx-auto">
+          <p className="py-10 md:mx-auto md:max-w-[800px]">
             {t("heroDescription")}
           </p>
-          <button className="primary pb-6 md:hidden">
+          <button
+            className="primary pb-6 md:hidden"
+          >
             {t("registerModalTitle")}
           </button>
         </div>
@@ -179,8 +185,8 @@ export default function Home() {
           </div>
         </div>
         <div>
-          <p className="semibold text-center pb-6">Hot Trend 🔥</p>
-          <h2 className="text-2xl font-[700] text-center pb-10">NEUMORPHISM</h2>
+          <p className="semibold pb-6 text-center">Hot Trend 🔥</p>
+          <h2 className="pb-10 text-center text-2xl font-[700]">NEUMORPHISM</h2>
           <div className="flex flex-wrap gap-6">
             <WebsiteCard
               coverImage="/eg.jpg"
@@ -225,18 +231,18 @@ export default function Home() {
               title="Future Tracking"
             />
           </div>
-          <button className="outline mx-auto">{t("viewAll")}</button>
+          <button className="mx-auto outline">{t("viewAll")}</button>
         </div>
       </section>
-      <section className="py-10 px-6 md:py-[120px] md:px-16">
+      <section className="px-6 py-10 md:px-16 md:py-[120px]">
         <div className="mb-10 flex flex-col gap-4">
           <h3 className="semibold text-left">{t("popularWebsitesTitle")}</h3>
           <p>{t("popularWebsitesDescription")}</p>
         </div>
         <div>Carousel</div>
       </section>
-      <section className="py-10 px-6 md:py-[120px] md:px-16 bg-[#9191911a]">
-        <h3 className="semibold text-center mb-10">{t("testimonials")}</h3>
+      <section className="bg-[#9191911a] px-6 py-10 md:px-16 md:py-[120px]">
+        <h3 className="semibold mb-10 text-center">{t("testimonials")}</h3>
         <div>
           <Testimonial
             author="Robert Fox"
@@ -246,15 +252,17 @@ export default function Home() {
           />
         </div>
       </section>
-      <section className="py-10 px-6 md:py-[120px] md:px-16 md:flex">
+      <section className="px-6 py-10 md:flex md:px-16 md:py-[120px]">
         <Image
           alt="tutorial-thumbnail"
-          className="h-[250px] w-full bg-black mb-6 md:me-20"
+          className="mb-6 h-[250px] w-full bg-black md:me-20"
           src=""
+          width={100}
+          height={100}
         />
-        <div className="flex gap-4 flex-col">
+        <div className="flex flex-col gap-4">
           <p className="semibold">{t("tutorialNote")}</p>
-          <div className="flex gap-6 flex-col">
+          <div className="flex flex-col gap-6">
             <h3 className="semibold">{t("tutorialTitle")}</h3>
             <p>{t("tutorialDescription")}</p>
             <button className="primary mt-4 md:w-fit">
@@ -263,18 +271,20 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="py-20 px-6 md:py-[120px] md:px-16 bg-[url('/assets/images/subscribe-bg.webp')] text-white">
-        <div className="flex gap-6 flex-col">
+      <section className="bg-[url('/assets/images/subscribe-bg.webp')] px-6 py-20 text-white md:px-16 md:py-[120px]">
+        <div className="flex flex-col gap-6">
           <h3 className="semibold">{t("ctaTitle")}</h3>
           <p className="body regular">{t("ctaDescription")}</p>
           <div>
             <div className="mb-4">
               <input
-                className="text-black me-4 w-full mb-4 md:mb-0 md:w-[325px]"
+                className="mb-4 me-4 w-full text-black md:mb-0 md:w-[325px]"
                 type="text"
                 placeholder="Enter your email"
               />
-              <button className="primary w-full md:w-fit">{t('ctaButton')}</button>
+              <button className="primary w-full md:w-fit">
+                {t("ctaButton")}
+              </button>
             </div>
             <p>
               By subscribing, you agree to our{" "}
@@ -285,27 +295,25 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="py-10 px-6 md:py-[120px] md:px-16 flex flex-col gap-20">
+      <section className="flex flex-col gap-20 px-6 py-10 md:px-16 md:py-[120px]">
         <div className="mb-10">
           <h3 className="semibold mb-6">Meet Our Team</h3>
-          <p>{t('moreQuestionDescription')}</p>
+          <p>{t("moreQuestionDescription")}</p>
           <div>Carousel</div>
         </div>
 
         <div>
           <div className="mb-6">
             <h3 className="semibold mb-4">We are open for volunteers</h3>
-            <p>
-              {t('volunteeringDescription')}
-            </p>
+            <p>{t("volunteeringDescription")}</p>
           </div>
-          <button className="primary w-full md:w-fit">{t('contactUs')}</button>
+          <button className="primary w-full md:w-fit">{t("contactUs")}</button>
         </div>
       </section>
-      <section className="py-[120px] px-6 md:px-16">
-        <h3 className="semibold">{t('faqTitle')}</h3>
-        <p>{t('faqDescription')}</p>
-        <div>{t('moreQuestionTitle')}</div>
+      <section className="px-6 py-[120px] md:px-16">
+        <h3 className="semibold">{t("faqTitle")}</h3>
+        <p>{t("faqDescription")}</p>
+        <div>{t("moreQuestionTitle")}</div>
       </section>
     </div>
   );

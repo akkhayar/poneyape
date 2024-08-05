@@ -1,47 +1,53 @@
+import Image from "next/image";
+
 const Footer = () => {
   return (
     <footer className="bg-white dark:bg-gray-900">
-      <div className="mx-auto w-full max-w-screen-xl p-6 md:px-30">
+      <div className="md:px-30 mx-auto w-full max-w-screen-xl p-6">
         <div className="md:flex md:justify-between">
-          <div className="mb-6 md:mb-0 flex flex-col gap-6">
+          <div className="mb-6 flex flex-col gap-6 md:mb-0">
             <a href="https://flowbite.com/" className="flex items-center">
-              <img
+              <Image
                 src="https://flowbite.com/docs/images/logo.svg"
-                className="h-8 me-3"
+                className="me-3 h-8"
                 alt="FlowBite Logo"
+                width={25}
+                height={25}
               />
-              <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+              <span className="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">
                 PoneYape
               </span>
             </a>
             <div>
-              <h2 className="text-sm font-semibold text-gray-900 uppercase dark:text-white">Our Vision</h2>
+              <h2 className="text-sm font-semibold uppercase text-gray-900 dark:text-white">
+                Our Vision
+              </h2>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
                 ipsum dolor sit amet, consectetur adipiscing elit.
               </p>
             </div>
             <div>
-              <h2 className="text-sm font-semibold text-gray-900 uppercase dark:text-white">Contact</h2>
+              <h2 className="text-sm font-semibold uppercase text-gray-900 dark:text-white">
+                Contact
+              </h2>
               <p>9590 123 4567</p>
               <p>info@poneyape.com</p>
             </div>
-
-            
           </div>
-          <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 sm:gap-6">
             <div>
-              <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
+              <h2 className="mb-6 text-sm font-semibold uppercase text-gray-900 dark:text-white">
                 Company
               </h2>
-              <ul className="text-gray-500 dark:text-gray-400 font-medium">
+              <ul className="font-medium text-gray-500 dark:text-gray-400">
                 <li className="mb-4">
                   <a href="https://flowbite.com/" className="hover:underline">
                     About
                   </a>
                 </li>
                 <li className="mb-4">
-                <a
+                  <a
                     href="https://tailwindcss.com/"
                     className="hover:underline"
                   >
@@ -67,10 +73,10 @@ const Footer = () => {
               </ul>
             </div>
             <div>
-              <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
+              <h2 className="mb-6 text-sm font-semibold uppercase text-gray-900 dark:text-white">
                 Resources
               </h2>
-              <ul className="text-gray-500 dark:text-gray-400 font-medium">
+              <ul className="font-medium text-gray-500 dark:text-gray-400">
                 <li className="mb-4">
                   <a href="#" className="hover:underline">
                     Learning
@@ -94,14 +100,14 @@ const Footer = () => {
               </ul>
             </div>
             <div>
-              <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
+              <h2 className="mb-6 text-sm font-semibold uppercase text-gray-900 dark:text-white">
                 Follow us
               </h2>
-              <ul className="text-gray-500 dark:text-gray-400 font-medium">
+              <ul className="font-medium text-gray-500 dark:text-gray-400">
                 <li className="mb-4">
                   <a
                     href="https://github.com/themesberg/flowbite"
-                    className="hover:underline "
+                    className="hover:underline"
                   >
                     Github
                   </a>
@@ -118,7 +124,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+        <hr className="my-6 border-gray-200 sm:mx-auto lg:my-8 dark:border-gray-700" />
         <div className="sm:flex sm:items-center sm:justify-between">
           <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
             © 2024{" "}
@@ -127,13 +133,13 @@ const Footer = () => {
             </a>
             . All Rights Reserved.
           </span>
-          <div className="flex mt-4 sm:justify-center sm:mt-0">
+          <div className="mt-4 flex sm:mt-0 sm:justify-center">
             <a
               href="#"
               className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
             >
               <svg
-                className="w-4 h-4"
+                className="h-4 w-4"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="currentColor"
@@ -149,10 +155,10 @@ const Footer = () => {
             </a>
             <a
               href="#"
-              className="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5"
+              className="ms-5 text-gray-500 hover:text-gray-900 dark:hover:text-white"
             >
               <svg
-                className="w-4 h-4"
+                className="h-4 w-4"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="currentColor"
@@ -164,10 +170,10 @@ const Footer = () => {
             </a>
             <a
               href="#"
-              className="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5"
+              className="ms-5 text-gray-500 hover:text-gray-900 dark:hover:text-white"
             >
               <svg
-                className="w-4 h-4"
+                className="h-4 w-4"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="currentColor"
@@ -183,10 +189,10 @@ const Footer = () => {
             </a>
             <a
               href="#"
-              className="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5"
+              className="ms-5 text-gray-500 hover:text-gray-900 dark:hover:text-white"
             >
               <svg
-                className="w-4 h-4"
+                className="h-4 w-4"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="currentColor"
@@ -202,10 +208,10 @@ const Footer = () => {
             </a>
             <a
               href="#"
-              className="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5"
+              className="ms-5 text-gray-500 hover:text-gray-900 dark:hover:text-white"
             >
               <svg
-                className="w-4 h-4"
+                className="h-4 w-4"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="currentColor"

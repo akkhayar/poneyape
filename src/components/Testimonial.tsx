@@ -7,7 +7,7 @@ type TestimonialProps = {
 
 const Testimonial = ({ rating, text, author, position }: TestimonialProps) => {
   return (
-    <div className="flex flex-col gap-10 items-center">
+    <div className="flex flex-col items-center gap-10">
       <div>stars {rating}</div>
       <p className="text-center">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
