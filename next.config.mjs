@@ -5,11 +5,11 @@ const nextConfig = {
         defaultLocale: 'en-US',
         domains: [
           {
-            domain: 'poneyape.com/en',
+            domain: 'poneyape-b.pages.dev/en',
             defaultLocale: 'en-US',
           },
           {
-            domain: 'poneyape.com/mm',
+            domain: 'poneyape-b.pages.dev/mm',
             defaultLocale: 'nl-NL',
           },
         ],
