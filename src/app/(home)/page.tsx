@@ -1,10 +1,7 @@
 "use client";
-import WebsiteCard from "@/components/WebsiteCard";
-import Testimonial from "@/components/Testimonial";
-import AuthModal from "@/components/AuthModal";
+import WebsiteCard from "@/components/common/WebsiteCard";
+import Testimonial from "@/components/common/Testimonial";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
-import { useState } from "react";
 
 const resources: {
   [language: string]: { translation: { [title: string]: string } };
@@ -158,7 +155,7 @@ export default function Home() {
           </button>
         </div>
         <div className="flex flex-col gap-6">
-          <h3 className="semibold mb-10 text-center">#1 of the month</h3>{" "}
+          <h3 className="font-semibold mb-10 text-center">#1 of the month</h3>{" "}
           <Image
             src={"/eg.png"}
             alt="cover-image"
@@ -188,7 +185,7 @@ export default function Home() {
           </div>
         </div>
         <div>
-          <p className="semibold pb-6 text-center">Hot Trend 🔥</p>
+          <p className="font-semibold pb-6 text-center">Hot Trend 🔥</p>
           <h2 className="pb-10 text-center text-2xl font-[700]">NEUMORPHISM</h2>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             <WebsiteCard
@@ -246,7 +243,7 @@ export default function Home() {
       </section>
       <section className="px-6 py-10 md:px-16 md:py-[120px]">
         <div className="mb-10 flex flex-col gap-4">
-          <h3 className="semibold text-left">{t("popularWebsitesTitle")}</h3>
+          <h3 className="font-semibold text-left">{t("popularWebsitesTitle")}</h3>
           <p>{t("popularWebsitesDescription")}</p>
         </div>
         <div
@@ -353,9 +350,9 @@ export default function Home() {
               >
                 <path
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M5 1 1 5l4 4"
                 />
               </svg>
@@ -377,9 +374,9 @@ export default function Home() {
               >
                 <path
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="m1 9 4-4-4-4"
                 />
               </svg>
@@ -389,7 +386,7 @@ export default function Home() {
         </div>
       </section>
       <section className="bg-[#9191911a] px-6 py-10 md:px-16 md:py-[120px]">
-        <h3 className="semibold mb-10 text-center">{t("testimonials")}</h3>
+        <h3 className="font-semibold mb-10 text-center">{t("testimonials")}</h3>
         <div>
           <Testimonial
             author="Robert Fox"
@@ -408,9 +405,9 @@ export default function Home() {
           height={100}
         />
         <div className="flex flex-col gap-4">
-          <p className="semibold">{t("tutorialNote")}</p>
+          <p className="font-semibold">{t("tutorialNote")}</p>
           <div className="flex flex-col gap-6">
-            <h3 className="semibold">{t("tutorialTitle")}</h3>
+            <h3 className="font-semibold">{t("tutorialTitle")}</h3>
             <p>{t("tutorialDescription")}</p>
             <button className="c-primary mt-4 md:w-fit">
               {t("tutorialButton")}
@@ -420,8 +417,8 @@ export default function Home() {
       </section>
       <section className="bg-[url('/assets/images/subscribe-bg.webp')] px-6 py-20 text-white md:px-16 md:py-[120px]">
         <div className="flex flex-col gap-6">
-          <h3 className="semibold">{t("ctaTitle")}</h3>
-          <p className="body regular">{t("ctaDescription")}</p>
+          <h3 className="font-semibold">{t("ctaTitle")}</h3>
+          <p className="c-body">{t("ctaDescription")}</p>
           <div>
             <div className="mb-4">
               <input
@@ -444,14 +441,14 @@ export default function Home() {
       </section>
       <section className="flex flex-col gap-20 px-6 py-10 md:px-16 md:py-[120px]">
         <div className="mb-10">
-          <h3 className="semibold mb-6">Meet Our Team</h3>
+          <h3 className="font-semibold mb-6">Meet Our Team</h3>
           <p>{t("moreQuestionDescription")}</p>
           <div>Carousel</div>
         </div>
 
         <div>
           <div className="mb-6">
-            <h3 className="semibold mb-4">We are open for volunteers</h3>
+            <h3 className="font-semibold mb-4">We are open for volunteers</h3>
             <p>{t("volunteeringDescription")}</p>
           </div>
           <button className="c-primary w-full md:w-fit">
@@ -460,7 +457,7 @@ export default function Home() {
         </div>
       </section>
       <section className="px-6 py-[120px] md:px-16">
-        <h3 className="semibold">{t("faqTitle")}</h3>
+        <h3 className="font-semibold">{t("faqTitle")}</h3>
         <p>{t("faqDescription")}</p>
         <div>{t("moreQuestionTitle")}</div>
       </section>

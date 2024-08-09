@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
-import NavBar from "@/components/NavBar";
+import NavBar from "@/components/common/NavBar";
 import LenisWrapper from "@/lib/lenis-wrapper";
-import Footer from "@/components/Footer";
+import Footer from "@/components/common/Footer";
 import Head from "next/head";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -26,15 +26,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Head>
-        <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" />
+        <link
+          href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css"
+          rel="stylesheet"
+        />
       </Head>
       <body className={`${inter.className} ${poppins.variable}`}>
         <NavBar />
-        <LenisWrapper>
-          {children}
-        </LenisWrapper>
-        <Footer/>
-        <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js" async></script>
+        <LenisWrapper>{children}</LenisWrapper>
+        <Footer />
+        <script
+          src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"
+          async
+        ></script>
       </body>
     </html>
   );

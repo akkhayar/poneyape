@@ -1,4 +1,5 @@
 import Image from "next/image";
+import TagBar from "./TagBar";
 
 type WebsiteCardProps = {
   id: string;
@@ -37,16 +38,7 @@ const WebsiteCard = ({
         </button>
       </a>
       <div className="flex flex-col gap-2">
-        <div className="flex gap-2">
-          {tags.map((tag) => (
-            <p
-              key={tag}
-              className="small medium rounded-[20px] bg-neutralLightest px-2 py-1"
-            >
-              {tag}
-            </p>
-          ))}
-        </div>
+        <TagBar tags={tags} />
         <h5 className="semibold cursor-pointer">
           <a href={`/site/${id}`}>{title}</a>
         </h5>
