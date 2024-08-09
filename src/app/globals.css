@@ -49,44 +49,53 @@
     padding: 12px;
   }
 
-  h3.semibold {
-    /* Eng/H3/Semibold */
+  h1 {
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%; /* 57.6px */
+  }
+
+  h2 {
+    /* Eng/H2/Regular */
+    font-family: Poppins;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%; /* 43.2px */
+  }
+
+  h3 {
+    /* Eng/H3/Regular */
     font-family: var(--font-poppins), serif;
     font-size: 32px;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 400;
     line-height: 120%; /* 38.4px */
   }
 
-  h5.semibold {
-    font-size: 18px;
+  h4 {
+    font-size: 24px;
     font-style: normal;
-    font-weight: 600;
-    line-height: 150%; /* 27px */
+    font-weight: 500;
+    line-height: 150%; /* 36px */
   }
 
-  h5.regular {
+  h5 {
     font-size: 18px;
     font-style: normal;
     font-weight: 400;
     line-height: 150%; /* 27px */
   }
 
-  .body.regular {
+  .c-body {
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
     line-height: 150%; /* 24px */
   }
 
-  p.semibold {
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 150%; /* 24px */
-  }
-
-  .small.medium {
+  .c-small {
     font-size: 12px;
     font-style: normal;
     font-weight: 500;
@@ -118,6 +127,7 @@ body {
 }
 
 @layer components {
+
   button.c-primary {
     border-radius: 5px;
     background: linear-gradient(90deg, #5d25c7 0%, #2252df 100%);
@@ -141,6 +151,10 @@ body {
     box-shadow: none;
   }
 
+  button.c-primary.c-solid {
+    background: var(--primary);
+  }
+
   button.c-outline {
     border-radius: 5px;
     border: 1px solid var(--primary);
@@ -154,12 +168,24 @@ body {
     transition: all ease 200ms;
   }
 
+  button.c-outline:hover {
+    border: 1px solid var(--primary);
+  }
   button.c-outline.c-white {
     border: 1px solid #fff;
     color: #fff;
   }
 
-  button.c-outline:hover {
-    border: 1px solid var(--Primary, #3d52d5);
+  button.c-outline.c-black {
+    border: 1px solid #000000;
+    color: #000000;
+  }
+
+  button.c-outline.c-white:hover {
+    border: 1px solid #fff;
+  }
+
+  button.c-outline.c-black:hover {
+    border: 1px solid #000;
   }
 }
