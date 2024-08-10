@@ -27,7 +27,7 @@ export default function Page({ params }: PageProps) {
         </div>
         <TagBar tags={data.tags} />
         <div className="flex flex-col gap-6 py-6">
-          <Image src="" />
+          <Image src="" alt="Cover Image"/>
           <h3 className="font-semibold">{data.title}</h3>
           <div className="flex gap-4" aria-label="Authors">
             {data.authors.map((author) => (
