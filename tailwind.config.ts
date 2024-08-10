@@ -28,6 +28,7 @@ const config: Config = {
     },
     fontFamily: {
       poppins: ["var(--font-poppins)"],
+      roboto: ["var(--font-roboto)"],
       pyidaungsu: ["var(--font-pyidaungsu)"],
     },
   },

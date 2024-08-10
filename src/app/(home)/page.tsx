@@ -2,6 +2,7 @@
 import WebsiteCard from "@/components/common/WebsiteCard";
 import Testimonial from "@/components/common/Testimonial";
 import Image from "next/image";
+import Link from "next/link";
 
 const resources: {
   [language: string]: { translation: { [title: string]: string } };
@@ -141,7 +142,7 @@ export default function Home() {
 
   return (
     <div className={`lang-${lang}`}>
-      <section className="md:py-[120px] md:px-16 flex flex-col gap-10 px-6 py-10">
+      <section className="flex flex-col gap-10 px-6 py-10 md:px-16 md:py-[120px]">
         <div className="py-6 text-center md:mx-auto md:max-w-[1000px]">
           <h1 className="font-poppins text-[40px] font-bold leading-10 md:text-[86px] md:leading-[100%] md:tracking-[-3.44px]">
             Elevating <span className="text-c-primary">Design Excellence</span>{" "}
@@ -155,13 +156,13 @@ export default function Home() {
           </button>
         </div>
         <div className="flex flex-col gap-6">
-          <h3 className="font-semibold mb-10 text-center">#1 of the month</h3>{" "}
+          <h3 className="mb-10 text-center font-semibold">#1 of the month</h3>
           <Image
-            src={"/eg.png"}
-            alt="cover-image"
-            width={624}
-            height={248}
-            className="mb-6 grow"
+            src="/eg.png"
+            alt="1-of-the-month"
+            layout="responsive"
+            width={16}
+            height={9}
           />
         </div>
         <div>
@@ -185,65 +186,42 @@ export default function Home() {
           </div>
         </div>
         <div>
-          <p className="font-semibold pb-6 text-center">Hot Trend 🔥</p>
-          <h2 className="pb-10 text-center text-2xl font-[700]">NEUMORPHISM</h2>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            <WebsiteCard
-              id="eg"
-              coverImage="/eg.png"
-              author="Ralph Edwards"
-              tags={["Blog", "Corporate"]}
-              title="Future Tracking"
-            />
-            <WebsiteCard
-              id="eg"
-              coverImage="/eg.png"
-              author="Ralph Edwards"
-              tags={["Blog", "Corporate"]}
-              title="Future Tracking"
-            />
-            <WebsiteCard
-              id="eg"
-              coverImage="/eg.png"
-              author="Ralph Edwards"
-              tags={["Blog", "Corporate"]}
-              title="Future Tracking"
-            />
-            <WebsiteCard
-              id="eg"
-              coverImage="/eg.png"
-              author="Ralph Edwards"
-              tags={["Blog", "Corporate"]}
-              title="Future Tracking"
-            />
-            <WebsiteCard
-              id="eg"
-              coverImage="/eg.png"
-              author="Ralph Edwards"
-              tags={["Blog", "Corporate"]}
-              title="Future Tracking"
-            />
-            <WebsiteCard
-              id="eg"
-              coverImage="/eg.png"
-              author="Ralph Edwards"
-              tags={["Blog", "Corporate"]}
-              title="Future Tracking"
-            />
-            <WebsiteCard
-              id="eg"
-              coverImage="/eg.png"
-              author="Ralph Edwards"
-              tags={["Blog", "Corporate"]}
-              title="Future Tracking"
+          <div className="flex justify-center gap-1 pb-6">
+            <p className="font-semibold">Hot Trend</p>
+            <Image
+              src="/assets/images/fire.png"
+              alt="fire"
+              width={16}
+              height={16}
+              className="my-auto"
             />
           </div>
+          <h3 className="md:h1 pb-10 text-center text-2xl font-bold">
+            NEUMORPHISM
+          </h3>
+          <div className="flex flex-wrap gap-6">
+            {[0, 0, 0, 0, 0, 0, 0].map((_) => (
+              <WebsiteCard
+                key={_}
+                id="eg"
+                coverImage="/eg.png"
+                primaryAuthor="Ralph Edwards"
+                profile="/profile.png"
+                tags={["Blog", "Corporate"]}
+                title="Future Tracking"
+              />
+            ))}
+          </div>
         </div>
-        <button className="c-outline mx-auto">{t("viewAll")}</button>
+        <Link href={"/search?category=neumorphism"} className="c-outline mx-auto">
+          {t("viewAll")}
+        </Link>
       </section>
       <section className="px-6 py-10 md:px-16 md:py-[120px]">
         <div className="mb-10 flex flex-col gap-4">
-          <h3 className="font-semibold text-left">{t("popularWebsitesTitle")}</h3>
+          <h3 className="text-left font-semibold">
+            {t("popularWebsitesTitle")}
+          </h3>
           <p>{t("popularWebsitesDescription")}</p>
         </div>
         <div
@@ -386,7 +364,7 @@ export default function Home() {
         </div>
       </section>
       <section className="bg-[#9191911a] px-6 py-10 md:px-16 md:py-[120px]">
-        <h3 className="font-semibold mb-10 text-center">{t("testimonials")}</h3>
+        <h3 className="mb-10 text-center font-semibold">{t("testimonials")}</h3>
         <div>
           <Testimonial
             author="Robert Fox"
@@ -409,7 +387,7 @@ export default function Home() {
           <div className="flex flex-col gap-6">
             <h3 className="font-semibold">{t("tutorialTitle")}</h3>
             <p>{t("tutorialDescription")}</p>
-            <button className="c-primary mt-4 md:w-fit">
+            <button className="c-primary c-solid mt-4 md:w-fit">
               {t("tutorialButton")}
             </button>
           </div>
@@ -441,14 +419,14 @@ export default function Home() {
       </section>
       <section className="flex flex-col gap-20 px-6 py-10 md:px-16 md:py-[120px]">
         <div className="mb-10">
-          <h3 className="font-semibold mb-6">Meet Our Team</h3>
+          <h3 className="mb-6 font-semibold">Meet Our Team</h3>
           <p>{t("moreQuestionDescription")}</p>
           <div>Carousel</div>
         </div>
 
         <div>
           <div className="mb-6">
-            <h3 className="font-semibold mb-4">We are open for volunteers</h3>
+            <h3 className="mb-4 font-semibold">We are open for volunteers</h3>
             <p>{t("volunteeringDescription")}</p>
           </div>
           <button className="c-primary w-full md:w-fit">

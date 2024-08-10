@@ -49,14 +49,14 @@
     padding: 12px;
   }
 
-  h1 {
+  h1,.h1 {
     font-size: 48px;
     font-style: normal;
     font-weight: 400;
     line-height: 120%; /* 57.6px */
   }
 
-  h2 {
+  h2,.h2 {
     /* Eng/H2/Regular */
     font-family: Poppins;
     font-size: 36px;
@@ -65,7 +65,7 @@
     line-height: 120%; /* 43.2px */
   }
 
-  h3 {
+  h3,.h3 {
     /* Eng/H3/Regular */
     font-family: var(--font-poppins), serif;
     font-size: 32px;
@@ -74,14 +74,14 @@
     line-height: 120%; /* 38.4px */
   }
 
-  h4 {
+  h4,.h4 {
     font-size: 24px;
     font-style: normal;
     font-weight: 500;
     line-height: 150%; /* 36px */
   }
 
-  h5 {
+  h5,.h5 {
     font-size: 18px;
     font-style: normal;
     font-weight: 400;

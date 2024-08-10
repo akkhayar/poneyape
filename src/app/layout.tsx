@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { Inter, Poppins } from "next/font/google";
+import { Inter, Poppins, Roboto } from "next/font/google";
 import "./globals.css";
-import NavBar from "@/components/common/NavBar";
+import Header from "@/components/common/Header";
 import LenisWrapper from "@/lib/lenis-wrapper";
 import Footer from "@/components/common/Footer";
 import Head from "next/head";
@@ -11,6 +11,11 @@ const poppins = Poppins({
   subsets: ["latin"],
   weight: ["700"],
   variable: "--font-poppins",
+});
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: ["700"],
+  variable: "--font-roboto",
 });
 
 export const metadata: Metadata = {
@@ -31,8 +36,8 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </Head>
-      <body className={`${inter.className} ${poppins.variable}`}>
-        <NavBar />
+      <body className={`${inter.className} ${poppins.variable} ${roboto.variable}`}>
+        <Header />
         <LenisWrapper>{children}</LenisWrapper>
         <Footer />
         <script
