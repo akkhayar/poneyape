@@ -5,6 +5,8 @@ import Image from "next/image";
 
 type PageProps = { params: { slug: string } };
 
+export const runtime = 'edge';
+
 export default function Page({ params }: PageProps) {
   const data = {
     title: "Future Tracking",
