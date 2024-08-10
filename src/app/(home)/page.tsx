@@ -141,7 +141,7 @@ export default function Home() {
 
   return (
     <div className={`lang-${lang}`}>
-      <section className="md:py-[120px]md:px-16 flex flex-col gap-10 px-6 py-10">
+      <section className="md:py-[120px] md:px-16 flex flex-col gap-10 px-6 py-10">
         <div className="py-6 text-center md:mx-auto md:max-w-[1000px]">
           <h1 className="font-poppins text-[40px] font-bold leading-10 md:text-[86px] md:leading-[100%] md:tracking-[-3.44px]">
             Elevating <span className="text-c-primary">Design Excellence</span>{" "}

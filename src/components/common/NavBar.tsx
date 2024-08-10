@@ -39,7 +39,7 @@ const NavBar = () => {
               />
             </svg>
           </button>
-          <a className="font-pyidaungsu text-[20px]">ပုံရိပ်</a>
+          <a href="/" className="font-pyidaungsu text-[20px]">ပုံရိပ်</a>
         </div>
         <div className="relative mt-3 hidden">
           <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
