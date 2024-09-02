@@ -8,19 +8,19 @@ const Footer = () => {
         <div className="md:flex md:justify-between">
           <div className="mb-6 flex flex-col gap-6 md:mb-0">
             <a href="https://flowbite.com/" className="flex items-center">
-              <Image
+              {/* <Image
                 src="https://flowbite.com/docs/images/logo.svg"
                 className="me-3 h-8"
                 alt="FlowBite Logo"
                 width={25}
                 height={25}
-              />
+              /> */}
               <span className="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">
                 PoneYape
               </span>
             </a>
             <div>
-              <h2 className="text-sm font-semibold uppercase text-gray-900 dark:text-white">
+              <h2 className="text-sm font-semibold uppercase text-gray-900 dark:text-white font-poppins">
                 Our Vision
               </h2>
               <p>
@@ -29,7 +29,7 @@ const Footer = () => {
               </p>
             </div>
             <div>
-              <h2 className="text-sm font-semibold uppercase text-gray-900 dark:text-white">
+              <h2 className="text-sm font-semibold uppercase text-gray-900 dark:text-white font-poppins">
                 Contact
               </h2>
               <p>9590 123 4567</p>
@@ -38,7 +38,7 @@ const Footer = () => {
           </div>
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 sm:gap-6">
             <div>
-              <h2 className="mb-6 text-sm font-semibold uppercase text-gray-900 dark:text-white">
+              <h2 className="mb-6 text-sm font-semibold uppercase text-gray-900 dark:text-white font-poppins">
                 Company
               </h2>
               <ul className="font-medium text-gray-500 dark:text-gray-400">
@@ -74,7 +74,7 @@ const Footer = () => {
               </ul>
             </div>
             <div>
-              <h2 className="mb-6 text-sm font-semibold uppercase text-gray-900 dark:text-white">
+              <h2 className="mb-6 text-sm font-semibold uppercase text-gray-900 dark:text-white font-poppins">
                 Resources
               </h2>
               <ul className="font-medium text-gray-500 dark:text-gray-400">
@@ -101,7 +101,7 @@ const Footer = () => {
               </ul>
             </div>
             <div>
-              <h2 className="mb-6 text-sm font-semibold uppercase text-gray-900 dark:text-white">
+              <h2 className="mb-6 text-sm font-semibold uppercase text-gray-900 dark:text-white font-poppins">
                 Follow us
               </h2>
               <ul className="font-medium text-gray-500 dark:text-gray-400">

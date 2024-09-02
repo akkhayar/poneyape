@@ -1,10 +1,8 @@
 "use client";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import Tag from "@/components/common/Tag";
 
 export default function SearchPage() {
-  const query = useRouter();
 
   return (
     <section className="flex flex-col gap-10 px-6 py-10 md:px-16 md:py-20">
