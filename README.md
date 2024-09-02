@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<p align="center">
+  <h3 align="center">Poneyape</h3>
+  
+  <p align="center">
+  A hub for local ui/ux designers; a design directory and an academy.
+  <br />
+  <a href="https://poneyape.com"><strong>See now »</strong></a>
+  </p>
+</p>
 
-## Getting Started
+## Contributing
 
-First, run the development server:
+Contributions are welcome! Please read [contribution](https://docs.akkhayar.com/community/contribution) for more information.
+
+### Getting Started
+
+Use pnpm to install dependencies.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+$ pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Run the development server:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+$ pnpm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Open the link from your terminal to view the app.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+### Guidelines
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Custom button components are kept at the CSS level. Non-tailwind classes are prefixed with the `c-` prefix, i.e., `c-small` and so on.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+If possible, keep a custom component style to tailwind classes, if not move to a custom class, and only at last, create a react component.
 
-## Deploy on Vercel
+### Resources
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Read the [roadmap]() to understand and discuss the journey ahead.
+- See the [figma design doc]()
