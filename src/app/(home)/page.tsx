@@ -141,11 +141,11 @@ export default function Home() {
   const t = createStringExtractor(lang);
 
   return (
-    <div className={`lang-${lang}`}>
+    <div className={`lang-${lang} bg-[var(--background-blue)]`}>
       <section className="flex flex-col gap-10 px-6 py-10 md:px-16 md:py-[120px]">
         <div className="py-6 text-center md:mx-auto md:max-w-[1000px]">
           <h1 className="font-poppins text-[40px] font-bold leading-10 md:text-[86px] md:leading-[100%] md:tracking-[-3.44px]">
-            Elevating <span className="text-c-primary">Design Excellence</span>{" "}
+            Elevating <span className="text-primary">Design Excellence</span>{" "}
             in Myanmar
           </h1>
           <p className="py-10 md:mx-auto md:max-w-[800px]">

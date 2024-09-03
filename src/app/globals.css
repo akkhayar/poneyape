@@ -6,6 +6,7 @@
 @layer base {
   :root {
     --background: rgb(248, 245, 247);
+    --background-blue: rgb(226, 252, 255);
     --foreground: rgb(27, 27, 27);
 
     --card: 0 0% 100%;
@@ -101,6 +102,7 @@
     font-weight: 500;
     line-height: 150%; /* 18px */
   }
+
 }
 
 @media (prefers-color-scheme: dark) {
