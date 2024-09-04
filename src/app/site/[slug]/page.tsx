@@ -260,3 +260,6 @@ export default function Page({ params }: PageProps) {
     </>
   );
 }
+
+
+export const runtime = 'edge'
