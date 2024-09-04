@@ -50,57 +50,69 @@
     padding: 12px;
   }
 
-  h1,.h1 {
+  h1,
+  .h1 {
     font-size: 48px;
     font-style: normal;
     font-weight: 400;
-    line-height: 120%; /* 57.6px */
+    line-height: 120%;
+    /* 57.6px */
   }
 
-  h2,.h2 {
+  h2,
+  .h2 {
     /* Eng/H2/Regular */
     font-family: Poppins;
     font-size: 36px;
     font-style: normal;
     font-weight: 400;
-    line-height: 120%; /* 43.2px */
+    line-height: 120%;
+    /* 43.2px */
   }
 
-  h3,.h3 {
+  h3,
+  .h3 {
     /* Eng/H3/Regular */
     font-family: var(--font-poppins), serif;
     font-size: 32px;
     font-style: normal;
     font-weight: 400;
-    line-height: 120%; /* 38.4px */
+    line-height: 120%;
+    /* 38.4px */
   }
 
-  h4,.h4 {
+  h4,
+  .h4 {
     font-size: 24px;
     font-style: normal;
     font-weight: 500;
-    line-height: 150%; /* 36px */
+    line-height: 150%;
+    /* 36px */
   }
 
-  h5,.h5 {
+  h5,
+  .h5 {
     font-size: 18px;
     font-style: normal;
     font-weight: 400;
-    line-height: 150%; /* 27px */
+    line-height: 150%;
+    /* 27px */
   }
 
   .c-body {
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
-    line-height: 150%; /* 24px */
+    line-height: 150%;
+    /* 24px */
   }
 
   .c-small {
     font-size: 12px;
     font-style: normal;
     font-weight: 500;
-    line-height: 150%; /* 18px */
+    line-height: 150%;
+    /* 18px */
   }
 
 }
@@ -118,9 +130,22 @@ body {
   background: #fbf9f7;
 }
 
+.tab-wrapper {
+  overflow-x: auto;
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
+}
+
+.tab-wrapper::-webkit-scrollbar {
+  display: none; 
+}
+.tab {
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
 .lang-mm {
   font-family: var(--font-pyidaungsu), serif;
 }
+
 
 @layer utilities {
   .text-balance {
@@ -138,7 +163,8 @@ body {
     font-size: 16px;
     font-style: normal;
     font-weight: 500;
-    line-height: 150%; /* 24px */
+    line-height: 150%;
+    /* 24px */
     transition: all ease 200ms;
   }
 
@@ -165,7 +191,8 @@ body {
     font-size: 16px;
     font-style: normal;
     font-weight: 500;
-    line-height: 150%; /* 24px */
+    line-height: 150%;
+    /* 24px */
     outline: none;
     transition: all ease 200ms;
   }
@@ -173,6 +200,7 @@ body {
   button.c-outline:hover {
     border: 1px solid var(--primary);
   }
+
   button.c-outline.c-white {
     border: 1px solid #fff;
     color: #fff;

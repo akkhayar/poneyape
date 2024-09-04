@@ -9,6 +9,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        'tab-wrapper-shadow': '0px 4px 6px 0px #4646461C inset',
+        'tab-shadow': '6px 1px 20px 1px #00000014, 0px 1px 4px 0px #00000040',
+      },
       keyframes: {
         wiggle: {
           '0%, 100%': { transform: 'rotate(0deg)' },
@@ -20,6 +24,8 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         "linear-gradient-yellow-to-orange": "linear-gradient(to right, #FFE89C, #FFB28C)",
+        "linear-gradient-blue-to-pink": "linear-gradient(90deg, #C7F5FF 0%, #F6E3FF 100%)",
+        "linear-gradient-pink-to-blue": "linear-gradient(90deg, #FAEFFF 2.04%, #ECF2FF 99.38%)",
       },
       colors: {
         border: "hsl(var(--border))",

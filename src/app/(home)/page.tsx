@@ -3,6 +3,8 @@ import WebsiteCard from "@/components/common/WebsiteCard";
 import Testimonial from "@/components/common/Testimonial";
 import Image from "next/image";
 import Link from "next/link";
+import FAQDropDown from "@/components/common/FAQDropDown";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 const resources: {
   [language: string]: { translation: { [title: string]: string } };
@@ -140,6 +142,34 @@ export default function Home() {
   const lang = "en";
   const t = createStringExtractor(lang);
 
+
+  const tabWrapperRef = useRef<HTMLDivElement>(null);
+  const [activeTabIndex, setActiveTabIndex] = useState(0);
+
+  const handleTabClick = (index: number) => {
+    setActiveTabIndex(index);
+  };
+
+  useLayoutEffect(() => {
+    const handleWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      tabWrapperRef.current!.scrollLeft += e.deltaY;
+    };
+    tabWrapperRef.current?.addEventListener('wheel', handleWheel);
+    return () => {
+      tabWrapperRef.current?.removeEventListener('wheel', handleWheel);
+    };
+  }, [tabWrapperRef]);
+
+
+  const filters = ['Neumorphism', 'Minimalism', 'Glassmorphism', 'Skeuomorphism', 'Bento', 'Dark Mode', 'Spartial', 'Brutalism', 'Typography'];
+  const [activeFilter, setActiveFilter] = useState(filters[0]);
+
+  const handleFilterClick = (filter: string) => {
+    setActiveFilter(filter);
+  };
+
+
   return (
     <div className={`lang-${lang} bg-[var(--background-blue)]`}>
       <section className="flex flex-col gap-10 px-6 py-10 md:px-16 md:py-[120px]">
@@ -166,26 +196,40 @@ export default function Home() {
           />
         </div>
         <div>
-          <div>
-            <button>Design Trends</button>
-            <button>UI Type</button>
-            <button>Featured</button>
-            <button>UI Elements</button>
-            <button>Apps</button>
+          <div className="lg:flex lg:justify-center mb-6">
+            <div
+              className="tab-wrapper max-w-[1100px] h-16 flex space-x-5 overflow-x-auto shadow-tab-wrapper-shadow rounded-3xl p-2"
+              ref={tabWrapperRef}
+            >
+              {Array.from({ length: 5 }, (_, index) => (
+                <button
+                  key={index}
+                  className={`tab min-w-48 px-10 py-2 rounded-lg font-semibold relative z-10 ${activeTabIndex === index
+                    ? 'shadow-tab-shadow bg-linear-gradient-blue-to-pink'
+                    : ''
+                    }`}
+                  data-index={index}
+                  onClick={() => handleTabClick(index)}
+                >
+                  {index === 0 ? 'Design Trends' : index === 1 ? 'UI Type' : index === 2 ? 'Featured' : index === 3 ? 'UI Elements' : 'Apps'}
+                </button>
+              ))}
+            </div>
           </div>
-          <div>
-            <button>Neumorphism</button>
-            <button>Minimalism</button>
-            <button>Glassmorphism</button>
-            <button>Skeuomorphism</button>
-            <button>Bento</button>
-            <button>Dark Mode</button>
-            <button>Spartial</button>
-            <button>Brutalism</button>
-            <button>Typography</button>
+          <div className="filter-wrapper flex flex-wrap gap-3 justify-center">
+            {filters.map((filter, index) => (
+              <button
+                key={index}
+                className={`filter text-base border font-medium rounded-3xl py-2 px-4 ${activeFilter === filter ? 'border-gray-500 bg-linear-gradient-pink-to-blue' : 'opacity-90'
+                  }`}
+                onClick={() => handleFilterClick(filter)}
+              >
+                {filter}
+              </button>
+            ))}
           </div>
         </div>
-        <div>
+        <div className="mt-[110px]">
           <div className="flex justify-center gap-1 pb-6">
             <p className="font-semibold">Hot Trend</p>
             <Image
@@ -437,7 +481,8 @@ export default function Home() {
       <section className="px-6 py-[120px] md:px-16">
         <h3 className="font-semibold">{t("faqTitle")}</h3>
         <p>{t("faqDescription")}</p>
-        <div>{t("moreQuestionTitle")}</div>
+        <div className="mb-20">{t("moreQuestionTitle")}</div>
+        <FAQDropDown />
       </section>
     </div>
   );
