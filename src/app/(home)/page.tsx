@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import FAQDropDown from "@/components/common/FAQDropDown";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import OurTeamSlider from "@/components/common/OurTeamSlider";
+import WebsiteOfTheMonthSlider from "@/components/common/WebsiteOfTheMonthSlider";
 
 const resources: {
   [language: string]: { translation: { [title: string]: string } };
@@ -257,165 +259,32 @@ export default function Home() {
             ))}
           </div>
         </div>
-        <Link href={"/search?category=neumorphism"} className="c-outline mx-auto">
+        <Link
+          href={"/search?category=neumorphism"}
+          className="border-[1px] border-primary gap-2 font-semibold text-sm text-primary rounded-md py-3 px-6 mx-auto hover:bg-primary hover:text-white flex items-center"
+        >
           {t("viewAll")}
         </Link>
       </section>
       <section className="px-6 py-10 md:px-16 md:py-[120px]">
-        <div className="mb-10 flex flex-col gap-4">
+        <div className="mb-20 flex flex-col gap-4">
           <h3 className="text-left font-semibold">
             {t("popularWebsitesTitle")}
           </h3>
           <p>{t("popularWebsitesDescription")}</p>
         </div>
-        <div
-          id="popular-sites"
-          className="relative w-full"
-          data-carousel="static"
-        >
-          <div className="relative h-[500px] overflow-hidden rounded-lg md:h-96">
-            <div className="hidden duration-700 ease-in-out" data-carousel-item>
-              <Image
-                src="/eg.png"
-                className="absolute left-1/2 top-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
-                alt="..."
-                width={500}
-                height={500}
-              />
-            </div>
-            <div className="hidden duration-700 ease-in-out" data-carousel-item>
-              <Image
-                src="/eg.png"
-                className="absolute left-1/2 top-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
-                alt="..."
-                width={500}
-                height={500}
-              />
-            </div>
-            <div className="hidden duration-700 ease-in-out" data-carousel-item>
-              <Image
-                src="/eg.png"
-                className="absolute left-1/2 top-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
-                alt="..."
-                width={500}
-                height={500}
-              />
-            </div>
-            <div className="hidden duration-700 ease-in-out" data-carousel-item>
-              <Image
-                src="/eg.png"
-                className="absolute left-1/2 top-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
-                alt="..."
-                width={500}
-                height={500}
-              />
-            </div>
-            <div className="hidden duration-700 ease-in-out" data-carousel-item>
-              <Image
-                src="/eg.png"
-                className="absolute left-1/2 top-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
-                alt="..."
-                width={500}
-                height={500}
-              />
-            </div>
-          </div>
-          <div className="absolute bottom-5 left-1/2 z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse">
-            <button
-              type="button"
-              className="h-3 w-3 rounded-full"
-              aria-current="true"
-              aria-label="Slide 1"
-              data-carousel-slide-to="0"
-            ></button>
-            <button
-              type="button"
-              className="h-3 w-3 rounded-full"
-              aria-current="false"
-              aria-label="Slide 2"
-              data-carousel-slide-to="1"
-            ></button>
-            <button
-              type="button"
-              className="h-3 w-3 rounded-full"
-              aria-current="false"
-              aria-label="Slide 3"
-              data-carousel-slide-to="2"
-            ></button>
-            <button
-              type="button"
-              className="h-3 w-3 rounded-full"
-              aria-current="false"
-              aria-label="Slide 4"
-              data-carousel-slide-to="3"
-            ></button>
-            <button
-              type="button"
-              className="h-3 w-3 rounded-full"
-              aria-current="false"
-              aria-label="Slide 5"
-              data-carousel-slide-to="4"
-            ></button>
-          </div>
-          <button
-            type="button"
-            className="group absolute start-0 top-0 z-30 flex h-full cursor-pointer items-center justify-center px-4 focus:outline-none"
-            data-carousel-prev
-          >
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-black group-hover:bg-white/50 group-focus:outline-none group-focus:ring-4 group-focus:ring-white dark:bg-gray-800/30 dark:group-hover:bg-gray-800/60 dark:group-focus:ring-gray-800/70">
-              <svg
-                className="h-4 w-4 text-white rtl:rotate-180 dark:text-gray-800"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 6 10"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M5 1 1 5l4 4"
-                />
-              </svg>
-              <span className="sr-only">Previous</span>
-            </span>
-          </button>
-          <button
-            type="button"
-            className="group absolute end-0 top-0 z-30 flex h-full cursor-pointer items-center justify-center px-4 focus:outline-none"
-            data-carousel-next
-          >
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-black group-hover:bg-white/50 group-focus:outline-none group-focus:ring-4 group-focus:ring-white dark:bg-gray-800/30 dark:group-hover:bg-gray-800/60 dark:group-focus:ring-gray-800/70">
-              <svg
-                className="h-4 w-4 text-white rtl:rotate-180 dark:text-gray-800"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 6 10"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="m1 9 4-4-4-4"
-                />
-              </svg>
-              <span className="sr-only">Next</span>
-            </span>
-          </button>
-        </div>
+        <WebsiteOfTheMonthSlider />
       </section>
       <section className="bg-[#9191911a] px-6 py-10 md:px-16 md:py-[120px]">
         <h3 className="mb-10 text-center font-semibold">{t("testimonials")}</h3>
         <div>
-          <Testimonial
+          {/* <Testimonial
             author="Robert Fox"
             position="CEO of everything"
             rating={5}
             text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat."
-          />
+          /> */}
+          <Testimonial />
         </div>
       </section>
       <section className="px-6 py-10 md:flex md:px-16 md:py-[120px]">
@@ -461,11 +330,11 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="flex flex-col gap-20 px-6 py-10 md:px-16 md:py-[120px]">
+      <section className="flex flex-col mt-28 gap-20 px-6 py-10 md:px-16 md:py-[120px]">
         <div className="mb-10">
           <h3 className="mb-6 font-semibold">Meet Our Team</h3>
           <p>{t("moreQuestionDescription")}</p>
-          <div>Carousel</div>
+          <OurTeamSlider />
         </div>
 
         <div>

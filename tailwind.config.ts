@@ -26,6 +26,7 @@ const config: Config = {
         "linear-gradient-yellow-to-orange": "linear-gradient(to right, #FFE89C, #FFB28C)",
         "linear-gradient-blue-to-pink": "linear-gradient(90deg, #C7F5FF 0%, #F6E3FF 100%)",
         "linear-gradient-pink-to-blue": "linear-gradient(90deg, #FAEFFF 2.04%, #ECF2FF 99.38%)",
+        "linear-gradient-bt-black-to-white": "linear-gradient(180deg, rgba(102, 102, 102, 0.00) 0%, rgba(15, 15, 15, 0.86) 68.5%, #000 100%)",
       },
       colors: {
         border: "hsl(var(--border))",

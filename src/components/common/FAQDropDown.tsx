@@ -25,7 +25,7 @@ const FAQDropDown = () => {
         },
     ];
 
-    const [isOpen, setIsOpen] = useState(faq.map(() => false));
+    const [isOpen, setIsOpen] = useState(faq.map((item, index) => index === 0));
 
     const handleToggle = (key: number) => {
         setIsOpen((prevIsOpen) => prevIsOpen.map((open, i) => (i === key ? !open : open)));
