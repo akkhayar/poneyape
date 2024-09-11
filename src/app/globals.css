@@ -126,6 +126,7 @@
 }
 
 body {
+  scroll-behavior: smooth;
   color: rgb(var(--foreground-rgb));
   background: #fbf9f7;
 }
@@ -146,6 +147,10 @@ body {
   font-family: var(--font-pyidaungsu), serif;
 }
 
+svg:hover {
+  cursor: pointer;
+  fill: #FFFFFF; 
+}
 
 @layer utilities {
   .text-balance {
