@@ -3,7 +3,6 @@ import Image from "next/image";
 import Tag from "@/components/common/Tag";
 
 export default function SearchPage() {
-
   return (
     <section className="flex flex-col gap-10 px-6 py-10 md:px-16 md:py-20">
       <div className="flex gap-1 pb-4">
@@ -17,11 +16,11 @@ export default function SearchPage() {
         />
       </div>
 
-      <p className="font-roboto text-[148px] leading-[177px] tracking-[-10px]">
-        NEUROMORPHISM
+      <p className="font-roboto text-[148px] capitalize leading-[177px] tracking-[-10px]">
+        Neumorphism
       </p>
       <div>
-        <div className="flex justify-between mb-5">
+        <div className="mb-5 flex justify-between">
           <button>Filters</button>
           <button>Sort By</button>
         </div>

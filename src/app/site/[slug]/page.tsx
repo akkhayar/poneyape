@@ -4,53 +4,19 @@ import TagBar from "@/components/common/TagBar";
 import Image from "next/image";
 import { SocialIcon } from "@/icons/SocialIcon";
 import FontDisplay from "./components/FontDisplay";
-
-type PageProps = { params: { slug: string } };
-
-function getDomain(url: string): string {
-  try {
-    const parsedUrl = new URL(url);
-    return parsedUrl.hostname;
-  } catch (error) {
-    return "";
-  }
-}
+import { getDomain } from "@/lib/util";
+import Link from "next/link";
+import { data, user } from "@/constants";
 
 export default function Page({ params }: PageProps) {
-  const data = {
-    title: "Future Tracking",
-    description:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Provident beatae sequi aut harum neque possimus omnis veniam, quas ab labore sit repellendus, nam ipsum dignissimos numquam illum. Quis, veniam optio!",
-    vision:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Provident beatae sequi aut harum neque possimus omnis veniam, quas ab labore sit repellendus, nam ipsum dignissimos numquam illum. Quis, veniam optio!",
-    publishDate: "12 Jun 2024",
-    tags: ["Blog", "Corporate"],
-    typography: ["Poppins", "Pyidaungsu"],
-    colorPalette: ["#E3EBEE", "#DF463C", "#1B3846"],
-    authors: ["Thazin Win", "Julia"],
-  };
-
-  const user = {
-    name: "Thazin Win",
-    profilePicture: "/profile.png",
-    id: "thazin-win",
-    about: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    profession: "UI/UX Designer",
-    socials: [
-      "https://linkedin.com",
-      "https://x.com",
-      "https://thazin-win.com",
-    ],
-  };
-
   return (
     <>
       <section className="flex flex-col gap-6 px-6 py-10 md:px-16 md:py-10">
         <div className="flex justify-between align-top">
           <div className="flex flex-col gap-2 pb-6 md:flex-row md:gap-6">
-            <a className="text-primary" href="\">
+            <Link className="text-primary" href="\">
               &lt; Home
-            </a>
+            </Link>
             <p className="c-body font-semibold">{data.title}</p>
             <TagBar tags={data.tags} />
           </div>
@@ -159,7 +125,10 @@ export default function Page({ params }: PageProps) {
           </button>
         </div>
       </section>
-      <section className="flex flex-col gap-10 px-6 py-10 md:px-16 md:py-[120px] md:gap-16" aria-label="Website Details">
+      <section
+        className="flex flex-col gap-10 px-6 py-10 md:gap-16 md:px-16 md:py-[120px]"
+        aria-label="Website Details"
+      >
         <div className="border-b border-dashed border-black pb-10 md:flex md:justify-between md:pb-16">
           <h5 className="mb-4 font-bold">Description</h5>
           <p className="md:max-w-[600px]">{data.description}</p>
@@ -181,12 +150,17 @@ export default function Page({ params }: PageProps) {
                 className="flex h-[170px] w-16 items-end justify-center rounded-[40px] pb-[11px]"
                 style={{ background: color }}
               >
-                <span className="mix-blend-difference invert" style={{ writingMode: "vertical-rl" }}>{color}</span>
+                <span
+                  className="mix-blend-difference invert"
+                  style={{ writingMode: "vertical-rl" }}
+                >
+                  {color}
+                </span>
               </div>
             ))}
           </div>
         </div>
-        <div className="border-b border-dashed border-black pb-10  md:flex md:justify-between md:pb-16">
+        <div className="border-b border-dashed border-black pb-10 md:flex md:justify-between md:pb-16">
           <h5 className="mb-4 font-bold">Tags</h5>
           <div className="flex gap-2">
             {data.tags.map((tag) => (
@@ -207,7 +181,10 @@ export default function Page({ params }: PageProps) {
           <Image src="/eg.jpg" alt="Other Screen" width={416} height={416} />
         </div>
       </section>
-      <section className="relative -z-20 bg-[#1B1B1B] px-6 py-20 text-white md:px-16 md:py-[120px]" aria-label="Designers' Information">
+      <section
+        className="relative -z-20 bg-[#1B1B1B] px-6 py-20 text-white md:px-16 md:py-[120px]"
+        aria-label="Designers' Information"
+      >
         <div
           className="absolute -left-[380px] top-[45px] -z-10 h-[644px] w-[644px] rounded-[644px] blur-[59px]"
           style={{
@@ -240,12 +217,12 @@ export default function Page({ params }: PageProps) {
                     return;
                   }
                   return (
-                    <a key={domain} href={link}>
+                    <Link key={domain} href={link}>
                       <SocialIcon
                         domain={domain}
                         className="h-[14px] w-[14px]"
                       />
-                    </a>
+                    </Link>
                   );
                 })}
               </div>
@@ -261,4 +238,4 @@ export default function Page({ params }: PageProps) {
   );
 }
 
-export const runtime = 'edge'
+export const runtime = "edge";

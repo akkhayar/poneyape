@@ -1,14 +1,6 @@
 import Image from "next/image";
 import TagBar from "./TagBar";
-
-type WebsiteCardProps = {
-  id: string;
-  title: string;
-  tags: string[];
-  primaryAuthor: string;
-  coverImage: string;
-  profile: string;
-};
+import Link from "next/link";
 
 const WebsiteCard = ({
   id,
@@ -21,7 +13,7 @@ const WebsiteCard = ({
   return (
     <div className="flex flex-grow justify-center pb-6 md:pb-16">
       <div>
-        <a href={`/site/${id}`} className="group relative">
+        <Link href={`/site/${id}`} className="group relative">
           <Image
             src={coverImage}
             alt="cover-image"
@@ -37,13 +29,15 @@ const WebsiteCard = ({
           <button className="c-outline c-white pointer-events-none absolute left-[150px] top-[120px] hidden transition-all duration-300 md:group-hover:block">
             View Detail
           </button>
-        </a>
+        </Link>
         <div className="flex flex-col gap-2">
           <TagBar tags={tags} />
           <h5 className="semibold cursor-pointer">
-            <a href={`/site/${id}`}><h4 className="font-semibold">{title}</h4></a>
+            <Link href={`/site/${id}`}>
+              <h4 className="font-semibold">{title}</h4>
+            </Link>
           </h5>
-          <div className="flex gap-2 items-center">
+          <div className="flex items-center gap-2">
             <p>By</p>
             <Image
               src={profile}
