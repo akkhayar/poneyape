@@ -3,13 +3,7 @@ import { useState } from "react";
 import AuthModal from "@/components/common/AuthModal";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-const routes = {
-  Home: "/",
-  Contests: "/contests",
-  Learning: "/learning",
-  Explore: "/explore",
-};
+import { routes } from "@/constants";
 
 const getNavItemIcon = (route: keyof typeof routes) => {
   switch (route) {
@@ -99,22 +93,19 @@ const Header = () => {
   const [showMenuPage, setShowMenuPage] = useState<boolean>(true);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const pathname = usePathname().trim();
-
-
   const [showBanner, setShowBanner] = useState(true);
 
   const close_the_banner = () => {
     setShowBanner(false);
-  }
+  };
 
   return (
     <>
       <AuthModal show={showAuthModal} setShow={setShowAuthModal} />
-      
       {showBanner && (
         <section className="bg-linear-gradient-yellow-to-orange">
-          <div className='container mx-auto py-2 flex justify-between items-center'>
-            <div className='flex gap-10 items-center'>
+          <div className="container mx-auto flex items-center justify-between py-2">
+            <div className="flex items-center gap-10">
               <div className="w-[43px]">
                 <svg
                   className="animate-[wiggle_0.7s_ease-in-out_infinite]"
@@ -122,40 +113,63 @@ const Header = () => {
                   height="37"
                   viewBox="0 0 36 37"
                   fill="none"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <g clip-path="url(#clip0_760_2186)">
-                    <path d="M10.5 2C10.5 1.17157 9.82843 0.5 9 0.5C8.17157 0.5 7.5 1.17157 7.5 2V6.5C7.5 7.32843 8.17157 8 9 8C9.82843 8 10.5 7.32843 10.5 6.5V2Z"
-                      fill="#1B1B1B" />
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 12.5C1.5 11.6716 2.17157 11 3 11H28.5C30.4891 11 32.3968 11.7902 33.8033 13.1967C35.2098 14.6032 36 16.5109 36 18.5C36 20.4891 35.2098 22.3968 33.8033 23.8033C32.3968 25.2098 30.4891 26 28.5 26C28.5 27.9891 27.7098 29.8968 26.3033 31.3033C24.8968 32.7098 22.9891 33.5 21 33.5H9C7.01088 33.5 5.10322 32.7098 3.6967 31.3033C2.29018 29.8968 1.5 27.9891 1.5 26V12.5ZM28.5 23V14C29.6935 14 30.8381 14.4741 31.682 15.318C32.5259 16.1619 33 17.3065 33 18.5C33 19.6935 32.5259 20.8381 31.682 21.682C30.8381 22.5259 29.6935 23 28.5 23ZM25.5 14V26C25.5 27.1935 25.0259 28.3381 24.182 29.182C23.3381 30.0259 22.1935 30.5 21 30.5H9C7.80653 30.5 6.66193 30.0259 5.81802 29.182C4.97411 28.3381 4.5 27.1935 4.5 26V14H25.5Z"
-                      fill="#1B1B1B" />
-                    <path d="M15 0.5C15.8284 0.5 16.5 1.17157 16.5 2V6.5C16.5 7.32843 15.8284 8 15 8C14.1716 8 13.5 7.32843 13.5 6.5V2C13.5 1.17157 14.1716 0.5 15 0.5Z"
-                      fill="#1B1B1B" />
-                    <path d="M22.5 2C22.5 1.17157 21.8284 0.5 21 0.5C20.1716 0.5 19.5 1.17157 19.5 2V6.5C19.5 7.32843 20.1716 8 21 8C21.8284 8 22.5 7.32843 22.5 6.5V2Z"
-                      fill="#1B1B1B" />
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g clipPath="url(#clip0_760_2186)">
+                    <path
+                      d="M10.5 2C10.5 1.17157 9.82843 0.5 9 0.5C8.17157 0.5 7.5 1.17157 7.5 2V6.5C7.5 7.32843 8.17157 8 9 8C9.82843 8 10.5 7.32843 10.5 6.5V2Z"
+                      fill="#1B1B1B"
+                    />
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M1.5 12.5C1.5 11.6716 2.17157 11 3 11H28.5C30.4891 11 32.3968 11.7902 33.8033 13.1967C35.2098 14.6032 36 16.5109 36 18.5C36 20.4891 35.2098 22.3968 33.8033 23.8033C32.3968 25.2098 30.4891 26 28.5 26C28.5 27.9891 27.7098 29.8968 26.3033 31.3033C24.8968 32.7098 22.9891 33.5 21 33.5H9C7.01088 33.5 5.10322 32.7098 3.6967 31.3033C2.29018 29.8968 1.5 27.9891 1.5 26V12.5ZM28.5 23V14C29.6935 14 30.8381 14.4741 31.682 15.318C32.5259 16.1619 33 17.3065 33 18.5C33 19.6935 32.5259 20.8381 31.682 21.682C30.8381 22.5259 29.6935 23 28.5 23ZM25.5 14V26C25.5 27.1935 25.0259 28.3381 24.182 29.182C23.3381 30.0259 22.1935 30.5 21 30.5H9C7.80653 30.5 6.66193 30.0259 5.81802 29.182C4.97411 28.3381 4.5 27.1935 4.5 26V14H25.5Z"
+                      fill="#1B1B1B"
+                    />
+                    <path
+                      d="M15 0.5C15.8284 0.5 16.5 1.17157 16.5 2V6.5C16.5 7.32843 15.8284 8 15 8C14.1716 8 13.5 7.32843 13.5 6.5V2C13.5 1.17157 14.1716 0.5 15 0.5Z"
+                      fill="#1B1B1B"
+                    />
+                    <path
+                      d="M22.5 2C22.5 1.17157 21.8284 0.5 21 0.5C20.1716 0.5 19.5 1.17157 19.5 2V6.5C19.5 7.32843 20.1716 8 21 8C21.8284 8 22.5 7.32843 22.5 6.5V2Z"
+                      fill="#1B1B1B"
+                    />
                   </g>
                   <defs>
                     <clipPath id="clip0_760_2186">
-                      <rect width="36" height="36" fill="white" transform="translate(0 0.5)" />
+                      <rect
+                        width="36"
+                        height="36"
+                        fill="white"
+                        transform="translate(0 0.5)"
+                      />
                     </clipPath>
                   </defs>
                 </svg>
               </div>
               <div className="">
-                <h5 className='font-bold'>
-                  Volunteer Opportunities Available
-                </h5>
-                <p className='lg:text-[14px]'>
-                  We’ve opened volunteering opportunities for the following - full stack developer x1 , front end developer x2
+                <h5 className="font-bold">Volunteer Opportunities Available</h5>
+                <p className="lg:text-[14px]">
+                  We’ve opened volunteering opportunities for the following -
+                  full stack developer x1 , front end developer x2
                 </p>
               </div>
             </div>
 
             <button onClick={close_the_banner}>
-              <svg width="32" height="33" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M22.8353 22.864L22.3638 23.3354C22.1035 23.5957 21.6814 23.5957 21.421 23.3354L15.9999 17.9142L10.5787 23.3353C10.3184 23.5957 9.89626 23.5957 9.63591 23.3353L9.1645 22.8639C8.90415 22.6036 8.90415 22.1815 9.1645 21.9211L14.5857 16.5L9.1645 11.0788C8.90415 10.8185 8.90415 10.3964 9.1645 10.136L9.6359 9.66463C9.89625 9.40428 10.3184 9.40428 10.5787 9.66463L15.9999 15.0858L21.421 9.66462C21.6814 9.40427 22.1035 9.40427 22.3638 9.66462L22.8353 10.136C23.0956 10.3964 23.0956 10.8185 22.8353 11.0788L17.4141 16.5L22.8353 21.9211C23.0956 22.1815 23.0956 22.6036 22.8353 22.864Z" fill="black" />
+              <svg
+                width="32"
+                height="33"
+                viewBox="0 0 32 33"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M22.8353 22.864L22.3638 23.3354C22.1035 23.5957 21.6814 23.5957 21.421 23.3354L15.9999 17.9142L10.5787 23.3353C10.3184 23.5957 9.89626 23.5957 9.63591 23.3353L9.1645 22.8639C8.90415 22.6036 8.90415 22.1815 9.1645 21.9211L14.5857 16.5L9.1645 11.0788C8.90415 10.8185 8.90415 10.3964 9.1645 10.136L9.6359 9.66463C9.89625 9.40428 10.3184 9.40428 10.5787 9.66463L15.9999 15.0858L21.421 9.66462C21.6814 9.40427 22.1035 9.40427 22.3638 9.66462L22.8353 10.136C23.0956 10.3964 23.0956 10.8185 22.8353 11.0788L17.4141 16.5L22.8353 21.9211C23.0956 22.1815 23.0956 22.6036 22.8353 22.864Z"
+                  fill="black"
+                />
               </svg>
             </button>
-
           </div>
         </section>
       )}
@@ -188,9 +202,9 @@ const Header = () => {
               />
             </svg>
           </button>
-          <a href="/" className="font-pyidaungsu text-[20px]">
+          <Link href="/" className="font-pyidaungsu text-[20px]">
             ပုံရိပ်
-          </a>
+          </Link>
         </div>
         <div
           className="absolute left-0 top-0 h-screen w-screen overflow-y-hidden bg-white px-5 py-10 lg:static lg:h-fit lg:w-fit lg:bg-transparent"
@@ -241,9 +255,9 @@ const Header = () => {
             className="mx-auto text-center lg:hidden"
             aria-label="Mobile Navigation Copyright"
           >
-            <a href="" className="text-midGrey">
-              Copyright 2024 poneyape.com
-            </a>
+            <Link href="" className="text-midGrey">
+              Copyright {new Date().getFullYear()} poneyape.com
+            </Link>
           </div>
         </div>
         <button className="flex grow rounded-[30px] bg-[#eeeeee] px-4 py-2">

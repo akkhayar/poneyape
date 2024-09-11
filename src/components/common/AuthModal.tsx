@@ -1,10 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
 
-type AuthModalProps = {
-  show: boolean;
-  setShow: Dispatch<SetStateAction<boolean>>;
-};
-
 const AuthModal = ({ show, setShow }: AuthModalProps) => {
   return (
     <div

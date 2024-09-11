@@ -1,5 +1,5 @@
 import { SocialIcon } from "@/icons/SocialIcon";
-import Image from "next/image";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="w-full max-w-screen-xl p-6 md:px-16">
         <div className="md:flex md:justify-between">
           <div className="mb-6 flex flex-col gap-6 md:mb-0">
-            <a href="https://flowbite.com/" className="flex items-center">
+            <Link href="https://flowbite.com/" className="flex items-center">
               {/* <Image
                 src="https://flowbite.com/docs/images/logo.svg"
                 className="me-3 h-8"
@@ -18,9 +18,9 @@ const Footer = () => {
               <span className="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">
                 PoneYape
               </span>
-            </a>
+            </Link>
             <div>
-              <h2 className="text-sm font-semibold uppercase text-gray-900 dark:text-white font-poppins">
+              <h2 className="font-poppins text-sm font-semibold uppercase text-gray-900 dark:text-white">
                 Our Vision
               </h2>
               <p>
@@ -29,7 +29,7 @@ const Footer = () => {
               </p>
             </div>
             <div>
-              <h2 className="text-sm font-semibold uppercase text-gray-900 dark:text-white font-poppins">
+              <h2 className="font-poppins text-sm font-semibold uppercase text-gray-900 dark:text-white">
                 Contact
               </h2>
               <p>9590 123 4567</p>
@@ -38,88 +38,91 @@ const Footer = () => {
           </div>
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 sm:gap-6">
             <div>
-              <h2 className="mb-6 text-sm font-semibold uppercase text-gray-900 dark:text-white font-poppins">
+              <h2 className="mb-6 font-poppins text-sm font-semibold uppercase text-gray-900 dark:text-white">
                 Company
               </h2>
               <ul className="font-medium text-gray-500 dark:text-gray-400">
                 <li className="mb-4">
-                  <a href="https://flowbite.com/" className="hover:underline">
+                  <Link
+                    href="https://flowbite.com/"
+                    className="hover:underline"
+                  >
                     About
-                  </a>
+                  </Link>
                 </li>
                 <li className="mb-4">
-                  <a
+                  <Link
                     href="https://tailwindcss.com/"
                     className="hover:underline"
                   >
                     Features
-                  </a>
+                  </Link>
                 </li>
                 <li className="mb-4">
-                  <a
+                  <Link
                     href="https://tailwindcss.com/"
                     className="hover:underline"
                   >
                     Volunteering
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <Link
                     href="https://tailwindcss.com/"
                     className="hover:underline"
                   >
                     Contests
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
             <div>
-              <h2 className="mb-6 text-sm font-semibold uppercase text-gray-900 dark:text-white font-poppins">
+              <h2 className="mb-6 font-poppins text-sm font-semibold uppercase text-gray-900 dark:text-white">
                 Resources
               </h2>
               <ul className="font-medium text-gray-500 dark:text-gray-400">
                 <li className="mb-4">
-                  <a href="#" className="hover:underline">
+                  <Link href="#" className="hover:underline">
                     Learning
-                  </a>
+                  </Link>
                 </li>
                 <li className="mb-4">
-                  <a href="#" className="hover:underline">
+                  <Link href="#" className="hover:underline">
                     Voting Rules
-                  </a>
+                  </Link>
                 </li>
                 <li className="mb-4">
-                  <a href="#" className="hover:underline">
+                  <Link href="#" className="hover:underline">
                     Tutorials
-                  </a>
+                  </Link>
                 </li>
                 <li className="mb-4">
-                  <a href="#" className="hover:underline">
+                  <Link href="#" className="hover:underline">
                     YouTube Playlist
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
             <div>
-              <h2 className="mb-6 text-sm font-semibold uppercase text-gray-900 dark:text-white font-poppins">
+              <h2 className="mb-6 font-poppins text-sm font-semibold uppercase text-gray-900 dark:text-white">
                 Follow us
               </h2>
               <ul className="font-medium text-gray-500 dark:text-gray-400">
                 <li className="mb-4">
-                  <a
+                  <Link
                     href="https://github.com/themesberg/flowbite"
                     className="hover:underline"
                   >
                     Github
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <Link
                     href="https://discord.gg/4eeurUVvTy"
                     className="hover:underline"
                   >
                     Discord
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -128,51 +131,51 @@ const Footer = () => {
         <hr className="my-6 border-gray-200 sm:mx-auto lg:my-8 dark:border-gray-700" />
         <div className="sm:flex sm:items-center sm:justify-between">
           <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
-            © 2024{" "}
-            <a href="https://flowbite.com/" className="hover:underline">
+            © {new Date().getFullYear()}{" "}
+            <Link href="https://flowbite.com/" className="hover:underline">
               Akkhayar™
-            </a>
+            </Link>
             . All Rights Reserved.
           </span>
           <div className="mt-4 flex sm:mt-0 sm:justify-center">
-            <a
+            <Link
               href="#"
               className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
             >
               <SocialIcon domain="facebook" className="h-4 w-4" />
               <span className="sr-only">Facebook page</span>
-            </a>
-            <a
+            </Link>
+            <Link
               href="#"
               className="ms-5 text-gray-500 hover:text-gray-900 dark:hover:text-white"
             >
               <SocialIcon domain="discord" className="h-4 w-4" />
               <span className="sr-only">Discord community</span>
-            </a>
-            <a
+            </Link>
+            <Link
               href="#"
               className="ms-5 text-gray-500 hover:text-gray-900 dark:hover:text-white"
             >
               <SocialIcon domain="x" className="h-4 w-4" />
 
               <span className="sr-only">Twitter page</span>
-            </a>
-            <a
+            </Link>
+            <Link
               href="#"
               className="ms-5 text-gray-500 hover:text-gray-900 dark:hover:text-white"
             >
               <SocialIcon domain="github" className="h-4 w-4" />
 
               <span className="sr-only">GitHub account</span>
-            </a>
-            <a
+            </Link>
+            <Link
               href="#"
               className="ms-5 text-gray-500 hover:text-gray-900 dark:hover:text-white"
             >
               {" "}
               <SocialIcon domain="dribbble" className="h-4 w-4" />
               <span className="sr-only">Dribbble account</span>
-            </a>
+            </Link>
           </div>
         </div>
       </div>
