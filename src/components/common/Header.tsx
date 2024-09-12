@@ -4,6 +4,8 @@ import AuthModal from "@/components/common/AuthModal";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { routes } from "@/constants";
+import { useFirebase } from "@/hooks/useFirebase";
+import Image from "next/image";
 
 const getNavItemIcon = (route: keyof typeof routes) => {
   switch (route) {
@@ -94,6 +96,7 @@ const Header = () => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const pathname = usePathname().trim();
   const [showBanner, setShowBanner] = useState(true);
+  const { currentUser } = useFirebase();
 
   const close_the_banner = () => {
     setShowBanner(false);
@@ -283,12 +286,22 @@ const Header = () => {
             <option className="hover:text-black">ENG</option>
             <option>MY</option>
           </select>
-          <button
-            className="c-primary hidden pb-6 lg:block"
-            onClick={() => setShowAuthModal(true)}
-          >
-            REGISTER
-          </button>
+
+          {currentUser?.photoURL ? (
+            <Image
+              src={currentUser?.photoURL}
+              alt="user-avatar"
+              width={38}
+              height={38}
+            />
+          ) : (
+            <button
+              className="c-primary hidden pb-6 lg:block"
+              onClick={() => setShowAuthModal(true)}
+            >
+              REGISTER
+            </button>
+          )}
         </div>
       </nav>
     </>
