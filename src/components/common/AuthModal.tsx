@@ -1,6 +1,79 @@
-import { Dispatch, SetStateAction } from "react";
+import {
+  createUserWithEmailAndPassword,
+  getAdditionalUserInfo,
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
+import { auth } from "../../lib/firebase";
+import { useState } from "react";
 
 const AuthModal = ({ show, setShow }: AuthModalProps) => {
+  const [email, setEmail] = useState("");
+  const [pswd, setPswd] = useState("");
+
+  const handleEmailSignUp = async () => {
+    // event.preventDefault();
+
+    // const form = event.currentTarget;
+    // if (form.checkValidity() === false) {
+    //   event.stopPropagation();
+    //   return;
+    // }
+
+    signInWithEmailAndPassword(auth, email, pswd)
+      .then(async ({ user: firebaseUser }) => {
+        console.log("firebaseUser", firebaseUser);
+
+        setShow(false);
+      })
+      .catch((error) => {
+        if (error.code === "auth/invalid-credential") {
+          createUserWithEmailAndPassword(auth, email, pswd)
+            .then(async ({ user: firebaseUser }) => {
+              console.log("firebaseUser", firebaseUser);
+
+              if (error) {
+                // toast.error(
+                //   "Failed to authenticate. Please verify your password or email.",
+                // );
+                // delete user from firebase auth
+                await firebaseUser.delete();
+
+                return;
+              }
+
+              setShow(false);
+            })
+            .catch((error) => {
+              // toast.error(
+              //   "Failed to authenticate. Please verify your password or email.",
+              // );
+            });
+        }
+      });
+  };
+
+  const handleGoogleSignIn = () => {
+    const provider = new GoogleAuthProvider();
+
+    provider.setCustomParameters({
+      prompt: "select_account",
+    });
+
+    signInWithPopup(auth, provider)
+      .then(async (result) => {
+        if (getAdditionalUserInfo(result)?.isNewUser) {
+          // toast.success("Successfully signed in.");
+        }
+
+        setShow(false);
+      })
+      .catch((error) => {
+        // toast.error("Failed to sign in with Google. Please try again.");
+      });
+  };
+
   return (
     <div
       className={`fixed left-0 right-0 top-0 z-50 ${show ? "flex" : "hidden"} h-full max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-[#000000aa] md:inset-0`}
@@ -44,18 +117,24 @@ const AuthModal = ({ show, setShow }: AuthModalProps) => {
             className="rounded bg-transparent placeholder:text-midGrey"
             type="email"
             placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <input
             className="m-0 rounded bg-transparent placeholder:text-midGrey"
             type="password"
             placeholder="Password"
+            value={pswd}
+            onChange={(e) => setPswd(e.target.value)}
           />
           <input
             className="rounded bg-transparent placeholder:text-midGrey"
             type="password"
             placeholder="Confirm Password"
           />
-          <button className="c-primary c-solid">Register</button>
+          <button className="c-primary c-solid" onClick={handleEmailSignUp}>
+            Register
+          </button>
           <div className="relative py-4">
             <span className="absolute left-[220px] top-1 bg-white px-1">
               OR
@@ -66,6 +145,7 @@ const AuthModal = ({ show, setShow }: AuthModalProps) => {
             data-modal-hide="default-modal"
             type="button"
             className="c-outline c-black"
+            onClick={handleGoogleSignIn}
           >
             Sign Up with Google
           </button>
