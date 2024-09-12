@@ -248,3 +248,46 @@ export const Testimonials: TestimonialProps[] = [
     position: "UI/UX Designer",
   },
 ];
+
+export const buttonLinks = [
+  "Design Trends",
+  "UI Type",
+  "Featured",
+  "UI Elements",
+  "Apps",
+];
+
+export const websiteCard: websiteCardFormat[] = [
+  {
+    id: 1,
+    image: "/eg.png",
+    title: "Website Title",
+    author_name: "Author Name",
+    author_image: "/profile.png",
+    link: "https://www.example.com",
+  },
+  {
+    id: 2,
+    image: "/eg.png",
+    title: "Website Title",
+    author_name: "Author Name",
+    author_image: "/profile.png",
+    link: "https://www.example.com",
+  },
+  {
+    id: 3,
+    image: "/eg.png",
+    title: "Website Title",
+    author_name: "Author Name",
+    author_image: "/profile.png",
+    link: "https://www.example.com",
+  },
+  {
+    id: 4,
+    image: "/eg.png",
+    title: "Website Title",
+    author_name: "Author Name",
+    author_image: "/profile.png",
+    link: "https://www.example.com",
+  },
+];

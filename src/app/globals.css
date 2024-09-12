@@ -114,7 +114,6 @@
     line-height: 150%;
     /* 18px */
   }
-
 }
 
 @media (prefers-color-scheme: dark) {
@@ -133,15 +132,17 @@ body {
 
 .tab-wrapper {
   overflow-x: auto;
-  scrollbar-width: none; 
-  -ms-overflow-style: none; 
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .tab-wrapper::-webkit-scrollbar {
-  display: none; 
+  display: none;
 }
 .tab {
-  transition: background-color 0.3s, box-shadow 0.3s;
+  transition:
+    background-color 0.3s,
+    box-shadow 0.3s;
 }
 .lang-mm {
   font-family: var(--font-pyidaungsu), serif;
@@ -149,7 +150,7 @@ body {
 
 svg:hover {
   cursor: pointer;
-  fill: #FFFFFF; 
+  fill: #ffffff;
 }
 
 @layer utilities {
@@ -159,7 +160,6 @@ svg:hover {
 }
 
 @layer components {
-
   button.c-primary {
     border-radius: 5px;
     background: linear-gradient(90deg, #5d25c7 0%, #2252df 100%);
