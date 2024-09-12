@@ -5,6 +5,7 @@ import Header from "@/components/common/Header";
 import LenisWrapper from "@/lib/lenis-wrapper";
 import Footer from "@/components/common/Footer";
 import Head from "next/head";
+import { FirebaseProvider } from "@/context/firebaseContext";
 
 const inter = Inter({ subsets: ["latin"] });
 const poppins = Poppins({
@@ -36,10 +37,14 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </Head>
-      <body className={`${inter.className} ${poppins.variable} ${roboto.variable}`}>
-        <Header />
-        <LenisWrapper>{children}</LenisWrapper>
-        <Footer />
+      <body
+        className={`${inter.className} ${poppins.variable} ${roboto.variable}`}
+      >
+        <FirebaseProvider>
+          <Header />
+          <LenisWrapper>{children}</LenisWrapper>
+          <Footer />
+        </FirebaseProvider>
         <script
           src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"
           async
