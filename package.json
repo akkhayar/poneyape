@@ -23,7 +23,7 @@
     "react-dom": "^18",
     "react-i18next": "^15.0.0",
     "tailwind-merge": "^2.5.2",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
     "sharp": "^0.33.5"
   },
   "devDependencies": {
