@@ -1,5 +1,5 @@
 import React from "react";
-import OurTeamSlider from "./common/OurTeamSlider";
+import OurTeamSlider from "@/components/common/OurTeamSlider";
 import { createStringExtractor } from "@/lib/util";
 
 const Team = () => {
