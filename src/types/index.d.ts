@@ -39,3 +39,12 @@ declare type TestimonialProps = {
   author: string;
   position: string;
 };
+
+declare type websiteCardFormat = {
+  id: number;
+  image: string;
+  title: string;
+  author_name: string;
+  author_image: string;
+  link: string;
+};

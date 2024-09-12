@@ -1,4 +1,6 @@
 import { resources } from "@/constants";
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function createStringExtractor(language?: string | null) {
   if (!language) {
@@ -14,4 +16,8 @@ export function getDomain(url: string): string {
   } catch (error) {
     return "";
   }
+}
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
 }
