@@ -96,15 +96,12 @@ const Header = () => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const pathname = usePathname().trim();
   const [showBanner, setShowBanner] = useState(true);
-  const { currentUser } = useFirebase();
-
-  const close_the_banner = () => {
-    setShowBanner(false);
-  };
+  const { currentUser, logout} = useFirebase();
 
   return (
     <>
       <AuthModal show={showAuthModal} setShow={setShowAuthModal} />
+
       {showBanner && (
         <section className="bg-linear-gradient-yellow-to-orange">
           <div className="container mx-auto flex items-center justify-between py-2">
@@ -159,7 +156,7 @@ const Header = () => {
               </div>
             </div>
 
-            <button onClick={close_the_banner}>
+            <button onClick={() => setShowBanner(false)}>
               <svg
                 width="32"
                 height="33"
@@ -287,13 +284,23 @@ const Header = () => {
             <option>MY</option>
           </select>
 
-          {currentUser?.photoURL ? (
-            <Image
-              src={currentUser?.photoURL}
-              alt="user-avatar"
-              width={38}
-              height={38}
-            />
+          {currentUser ? (
+            <>
+              <button
+                className="c-outline hidden pb-6 lg:block"
+                onClick={() => setShowAuthModal(true)}
+              >
+                Submit Work
+              </button>
+              <Image
+                className="rounded-full"
+                src={currentUser?.photoURL || ""}
+                alt="user-avatar"
+                width={38}
+                height={38}
+                onClick={() => logout}
+              />
+            </>
           ) : (
             <button
               className="c-primary hidden pb-6 lg:block"
