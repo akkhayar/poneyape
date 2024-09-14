@@ -1,4 +1,4 @@
-import { data, user } from "@/constants";
+import { placeholderSiteData, placeholderUserData } from "@/constants";
 import SiteView from "@/components/main/SiteView";
 
 export default function Site({ params }: PageProps) {
@@ -6,7 +6,7 @@ export default function Site({ params }: PageProps) {
   // the publicly viewable data of the website
   return (
     <>
-      <SiteView data={data} user={user} />
+      <SiteView data={placeholderSiteData} user={placeholderUserData} />
       <section className="px-6 py-20 md:px-16 md:py-[120px]">
         <h1 className="font-bold">Discover Similar Collections</h1>
         <div></div>

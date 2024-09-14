@@ -1,7 +1,7 @@
 "use client";
 
 import SiteView from "@/components/main/SiteView";
-import { user } from "@/constants";
+import { placeholderUserData } from "@/constants";
 import { addDoc, collection, doc, setDoc, Timestamp } from "firebase/firestore";
 import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
@@ -57,7 +57,7 @@ export default function CreatePage() {
                 <button className="c-outline">Preview</button>
               </DialogTrigger>
               <DialogContent className="max-h-screen overflow-y-scroll bg-white lg:max-w-screen-lg">
-                <SiteView data={currentData} user={user} />
+                <SiteView data={currentData} user={placeholderUserData} />
               </DialogContent>
             </Dialog>
           </div>
