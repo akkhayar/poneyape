@@ -48,3 +48,24 @@ declare type websiteCardFormat = {
   author_image: string;
   link: string;
 };
+
+declare type WebsiteData = {
+  ownerId: string;
+  title: string;
+  description: string;
+  vision: string;
+  publishDate: number;
+  tags: string[];
+  typography: string[];
+  colorPalette: string[];
+  authors: string[];
+};
+
+declare type UserData = {
+  name: string;
+  profilePicture: string;
+  id: string;
+  about: string;
+  profession: string;
+  socials: string[];
+};
