@@ -1,62 +1,18 @@
 import {
-  createUserWithEmailAndPassword,
   getAdditionalUserInfo,
   GoogleAuthProvider,
-  signInWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
-import { auth } from "../../lib/firebase";
+import { auth } from "@/lib/firebase";
+import LoginForm from "@/components/main/LoginForm";
+import SignupForm from "@/components/main/SignupForm";
 import { useState } from "react";
 
 const AuthModal = ({ show, setShow }: AuthModalProps) => {
-  const [email, setEmail] = useState("");
-  const [pswd, setPswd] = useState("");
-
-  const handleEmailSignUp = async () => {
-    // event.preventDefault();
-
-    // const form = event.currentTarget;
-    // if (form.checkValidity() === false) {
-    //   event.stopPropagation();
-    //   return;
-    // }
-
-    signInWithEmailAndPassword(auth, email, pswd)
-      .then(async ({ user: firebaseUser }) => {
-        console.log("firebaseUser", firebaseUser);
-
-        setShow(false);
-      })
-      .catch((error) => {
-        if (error.code === "auth/invalid-credential") {
-          createUserWithEmailAndPassword(auth, email, pswd)
-            .then(async ({ user: firebaseUser }) => {
-              console.log("firebaseUser", firebaseUser);
-
-              if (error) {
-                // toast.error(
-                //   "Failed to authenticate. Please verify your password or email.",
-                // );
-                // delete user from firebase auth
-                await firebaseUser.delete();
-
-                return;
-              }
-
-              setShow(false);
-            })
-            .catch((error) => {
-              // toast.error(
-              //   "Failed to authenticate. Please verify your password or email.",
-              // );
-            });
-        }
-      });
-  };
+  const [view, setView] = useState<"signup" | "login">("signup");
 
   const handleGoogleSignIn = () => {
     const provider = new GoogleAuthProvider();
-
     provider.setCustomParameters({
       prompt: "select_account",
     });
@@ -70,16 +26,20 @@ const AuthModal = ({ show, setShow }: AuthModalProps) => {
         setShow(false);
       })
       .catch((error) => {
-        // toast.error("Failed to sign in with Google. Please try again.");
+        console.error(error);
       });
   };
+
+  const closeModal = () => setShow(false);
 
   return (
     <div
       className={`fixed left-0 right-0 top-0 z-50 ${show ? "flex" : "hidden"} h-full max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-[#000000aa] md:inset-0`}
+      aria-label="Backdrop"
     >
       <div
-        className="relative max-h-full w-full max-w-[600px] rounded-lg shadow dark:bg-gray-700"
+        className="relative max-h-full w-full max-w-[600px] rounded-lg shadow dark:bg-gray-700 h-[700px]"
+        aria-label="Modal"
         style={{
           background:
             "linear-gradient(156deg, #F8F0FF 3.55%, #FFF 49.39%, #E2F0FF 98.07%)",
@@ -88,7 +48,7 @@ const AuthModal = ({ show, setShow }: AuthModalProps) => {
         <div className="flex flex-col items-center justify-between rounded-lg px-6 pt-4 md:px-12 md:pt-4">
           <button
             type="button"
-            onClick={() => setShow(false)}
+            onClick={closeModal}
             className="ms-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white"
             data-modal-hide="default-modal"
           >
@@ -109,34 +69,19 @@ const AuthModal = ({ show, setShow }: AuthModalProps) => {
             </svg>
             <span className="sr-only">Close modal</span>
           </button>
-          <h1 className="mb-4 font-bold">Register</h1>
+          <h1 className="mb-4 font-bold">
+            {view === "signup" ? "Register" : "Login"}
+          </h1>
           <h5>Join our community!</h5>
         </div>
         <div className="flex flex-col space-y-4 px-6 pb-10 pt-6 md:px-12 md:pb-12 md:pt-8">
-          <input
-            className="rounded bg-transparent placeholder:text-midGrey"
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            className="m-0 rounded bg-transparent placeholder:text-midGrey"
-            type="password"
-            placeholder="Password"
-            value={pswd}
-            onChange={(e) => setPswd(e.target.value)}
-          />
-          <input
-            className="rounded bg-transparent placeholder:text-midGrey"
-            type="password"
-            placeholder="Confirm Password"
-          />
-          <button className="c-primary c-solid" onClick={handleEmailSignUp}>
-            Register
-          </button>
+          {view === "login" ? (
+            <LoginForm onHide={closeModal} />
+          ) : (
+            <SignupForm onHide={closeModal} />
+          )}
           <div className="relative py-4">
-            <span className="absolute left-[220px] top-1 bg-white px-1">
+            <span className="absolute left-[220px] top-1 bg-black px-1 text-white">
               OR
             </span>
             <hr className="border border-dashed border-[#1B1B1B]" />
@@ -147,18 +92,26 @@ const AuthModal = ({ show, setShow }: AuthModalProps) => {
             className="c-outline c-black"
             onClick={handleGoogleSignIn}
           >
-            Sign Up with Google
+            Continue with Google
           </button>
           <button
             data-modal-hide="default-modal"
             type="button"
             className="c-outline c-black"
           >
-            Sign Up with Facebook
+            Continue with Facebook
           </button>
-          <p className="text-center">
-            Already have an account? <a>Log in</a>
-          </p>
+          {view === "signup" ? (
+            <p className="text-center">
+              Already have an account?{" "}
+              <button className="underline" onClick={() => setView("login")}>Log in</button>
+            </p>
+          ) : (
+            <p className="text-center">
+              Don&apos;t have an account?{" "}
+              <button className="underline" onClick={() => setView("signup")}>Sign Up</button>
+            </p>
+          )}
         </div>
       </div>
     </div>

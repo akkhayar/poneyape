@@ -188,20 +188,21 @@ export const resources: {
   },
 };
 
-export const data = {
+export const placeholderSiteData: WebsiteData = {
   title: "Future Tracking",
   description:
     "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Provident beatae sequi aut harum neque possimus omnis veniam, quas ab labore sit repellendus, nam ipsum dignissimos numquam illum. Quis, veniam optio!",
   vision:
     "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Provident beatae sequi aut harum neque possimus omnis veniam, quas ab labore sit repellendus, nam ipsum dignissimos numquam illum. Quis, veniam optio!",
-  publishDate: "12 Jun 2024",
+  publishDate: 0,
   tags: ["Blog", "Corporate"],
   typography: ["Poppins", "Pyidaungsu"],
   colorPalette: ["#E3EBEE", "#DF463C", "#1B3846"],
   authors: ["Thazin Win", "Julia"],
+  ownerId: ""
 };
 
-export const user = {
+export const placeholderUserData: UserData = {
   name: "Thazin Win",
   profilePicture: "/profile.png",
   id: "thazin-win",
