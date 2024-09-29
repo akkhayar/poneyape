@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Inter, Poppins, Roboto } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/common/Header";
 import LenisWrapper from "@/lib/lenis-wrapper";
 import Footer from "@/components/common/Footer";
-import Head from "next/head";
 import { FirebaseProvider } from "@/context/firebaseContext";
+import Head from "next/head";
+import { Inter, Poppins, Roboto } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 const poppins = Poppins({
