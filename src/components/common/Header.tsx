@@ -96,7 +96,7 @@ const Header = () => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const pathname = usePathname().trim();
   const [showBanner, setShowBanner] = useState(true);
-  const { currentUser, logout} = useFirebase();
+  const { currentUser, logout } = useFirebase();
 
   return (
     <>
@@ -202,7 +202,7 @@ const Header = () => {
               />
             </svg>
           </button>
-          <Link href="/" className="font-pyidaungsu text-[20px]">
+          <Link href="/" className="font-pyidaungsu text-[20px] text-black">
             ပုံရိပ်
           </Link>
         </div>
@@ -260,7 +260,7 @@ const Header = () => {
             </Link>
           </div>
         </div>
-        <button className="flex grow rounded-[30px] bg-[#eeeeee] px-4 py-2">
+        <button className="flex grow rounded-[30px] bg-[#eeeeee] px-4 py-3 text-black">
           <svg
             width="24"
             height="24"
@@ -279,8 +279,8 @@ const Header = () => {
           Search
         </button>
         <div className="flex gap-2">
-          <select className="rounded-[5px] border border-midGrey bg-transparent px-4 py-[10px]">
-            <option className="hover:text-black">ENG</option>
+          <select className="rounded-[5px] border border-midGrey bg-transparent px-4 py-[10px] text-black">
+            <option>ENG</option>
             <option>MY</option>
           </select>
 

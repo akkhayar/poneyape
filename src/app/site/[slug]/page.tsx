@@ -8,7 +8,7 @@ export default function Site({ params }: PageProps) {
     <>
       <SiteView data={placeholderSiteData} user={placeholderUserData} />
       <section className="px-6 py-20 md:px-16 md:py-[120px]">
-        <h1 className="font-bold">Discover Similar Collections</h1>
+        <h1 className="font-bold text-black">Discover Similar Collections</h1>
         <div></div>
       </section>
     </>

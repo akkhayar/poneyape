@@ -195,11 +195,24 @@ export const placeholderSiteData: WebsiteData = {
   vision:
     "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Provident beatae sequi aut harum neque possimus omnis veniam, quas ab labore sit repellendus, nam ipsum dignissimos numquam illum. Quis, veniam optio!",
   publishDate: 0,
-  tags: ["Blog", "Corporate"],
+  tags: [
+    "Blog",
+    "Corporate",
+    "Blog",
+    "Corporate",
+    "Blog",
+    "Corporate",
+    "Blog",
+    "Corporate",
+    "Blog",
+    "Corporate",
+    "Blog",
+    "Corporate",
+  ],
   typography: ["Poppins", "Pyidaungsu"],
   colorPalette: ["#E3EBEE", "#DF463C", "#1B3846"],
   authors: ["Thazin Win", "Julia"],
-  ownerId: ""
+  ownerId: "",
 };
 
 export const placeholderUserData: UserData = {
