@@ -22,7 +22,7 @@ const FontDisplay = ({ typography }: { typography: string[] }) => {
           </button>
         ))}
       </div>
-      <p className="px-[80px] py-[25px] text-center text-2xl font-medium">
+      <p className="p-0 text-center text-2xl font-medium sm:px-[80px] sm:py-[25px]">
         “Hello, Welcome to Future Tracking!”
       </p>
     </div>
