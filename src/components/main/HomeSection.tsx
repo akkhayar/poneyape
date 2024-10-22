@@ -81,7 +81,7 @@ const HomeSection = () => {
           </div>
         </div>
         <div className="mx-auto flex max-w-xl items-center justify-center">
-          <div className="flex justify-center gap-3">
+          <div className="flex flex-wrap justify-center gap-3">
             {filters.map((filter, index) => {
               const isActive = activeFilter === filter;
               return (

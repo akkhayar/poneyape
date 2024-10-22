@@ -39,7 +39,7 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          <div className="flex gap-[100px]">
+          <div className="hidden gap-[100px] sm:flex">
             <div>
               <h2 className="mb-6 font-poppins text-base font-semibold uppercase dark:text-white">
                 Company
@@ -117,16 +117,15 @@ const Footer = () => {
             </Link>
             . All Rights Reserved.
           </span>
-          <div className="flex items-center gap-7">
+          <div className="hidden items-center gap-7 sm:flex">
             <a href="#" target="_blank">
               <Mail />
             </a>
             <a href="#" target="_blank">
               <svg
+                className="size-[24px]"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
                 fill="currentColor"
                 viewBox="0 0 24 24"
               >
@@ -140,10 +139,9 @@ const Footer = () => {
             </a>
             <a href="#" target="_blank">
               <svg
+                className="size-[24px]"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
                 fill="currentColor"
                 viewBox="0 0 24 24"
               >
@@ -153,6 +151,7 @@ const Footer = () => {
 
             <a href="#" target="_blank">
               <svg
+                className="size-[24px]"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="currentColor"
