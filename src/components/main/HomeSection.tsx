@@ -45,12 +45,14 @@ const HomeSection = () => {
         <h3 className="mb-10 text-center font-semibold text-black">
           #1 of the month
         </h3>
+
         <Image
           src="/eg.png"
           alt="1-of-the-month"
           layout="responsive"
           width={16}
           height={9}
+          className="rounded-[8px]"
         />
       </div>
       <div className="flex flex-col gap-3">
@@ -81,7 +83,7 @@ const HomeSection = () => {
           </div>
         </div>
         <div className="mx-auto flex max-w-xl items-center justify-center">
-          <div className="flex justify-center gap-3">
+          <div className="flex flex-wrap justify-center gap-3">
             {filters.map((filter, index) => {
               const isActive = activeFilter === filter;
               return (
@@ -118,18 +120,20 @@ const HomeSection = () => {
         <h3 className="md:h1 pb-10 text-center text-2xl font-bold capitalize">
           Neumorphism
         </h3>
-        <div className="flex flex-wrap gap-6">
-          {[0, 0, 0, 0, 0, 0, 0].map((_) => (
-            <WebsiteCard
-              key={_}
-              id="eg"
-              coverImage="/eg.png"
-              primaryAuthor="Ralph Edwards"
-              profile="/profile.png"
-              tags={["Blog", "Corporate"]}
-              title="Future Tracking"
-            />
-          ))}
+        <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
+          {Array(6)
+            .fill(null)
+            .map((_) => (
+              <WebsiteCard
+                key={_}
+                id="eg"
+                coverImage="/eg.png"
+                primaryAuthor="Ralph Edwards"
+                profile="/profile.png"
+                tags={["Blog", "Corporate"]}
+                title="Future Tracking"
+              />
+            ))}
         </div>
       </div>
       <Link

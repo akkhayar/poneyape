@@ -31,12 +31,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Head>
-        <link
-          href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css"
-          rel="stylesheet"
-        />
-      </Head>
       <body
         className={`${inter.className} ${poppins.variable} ${roboto.variable}`}
       >
@@ -45,10 +39,6 @@ export default function RootLayout({
           <LenisWrapper>{children}</LenisWrapper>
           <Footer />
         </FirebaseProvider>
-        <script
-          src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"
-          async
-        ></script>
       </body>
     </html>
   );

@@ -1,6 +1,7 @@
 import { createStringExtractor } from "@/lib/util";
 import React from "react";
 import WebsiteOfTheMonthSlider from "../common/WebsiteOfTheMonthSlider";
+import { WOTMCarousel } from "@/components/common/CarouselSlider";
 
 const HotTrendSection = () => {
   const lang = "en";
@@ -11,7 +12,8 @@ const HotTrendSection = () => {
         <h3 className="text-left font-semibold">{t("popularWebsitesTitle")}</h3>
         <p>{t("popularWebsitesDescription")}</p>
       </div>
-      <WebsiteOfTheMonthSlider />
+      {/* <WebsiteOfTheMonthSlider /> */}
+      <WOTMCarousel />
     </section>
   );
 };

@@ -34,11 +34,11 @@ const AuthModal = ({ show, setShow }: AuthModalProps) => {
 
   return (
     <div
-      className={`fixed left-0 right-0 top-0 z-50 ${show ? "flex" : "hidden"} h-full max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-[#000000aa] md:inset-0`}
+      className={`fixed left-0 right-0 top-0 z-50 text-black ${show ? "flex" : "hidden"} h-full max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-[#000000aa] md:inset-0`}
       aria-label="Backdrop"
     >
       <div
-        className="relative max-h-full w-full max-w-[600px] rounded-lg shadow dark:bg-gray-700 h-[700px]"
+        className="relative h-[700px] max-h-full w-full max-w-[600px] rounded-lg shadow dark:bg-gray-700"
         aria-label="Modal"
         style={{
           background:
@@ -104,12 +104,16 @@ const AuthModal = ({ show, setShow }: AuthModalProps) => {
           {view === "signup" ? (
             <p className="text-center">
               Already have an account?{" "}
-              <button className="underline" onClick={() => setView("login")}>Log in</button>
+              <button className="underline" onClick={() => setView("login")}>
+                Log in
+              </button>
             </p>
           ) : (
             <p className="text-center">
               Don&apos;t have an account?{" "}
-              <button className="underline" onClick={() => setView("signup")}>Sign Up</button>
+              <button className="underline" onClick={() => setView("signup")}>
+                Sign Up
+              </button>
             </p>
           )}
         </div>

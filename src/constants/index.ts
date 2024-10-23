@@ -199,7 +199,7 @@ export const placeholderSiteData: WebsiteData = {
   typography: ["Poppins", "Pyidaungsu"],
   colorPalette: ["#E3EBEE", "#DF463C", "#1B3846"],
   authors: ["Thazin Win", "Julia"],
-  ownerId: ""
+  ownerId: "",
 };
 
 export const placeholderUserData: UserData = {
