@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import WebsiteCard from "../common/WebsiteCard";
 import WebsiteOfTheMonthSlider from "../common/WebsiteOfTheMonthSlider";
+import { WOTMCarousel } from "@/components/common/CarouselSlider";
 
 const HotTrends = () => {
   return (
@@ -11,7 +12,8 @@ const HotTrends = () => {
         <h3 className="text-left font-semibold">{t("popularWebsitesTitle")}</h3>
         <p>{t("popularWebsitesDescription")}</p>
       </div>
-      <WebsiteOfTheMonthSlider />
+      {/* <WebsiteOfTheMonthSlider /> */}
+      <WOTMCarousel />
     </section>
   );
 };

@@ -6,10 +6,10 @@ const Tutorial = () => {
   const lang = "en";
   const t = createStringExtractor(lang);
   return (
-    <section className="px-6 py-10 text-black md:flex md:px-16 md:py-[120px]">
+    <section className="flex items-center justify-center px-6 py-10 text-black md:flex md:px-16 md:py-[120px]">
       <Image
         alt="tutorial-thumbnail"
-        className="mb-6 h-[250px] w-full bg-black md:me-20"
+        className="mb-6 aspect-square w-1/2 shrink-0 bg-black md:me-20"
         src=""
         width={100}
         height={100}

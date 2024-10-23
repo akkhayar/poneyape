@@ -5,7 +5,7 @@ type TagProps = {
   tag: string;
   clickable?: boolean;
   variant?: "primary" | "outline";
-  onClick?: MouseEventHandler<HTMLDivElement>
+  onClick?: MouseEventHandler<HTMLDivElement>;
 };
 
 const variants = {
@@ -15,8 +15,11 @@ const variants = {
 
 const Tag = ({ tag, clickable, variant, onClick }: TagProps) => {
   return (
-    <div onClick={onClick} className={cn("flex items-center gap-2", variants[variant || "primary"])}>
-      <p className="c-small">{tag}</p>
+    <div
+      onClick={onClick}
+      className={cn("flex items-center gap-2", variants[variant || "primary"])}
+    >
+      <p className="c-small text-[#1B1B1B]">{tag}</p>
       {clickable && (
         <svg
           xmlns="http://www.w3.org/2000/svg"

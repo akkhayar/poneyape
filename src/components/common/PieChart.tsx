@@ -2,7 +2,7 @@ const PieChart = ({ percentage }: { percentage: number }) => {
   // Ensure the percentage is within the valid range
   return (
     <>
-      <div className="bg-[#F2F2F2] shadow rounded-full w-[30px] h-[30px] m-5">
+      <div className="h-[30px] w-[30px] rounded-full bg-[#F2F2F2] shadow">
         <div className="pie" />
       </div>
       <style jsx>

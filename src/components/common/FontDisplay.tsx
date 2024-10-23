@@ -1,14 +1,20 @@
+import { cn } from "@/lib/utils";
 import { useState } from "react";
 
 const FontDisplay = ({ typography }: { typography: string[] }) => {
   const [selectedFont, setSelectedFont] = useState(0);
+  console.log(selectedFont);
   return (
-    <div className="flex gap-4">
+    <div className="flex flex-1 gap-4">
       <div className="w-fit">
         {typography.map((font, i) => (
           <button
-            data-selected={selectedFont === i}
-            className="flex w-full justify-center border-y border-transparent py-1 text-midGrey hover:border-black data-[selected=true]:border-black data-[selected]:text-black"
+            className={cn(
+              selectedFont === i
+                ? "border-y border-black text-black"
+                : "border-none text-[#999999]",
+              "flex w-full justify-center py-1 hover:border-y hover:border-black",
+            )}
             key={font}
             onClick={() => setSelectedFont(i)}
           >
@@ -16,10 +22,8 @@ const FontDisplay = ({ typography }: { typography: string[] }) => {
           </button>
         ))}
       </div>
-      <p className="text-center max-w-[600px]">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero illum nemo
-        odit quo at libero a velit dignissimos nesciunt aut deserunt, veniam
-        nisi quia, reprehenderit fugit. Possimus similique iusto omnis.
+      <p className="p-0 text-center text-2xl font-medium sm:px-[80px] sm:py-[25px]">
+        “Hello, Welcome to Future Tracking!”
       </p>
     </div>
   );

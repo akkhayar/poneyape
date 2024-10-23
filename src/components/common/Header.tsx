@@ -9,6 +9,7 @@ import Image from "next/image";
 
 import i18nConfig from "../../i18nConfig";
 import { useTranslation } from "react-i18next";
+import { NavLinks } from "./NavLinks";
 
 const getNavItemIcon = (route: keyof typeof routes) => {
   switch (route) {
@@ -138,7 +139,7 @@ const Header = ({ locale }: LanguageChangerProps) => {
       <AuthModal show={showAuthModal} setShow={setShowAuthModal} />
 
       {showBanner && (
-        <section className="bg-linear-gradient-yellow-to-orange">
+        <section className="bg-linear-gradient-yellow-to-orange px-6 lg:px-16">
           <div className="container mx-auto flex items-center justify-between py-2">
             <div className="flex items-center gap-10">
               <div className="w-[43px]">
@@ -208,58 +209,20 @@ const Header = ({ locale }: LanguageChangerProps) => {
           </div>
         </section>
       )}
-
-      <nav className="flex h-[72px] items-center justify-between gap-10 border-b border-solid border-b-bg1 bg-[#ffffff66] px-6 lg:justify-normal lg:px-16">
-        <div className="flex gap-2">
-          <button
-            type="button"
-            className="lg:hidden"
-            onClick={() => setShowMenuPage(true)}
+      <div className="flex w-full items-center justify-between px-6 lg:px-16">
+        <div className="mr-10 flex items-center gap-2">
+          <NavLinks />
+          <Link
+            href="/"
+            className="shrink-0 font-pyidaungsu text-[20px] text-black"
           >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M2 6C2 5.44772 2.44772 5 3 5H21C21.5523 5 22 5.44772 22 6C22 6.55228 21.5523 7 21 7H3C2.44772 7 2 6.55228 2 6Z"
-                fill="#2D3648"
-              />
-              <path
-                d="M2 12C2 11.4477 2.44772 11 3 11H21C21.5523 11 22 11.4477 22 12C22 12.5523 21.5523 13 21 13H3C2.44772 13 2 12.5523 2 12Z"
-                fill="#2D3648"
-              />
-              <path
-                d="M3 17C2.44772 17 2 17.4477 2 18C2 18.5523 2.44772 19 3 19H21C21.5523 19 22 18.5523 22 18C22 17.4477 21.5523 17 21 17H3Z"
-                fill="#2D3648"
-              />
-            </svg>
-          </button>
-          <Link href="/" className="font-pyidaungsu text-[20px]">
-            ပုံရိပ်
+            <Image src="/poneyape.svg" alt="PoneYape" width={85} height={36} />
           </Link>
         </div>
-        <div
-          className="absolute left-0 top-0 h-screen w-screen overflow-y-hidden bg-white px-5 py-10 lg:static lg:h-fit lg:w-fit lg:bg-transparent"
-          hidden={!showMenuPage}
-        >
-          <div
-            className="mb-8 border-b border-[#E5E5E0] pb-8 lg:hidden"
-            aria-label="Mobile Navigation Icon"
-          >
-            <a className="font-pyidaungsu text-[20px]">ပုံရိပ်</a>
-            <button
-              type="button"
-              className="ms-10"
-              onClick={() => setShowMenuPage(false)}
-            >
-              x
-            </button>
-          </div>
+
+        <nav className="flex h-[72px] w-full items-center justify-end gap-2 border-b border-solid border-b-bg1 bg-[#ffffff66]">
           <ul
-            className="text-[#1B1B1B] lg:flex lg:gap-8"
+            className="hidden text-[#1B1B1B] lg:flex lg:gap-8"
             aria-label="Navigation Items"
           >
             {(Object.keys(routes) as (keyof typeof routes)[]).map(
@@ -326,33 +289,35 @@ const Header = ({ locale }: LanguageChangerProps) => {
             <option value={"my"}>MY</option>
           </select>
 
-          {currentUser ? (
-            <>
+            {currentUser ? (
+              <>
+                <button
+                  className="c-outline hidden pb-6 lg:block"
+                  onClick={() => setShowAuthModal(true)}
+                >
+                  Submit Work
+                </button>
+
+                <Image
+                  src={currentUser?.photoURL || ""}
+                  alt="user-avatar"
+                  width={49}
+                  height={48}
+                  className="size-[48px] shrink-0 cursor-pointer rounded-full object-cover"
+                  onClick={() => logout}
+                />
+              </>
+            ) : (
               <button
-                className="c-outline hidden pb-6 lg:block"
+                className="c-primary hidden pb-6 lg:block"
                 onClick={() => setShowAuthModal(true)}
               >
-                Submit Work
+                REGISTER
               </button>
-              <Image
-                className="rounded-full"
-                src={currentUser?.photoURL || ""}
-                alt="user-avatar"
-                width={38}
-                height={38}
-                onClick={() => logout}
-              />
-            </>
-          ) : (
-            <button
-              className="c-primary hidden pb-6 lg:block"
-              onClick={() => setShowAuthModal(true)}
-            >
-              REGISTER
-            </button>
-          )}
-        </div>
-      </nav>
+            )}
+          </div>
+        </nav>
+      </div>
     </>
   );
 };
