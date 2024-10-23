@@ -1,11 +1,14 @@
 "use client";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import AuthModal from "@/components/common/AuthModal";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { routes } from "@/constants";
 import { useFirebase } from "@/hooks/useFirebase";
 import Image from "next/image";
+
+import i18nConfig from "../../i18nConfig";
+import { useTranslation } from "react-i18next";
 
 const getNavItemIcon = (route: keyof typeof routes) => {
   switch (route) {
@@ -91,12 +94,44 @@ const getNavItemIcon = (route: keyof typeof routes) => {
   }
 };
 
-const Header = () => {
+interface LanguageChangerProps {
+  locale: string;
+}
+
+const Header = ({ locale }: LanguageChangerProps) => {
   const [showMenuPage, setShowMenuPage] = useState<boolean>(true);
-  const [showAuthModal, setShowAuthModal] = useState(false);
   const pathname = usePathname().trim();
   const [showBanner, setShowBanner] = useState(true);
-  const { currentUser, logout} = useFirebase();
+  const { currentUser, logout } = useFirebase();
+  const { i18n } = useTranslation();
+  const currentLocale = i18n?.language;
+  const router = useRouter();
+  const currentPathname = usePathname();
+  const [showAuthModal, setShowAuthModal] = useState(false);
+
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const newLocale = e.target.value;
+
+    // set cookie for next-i18n-router
+    const days = 30;
+    const date = new Date();
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    document.cookie = `NEXT_LOCALE=${newLocale};expires=${date.toUTCString()};path=/`;
+
+    // redirect to the new locale path
+    if (
+      currentLocale === i18nConfig.defaultLocale &&
+      !i18nConfig.prefixDefault
+    ) {
+      router.push("/" + newLocale + currentPathname);
+    } else {
+      router.push(
+        currentPathname.replace(`/${currentLocale}`, `/${newLocale}`),
+      );
+    }
+
+    router.refresh();
+  };
 
   return (
     <>
@@ -278,10 +313,17 @@ const Header = () => {
           </svg>
           Search
         </button>
-        <div className="flex gap-2">
-          <select className="rounded-[5px] border border-midGrey bg-transparent px-4 py-[10px]">
-            <option className="hover:text-black">ENG</option>
-            <option>MY</option>
+        {/* i18nexus */}
+        <div className="flex gap-2 text-black">
+          <select
+            value={currentLocale}
+            onChange={handleChange}
+            className="rounded-[5px] border border-midGrey bg-transparent px-4 py-[10px]"
+          >
+            <option className="hover:text-black" value={"en"}>
+              ENG
+            </option>
+            <option value={"my"}>MY</option>
           </select>
 
           {currentUser ? (

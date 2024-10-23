@@ -1,10 +1,10 @@
-import { createStringExtractor } from "@/lib/util";
+import { t } from "i18next";
+import Link from "next/link";
 import React from "react";
+import WebsiteCard from "../common/WebsiteCard";
 import WebsiteOfTheMonthSlider from "../common/WebsiteOfTheMonthSlider";
 
-const HotTrendSection = () => {
-  const lang = "en";
-  const t = createStringExtractor(lang);
+const HotTrends = () => {
   return (
     <section className="px-6 py-10 text-black md:px-16 md:py-[120px]">
       <div className="mb-20 flex flex-col gap-4">
@@ -16,4 +16,4 @@ const HotTrendSection = () => {
   );
 };
 
-export default HotTrendSection;
+export default HotTrends;

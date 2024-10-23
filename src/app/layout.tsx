@@ -6,6 +6,11 @@ import Footer from "@/components/common/Footer";
 import { FirebaseProvider } from "@/context/firebaseContext";
 import Head from "next/head";
 import { Inter, Poppins, Roboto } from "next/font/google";
+import { NextIntlClientProvider } from "next-intl";
+
+import { ReactNode } from "react";
+import i18nConfig from "../i18nConfig";
+import { getLocale, getMessages } from "next-intl/server";
 
 const inter = Inter({ subsets: ["latin"] });
 const poppins = Poppins({
@@ -24,13 +29,19 @@ export const metadata: Metadata = {
   description: "Poneyape",
 };
 
-export default function RootLayout({
+export function generateStaticParams() {
+  return i18nConfig.locales.map((locale) => ({ locale }));
+}
+
+export default async function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: ReactNode;
+}) {
+  const locale = await getLocale();
+  const messages = await getMessages();
   return (
-    <html lang="en">
+    <html lang={locale}>
       <Head>
         <link
           href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css"
@@ -40,11 +51,15 @@ export default function RootLayout({
       <body
         className={`${inter.className} ${poppins.variable} ${roboto.variable}`}
       >
-        <FirebaseProvider>
-          <Header />
-          <LenisWrapper>{children}</LenisWrapper>
-          <Footer />
-        </FirebaseProvider>
+        <NextIntlClientProvider messages={messages}>
+          <FirebaseProvider>
+            {/* <I18nextProvider i18n={i18n}> */}
+            <Header locale={locale} />
+            {/* </I18nextProvider> */}
+            <LenisWrapper>{children}</LenisWrapper>
+            <Footer />
+          </FirebaseProvider>
+        </NextIntlClientProvider>
         <script
           src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"
           async
