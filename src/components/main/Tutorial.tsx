@@ -6,10 +6,10 @@ const Tutorial = () => {
   const lang = "en";
   const t = createStringExtractor(lang);
   return (
-    <section className="flex items-center justify-center px-6 py-10 text-black md:flex md:px-16 md:py-[120px]">
+    <section className="flex flex-col items-center justify-center px-6 py-10 text-black md:flex md:flex-row md:px-16 md:py-[120px]">
       <Image
         alt="tutorial-thumbnail"
-        className="mb-6 aspect-square w-1/2 shrink-0 bg-black md:me-20"
+        className="mb-6 aspect-square w-full shrink-0 bg-black md:me-20 md:w-1/2"
         src=""
         width={100}
         height={100}
@@ -19,7 +19,7 @@ const Tutorial = () => {
         <div className="flex flex-col gap-6">
           <h3 className="font-semibold">{t("tutorialTitle")}</h3>
           <p>{t("tutorialDescription")}</p>
-          <button className="c-primary c-solid mt-4 md:w-fit">
+          <button className="mt-4 rounded-[5px] bg-[#3D52D5] px-6 py-4 text-white md:w-fit">
             {t("tutorialButton")}
           </button>
         </div>
