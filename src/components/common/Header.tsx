@@ -13,7 +13,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LogIn, Search } from "lucide-react";
+import { LogIn, LogOut, Search } from "lucide-react";
 
 const getNavItemIcon = (route: keyof typeof routes) => {
   switch (route) {
@@ -266,7 +266,7 @@ const Header = () => {
                   </svg>
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="border-none shadow-none">
+              <DropdownMenuContent className="max-w-full border-none shadow-none">
                 <form
                   action=""
                   className="flex w-full gap-2 rounded-[30px] border border-black bg-white px-4 py-3 text-black"
@@ -282,17 +282,25 @@ const Header = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <button className="block shrink-0 lg:hidden">
-              <LogIn className="text-black" />
-            </button>
+            {currentUser ? (
+              <>
+                <button className="block shrink-0 -rotate-90 lg:hidden">
+                  <LogOut className="text-black" />
+                </button>
 
-            <Image
-              src="/eg.png"
-              alt="Eg"
-              width={49}
-              height={48}
-              className="block size-[48px] shrink-0 rounded-full object-cover lg:hidden"
-            />
+                <Image
+                  src="/eg.png"
+                  alt="Eg"
+                  width={49}
+                  height={48}
+                  className="block size-[48px] shrink-0 rounded-full object-cover lg:hidden"
+                />
+              </>
+            ) : (
+              <button className="block shrink-0 lg:hidden">
+                <LogIn className="text-black" />
+              </button>
+            )}
 
             {currentUser ? (
               <>
