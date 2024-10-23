@@ -27,7 +27,7 @@ export const NavLinks = () => {
       </button>
 
       {open && (
-        <div className="fixed left-0 top-0 z-50 flex h-[100vh] w-full flex-col bg-white p-5 text-black lg:hidden">
+        <div className="fixed left-0 top-0 z-50 flex h-screen w-full flex-col bg-white p-5 text-black lg:hidden">
           <X
             className="absolute right-4 top-4 z-10 cursor-pointer"
             size={24}

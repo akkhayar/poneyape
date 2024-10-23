@@ -283,19 +283,9 @@ const Header = () => {
             </DropdownMenu>
 
             {currentUser ? (
-              <>
-                <button className="block shrink-0 -rotate-90 lg:hidden">
-                  <LogOut className="text-black" />
-                </button>
-
-                <Image
-                  src="/eg.png"
-                  alt="Eg"
-                  width={49}
-                  height={48}
-                  className="block size-[48px] shrink-0 rounded-full object-cover lg:hidden"
-                />
-              </>
+              <button className="block shrink-0 -rotate-90 lg:hidden">
+                <LogOut className="text-black" />
+              </button>
             ) : (
               <button className="block shrink-0 lg:hidden">
                 <LogIn className="text-black" />
@@ -310,12 +300,13 @@ const Header = () => {
                 >
                   Submit Work
                 </button>
+
                 <Image
-                  className="rounded-full"
                   src={currentUser?.photoURL || ""}
                   alt="user-avatar"
-                  width={38}
-                  height={38}
+                  width={49}
+                  height={48}
+                  className="size-[48px] shrink-0 cursor-pointer rounded-full object-cover"
                   onClick={() => logout}
                 />
               </>
