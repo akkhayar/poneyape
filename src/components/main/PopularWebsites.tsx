@@ -23,17 +23,19 @@ const PopularWebsites = () => {
           Neumorphism
         </h3>
         <div className="flex flex-wrap gap-6">
-          {[0, 0, 0, 0, 0, 0, 0].map((_) => (
-            <WebsiteCard
-              key={_}
-              id="eg"
-              coverImage="/eg.png"
-              primaryAuthor="Ralph Edwards"
-              profile="/profile.png"
-              tags={["Blog", "Corporate"]}
-              title="Future Tracking"
-            />
-          ))}
+          {Array(6)
+            .fill(null)
+            .map((_, i) => (
+              <WebsiteCard
+                key={i}
+                id="eg"
+                coverImage="/eg.png"
+                primaryAuthor="Ralph Edwards"
+                profile="/profile.png"
+                tags={["Blog", "Corporate"]}
+                title="Future Tracking"
+              />
+            ))}
         </div>
       </div>
       <Link

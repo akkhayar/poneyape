@@ -9,7 +9,7 @@ import { Inter, Poppins, Roboto } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 
 import { ReactNode } from "react";
-import i18nConfig from "../i18nConfig";
+// import i18nConfig from "../i18nConfig";
 import { getLocale, getMessages } from "next-intl/server";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -29,9 +29,9 @@ export const metadata: Metadata = {
   description: "Poneyape",
 };
 
-export function generateStaticParams() {
-  return i18nConfig.locales.map((locale) => ({ locale }));
-}
+// export function generateStaticParams() {
+//   return i18nConfig.locales.map((locale) => ({ locale }));
+// }
 
 export default async function RootLayout({
   children,
@@ -54,7 +54,7 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <FirebaseProvider>
             {/* <I18nextProvider i18n={i18n}> */}
-            <Header locale={locale} />
+            <Header />
             {/* </I18nextProvider> */}
             <LenisWrapper>{children}</LenisWrapper>
             <Footer />

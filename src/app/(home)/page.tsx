@@ -7,7 +7,6 @@ import HotTrends from "@/components/main/HotTrends";
 import FAQ from "@/components/main/FAQ";
 // import initTranslations from "../i18n";
 // import TranslationsProvider from "@/components/common/TranslationsProvider";
-import LanguageChanger from "@/components/common/LanguageChanger";
 import { useTranslations } from "next-intl";
 
 // const i18nNamespaces = ["Home"];
@@ -17,25 +16,21 @@ export default function Home() {
 
   return (
     // Main Code
-    // <TranslationsProvider
-    //   locale={locale}
-    //   namespaces={i18nNamespaces}
-    //   resources={resources}
-    // >
-    //   <div className={`bg-[var(--background-blue)]`}>
-    //     <HomeSection t={t} />
-    //     <PopularWebsites />
-    //     <HotTrends />
-    //     <Testimonial />
-    //     <Tutorial />
-    //     <LatestNews />
-    //     <FAQ />
-    //   </div>
-    // </TranslationsProvider>
 
-    <main className="text-black">
-      <h1>{t("heroTitle")}</h1>
-      <p>{t("heroDescription")}</p>
-    </main>
+    <div className={`bg-[var(--background-blue)]`}>
+      <HomeSection t={t} />
+      <PopularWebsites />
+      <HotTrends />
+      <Testimonial />
+      {/* <Tutorial /> */}
+      <LatestNews />
+      <FAQ />
+    </div>
+
+    //   <main className="text-black">
+    //     <h1>{t("heroTitle")}</h1>
+    //     <p>{t("heroDescription")}</p>
+    //   </main>
+    // );
   );
 }

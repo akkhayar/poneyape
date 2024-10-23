@@ -1,15 +1,21 @@
 "use client";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import AuthModal from "@/components/common/AuthModal";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { routes } from "@/constants";
 import { useFirebase } from "@/hooks/useFirebase";
 import Image from "next/image";
-
-import i18nConfig from "../../i18nConfig";
-import { useTranslation } from "react-i18next";
 import { NavLinks } from "./NavLinks";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { LogIn, LogOut, Search } from "lucide-react";
+import { setUserLocale } from "@/i18n/locale";
+import { Locale } from "@/i18n/config";
 
 const getNavItemIcon = (route: keyof typeof routes) => {
   switch (route) {
@@ -95,44 +101,12 @@ const getNavItemIcon = (route: keyof typeof routes) => {
   }
 };
 
-interface LanguageChangerProps {
-  locale: string;
-}
-
-const Header = ({ locale }: LanguageChangerProps) => {
+const Header = () => {
   const [showMenuPage, setShowMenuPage] = useState<boolean>(true);
+  const [showAuthModal, setShowAuthModal] = useState(false);
   const pathname = usePathname().trim();
   const [showBanner, setShowBanner] = useState(true);
   const { currentUser, logout } = useFirebase();
-  const { i18n } = useTranslation();
-  const currentLocale = i18n?.language;
-  const router = useRouter();
-  const currentPathname = usePathname();
-  const [showAuthModal, setShowAuthModal] = useState(false);
-
-  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const newLocale = e.target.value;
-
-    // set cookie for next-i18n-router
-    const days = 30;
-    const date = new Date();
-    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-    document.cookie = `NEXT_LOCALE=${newLocale};expires=${date.toUTCString()};path=/`;
-
-    // redirect to the new locale path
-    if (
-      currentLocale === i18nConfig.defaultLocale &&
-      !i18nConfig.prefixDefault
-    ) {
-      router.push("/" + newLocale + currentPathname);
-    } else {
-      router.push(
-        currentPathname.replace(`/${currentLocale}`, `/${newLocale}`),
-      );
-    }
-
-    router.refresh();
-  };
 
   return (
     <>
@@ -243,51 +217,85 @@ const Header = ({ locale }: LanguageChangerProps) => {
               ),
             )}
           </ul>
-          <button
-            className="primary mt-6 w-full lg:hidden"
-            onClick={() => setShowAuthModal(true)}
-          >
-            REGISTER
-          </button>
-          <div
-            className="mx-auto text-center lg:hidden"
-            aria-label="Mobile Navigation Copyright"
-          >
-            <Link href="" className="text-midGrey">
-              Copyright {new Date().getFullYear()} poneyape.com
-            </Link>
-          </div>
-        </div>
-        <button className="flex grow rounded-[30px] bg-[#eeeeee] px-4 py-2">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="me-[10px]"
-          >
-            <path
-              fillRule="evenodd"
-              clipRule="evenodd"
-              d="M4 11C4 7.13401 7.13401 4 11 4C14.866 4 18 7.13401 18 11C18 12.8858 17.2543 14.5974 16.0417 15.8561C16.0073 15.8825 15.9743 15.9114 15.9428 15.9429C15.9113 15.9744 15.8824 16.0074 15.856 16.0418C14.5973 17.2543 12.8857 18 11 18C7.13401 18 4 14.866 4 11ZM16.6176 18.0319C15.078 19.2635 13.125 20 11 20C6.02944 20 2 15.9706 2 11C2 6.02944 6.02944 2 11 2C15.9706 2 20 6.02944 20 11C20 13.125 19.2635 15.0781 18.0319 16.6177L21.707 20.2929C22.0975 20.6834 22.0975 21.3166 21.707 21.7071C21.3165 22.0976 20.6833 22.0976 20.2928 21.7071L16.6176 18.0319Z"
-              fill="#1B1B1B"
+          <div className="mx-10 hidden w-full rounded-[30px] bg-[#eeeeee] px-4 py-3 text-black md:flex">
+            <button>
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="me-[10px]"
+              >
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M4 11C4 7.13401 7.13401 4 11 4C14.866 4 18 7.13401 18 11C18 12.8858 17.2543 14.5974 16.0417 15.8561C16.0073 15.8825 15.9743 15.9114 15.9428 15.9429C15.9113 15.9744 15.8824 16.0074 15.856 16.0418C14.5973 17.2543 12.8857 18 11 18C7.13401 18 4 14.866 4 11ZM16.6176 18.0319C15.078 19.2635 13.125 20 11 20C6.02944 20 2 15.9706 2 11C2 6.02944 6.02944 2 11 2C15.9706 2 20 6.02944 20 11C20 13.125 19.2635 15.0781 18.0319 16.6177L21.707 20.2929C22.0975 20.6834 22.0975 21.3166 21.707 21.7071C21.3165 22.0976 20.6833 22.0976 20.2928 21.7071L16.6176 18.0319Z"
+                  fill="#1B1B1B"
+                />
+              </svg>
+            </button>
+            <input
+              type="text"
+              name="search"
+              placeholder="Search"
+              className="m-0 w-full border-none bg-transparent p-0 text-base outline-none placeholder:text-black hover:outline-none"
             />
-          </svg>
-          Search
-        </button>
-        {/* i18nexus */}
-        <div className="flex gap-2 text-black">
-          <select
-            value={currentLocale}
-            onChange={handleChange}
-            className="rounded-[5px] border border-midGrey bg-transparent px-4 py-[10px]"
-          >
-            <option className="hover:text-black" value={"en"}>
-              ENG
-            </option>
-            <option value={"my"}>MY</option>
-          </select>
+          </div>
+
+          <div className="flex shrink-0 items-center gap-2">
+            <select
+              onChange={(e) => setUserLocale(e.target.value as Locale)}
+              className="rounded-[5px] border border-midGrey bg-transparent px-4 py-[10px] text-black"
+            >
+              <option value={"en"}>ENG</option>
+              <option value={"my"}>MY</option>
+            </select>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="block md:hidden">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M4 11C4 7.13401 7.13401 4 11 4C14.866 4 18 7.13401 18 11C18 12.8858 17.2543 14.5974 16.0417 15.8561C16.0073 15.8825 15.9743 15.9114 15.9428 15.9429C15.9113 15.9744 15.8824 16.0074 15.856 16.0418C14.5973 17.2543 12.8857 18 11 18C7.13401 18 4 14.866 4 11ZM16.6176 18.0319C15.078 19.2635 13.125 20 11 20C6.02944 20 2 15.9706 2 11C2 6.02944 6.02944 2 11 2C15.9706 2 20 6.02944 20 11C20 13.125 19.2635 15.0781 18.0319 16.6177L21.707 20.2929C22.0975 20.6834 22.0975 21.3166 21.707 21.7071C21.3165 22.0976 20.6833 22.0976 20.2928 21.7071L16.6176 18.0319Z"
+                      fill="#1B1B1B"
+                    />
+                  </svg>
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="max-w-full border-none shadow-none">
+                <form
+                  action=""
+                  className="flex w-full gap-2 rounded-[30px] border border-black bg-white px-4 py-3 text-black"
+                >
+                  <Search />
+                  <input
+                    type="text"
+                    name="search"
+                    placeholder="Search"
+                    className="m-0 w-full border-none bg-transparent p-0 text-base outline-none placeholder:text-black hover:outline-none"
+                  />
+                </form>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {currentUser ? (
+              <button className="block shrink-0 -rotate-90 lg:hidden">
+                <LogOut className="text-black" />
+              </button>
+            ) : (
+              <button className="block shrink-0 lg:hidden">
+                <LogIn className="text-black" />
+              </button>
+            )}
 
             {currentUser ? (
               <>
