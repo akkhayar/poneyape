@@ -1,5 +1,5 @@
 import { useToast } from "@/hooks/use-toast";
-import { signInWithEmail } from "@/lib/firebase/auth";
+import resetPassword, { signInWithEmail } from "@/lib/firebase/auth";
 import React, { useState } from "react";
 
 const LoginForm = ({ onHide }: { onHide: () => void }) => {
@@ -15,7 +15,7 @@ const LoginForm = ({ onHide }: { onHide: () => void }) => {
         onHide();
       } else {
         toast({
-          className: "bg-red-500 border-none ",
+          className: "bg-red-500 border-none",
           title: "Uh oh! Something went wrong.",
           description: "Please check your email and password and try again.",
         });
@@ -24,6 +24,35 @@ const LoginForm = ({ onHide }: { onHide: () => void }) => {
       toast({
         title: "Uh oh! Something went wrong.",
         description: "Please check your email and password and try again.",
+      });
+    }
+  };
+
+  const handleResetPassword = async () => {
+    if (!email) {
+      toast({
+        className: "bg-red-500 border-none",
+        title: "Please enter your email address",
+        description: "We need your email address to reset your password.",
+      });
+      return;
+    }
+
+    try {
+      const res = await resetPassword(email);
+
+      if (res) {
+        toast({
+          className: "bg-green-500 border-none",
+          title: "Password reset email sent",
+          description:
+            "Check your email for instructions on resetting your password.",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Uh oh! Something went wrong.",
+        description: "Error resetting password. Please try again.",
       });
     }
   };
@@ -47,6 +76,13 @@ const LoginForm = ({ onHide }: { onHide: () => void }) => {
       <button className="c-primary c-solid" onClick={handleEmailSignUp}>
         Login
       </button>
+
+      <div>
+        Forgot your password?{" "}
+        <button className="underline" onClick={handleResetPassword}>
+          Reset
+        </button>
+      </div>
     </div>
   );
 };

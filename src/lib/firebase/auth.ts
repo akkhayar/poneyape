@@ -2,6 +2,7 @@ import {
   createUserWithEmailAndPassword,
   GithubAuthProvider,
   GoogleAuthProvider,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
@@ -148,6 +149,17 @@ export async function signOut() {
     } else return false;
   } catch (error) {
     console.error("Error signing out with Google", error);
+    return false;
+  }
+}
+
+export default async function resetPassword(email: string) {
+  try {
+    const response = await sendPasswordResetEmail(auth, email);
+
+    return true;
+  } catch (error) {
+    console.error("Error resetting link", error);
     return false;
   }
 }
