@@ -33,7 +33,7 @@ export default function CreatePage() {
     authors: [],
     // set when submitted
     publishDate: 0,
-    ownerId: "", 
+    ownerId: "",
   });
 
   const submit = () => {

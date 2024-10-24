@@ -2,16 +2,19 @@ import { createStringExtractor } from "@/lib/util";
 import React from "react";
 import WebsiteCard from "../common/WebsiteCard";
 import Link from "next/link";
+import Image from "next/image";
 
-const PopularWebsites = () => {
-  const lang = "en";
-  const t = createStringExtractor(lang);
+interface PopularWebsitesProps {
+  t: (key: string) => string;
+}
+
+const PopularWebsites = ({ t }: PopularWebsitesProps) => {
   return (
-    <section className="flex flex-col gap-10 px-6 py-10 md:px-16 md:py-[120px]">
+    <section className="flex flex-col gap-10 px-6 md:px-16">
       <div className="mt-[110px] text-black">
         <div className="flex justify-center gap-1 pb-6">
-          <p className="font-semibold">Hot Trend</p>
-          <img
+          <p className="font-semibold">{t("styleBriefNeu")}</p>
+          <Image
             src="/assets/images/fire.png"
             alt="fire"
             width={16}
@@ -22,7 +25,7 @@ const PopularWebsites = () => {
         <h3 className="md:h1 pb-10 text-center text-2xl font-bold capitalize">
           Neumorphism
         </h3>
-        <div className="flex flex-wrap gap-6">
+        <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
           {Array(6)
             .fill(null)
             .map((_, i) => (

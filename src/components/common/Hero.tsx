@@ -23,7 +23,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="flex flex-col gap-10 px-6 md:px-16 md:py-[120px]">
+    <section className="flex flex-col gap-10 px-6 md:px-16">
       <div className="flex flex-col gap-6">
         <h3 className="text-center font-semibold text-black">
           #1 of the month

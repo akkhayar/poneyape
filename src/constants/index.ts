@@ -239,6 +239,25 @@ export const routes = {
   Explore: "/explore",
 };
 
+export const winRoutes = [
+  {
+    route: "/",
+    label: "navHome",
+  },
+  {
+    route: "/contests",
+    label: "navContests",
+  },
+  {
+    route: "/learning",
+    label: "navLearning",
+  },
+  {
+    route: "/explore",
+    label: "navExplore",
+  },
+];
+
 export const Testimonials: TestimonialProps[] = [
   {
     id: 1,

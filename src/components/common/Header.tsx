@@ -10,12 +10,13 @@ import { NavLinks } from "./NavLinks";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { LogIn, LogOut, Search } from "lucide-react";
-import { setUserLocale } from "@/i18n/locale";
+import { getUserLocale, setUserLocale } from "@/i18n/locale";
 import { Locale } from "@/i18n/config";
+import GetNavItemIcon from "./GetNavItemIcon";
+import { useTranslations } from "next-intl";
 
 const getNavItemIcon = (route: keyof typeof routes) => {
   switch (route) {
@@ -107,6 +108,7 @@ const Header = () => {
   const pathname = usePathname().trim();
   const [showBanner, setShowBanner] = useState(true);
   const { currentUser, logout } = useFirebase();
+  const t = useTranslations("HomePage");
 
   return (
     <>
@@ -184,6 +186,7 @@ const Header = () => {
         </section>
       )}
       <div className="flex w-full items-center justify-between px-6 lg:px-16">
+        {/* Mobile Nav */}
         <div className="mr-10 flex items-center gap-2">
           <NavLinks />
           <Link
@@ -193,138 +196,89 @@ const Header = () => {
             <Image src="/poneyape.svg" alt="PoneYape" width={85} height={36} />
           </Link>
         </div>
-
-        <nav className="flex h-[72px] w-full items-center justify-end gap-2 border-b border-solid border-b-bg1 bg-[#ffffff66]">
-          <ul
-            className="hidden text-[#1B1B1B] lg:flex lg:gap-8"
-            aria-label="Navigation Items"
+        {/* Window Nav */}
+        <GetNavItemIcon />
+        <div className="flex shrink-0 items-center gap-2">
+          <select
+            onChange={(e) => setUserLocale(e.target.value as Locale)}
+            className="rounded-[5px] border border-midGrey bg-transparent px-4 py-[10px] text-black"
           >
-            {(Object.keys(routes) as (keyof typeof routes)[]).map(
-              (routeKey) => (
-                <li key={routeKey}>
-                  <Link
-                    className={`flex gap-4 ${pathname === routes[routeKey] && "pointer-events-none font-bold"} py-4`}
-                    href={routes[routeKey]}
-                  >
-                    {getNavItemIcon(routeKey)}
-                    <h5
-                      className={`regular transition-all duration-200 ${pathname === routes[routeKey] ? "font-bold text-black" : "text-darkGrey hover:text-black"}`}
-                    >
-                      {routeKey}
-                    </h5>
-                  </Link>
-                </li>
-              ),
-            )}
-          </ul>
-          <div className="mx-10 hidden w-full rounded-[30px] bg-[#eeeeee] px-4 py-3 text-black md:flex">
-            <button>
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="me-[10px]"
-              >
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M4 11C4 7.13401 7.13401 4 11 4C14.866 4 18 7.13401 18 11C18 12.8858 17.2543 14.5974 16.0417 15.8561C16.0073 15.8825 15.9743 15.9114 15.9428 15.9429C15.9113 15.9744 15.8824 16.0074 15.856 16.0418C14.5973 17.2543 12.8857 18 11 18C7.13401 18 4 14.866 4 11ZM16.6176 18.0319C15.078 19.2635 13.125 20 11 20C6.02944 20 2 15.9706 2 11C2 6.02944 6.02944 2 11 2C15.9706 2 20 6.02944 20 11C20 13.125 19.2635 15.0781 18.0319 16.6177L21.707 20.2929C22.0975 20.6834 22.0975 21.3166 21.707 21.7071C21.3165 22.0976 20.6833 22.0976 20.2928 21.7071L16.6176 18.0319Z"
-                  fill="#1B1B1B"
-                />
-              </svg>
-            </button>
-            <input
-              type="text"
-              name="search"
-              placeholder="Search"
-              className="m-0 w-full border-none bg-transparent p-0 text-base outline-none placeholder:text-black hover:outline-none"
-            />
-          </div>
+            <option value={"en"}>EN</option>
+            <option value={"my"}>MY</option>
+          </select>
 
-          <div className="flex shrink-0 items-center gap-2">
-            <select
-              onChange={(e) => setUserLocale(e.target.value as Locale)}
-              className="rounded-[5px] border border-midGrey bg-transparent px-4 py-[10px] text-black"
-            >
-              <option value={"en"}>ENG</option>
-              <option value={"my"}>MY</option>
-            </select>
-
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button className="block md:hidden">
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M4 11C4 7.13401 7.13401 4 11 4C14.866 4 18 7.13401 18 11C18 12.8858 17.2543 14.5974 16.0417 15.8561C16.0073 15.8825 15.9743 15.9114 15.9428 15.9429C15.9113 15.9744 15.8824 16.0074 15.856 16.0418C14.5973 17.2543 12.8857 18 11 18C7.13401 18 4 14.866 4 11ZM16.6176 18.0319C15.078 19.2635 13.125 20 11 20C6.02944 20 2 15.9706 2 11C2 6.02944 6.02944 2 11 2C15.9706 2 20 6.02944 20 11C20 13.125 19.2635 15.0781 18.0319 16.6177L21.707 20.2929C22.0975 20.6834 22.0975 21.3166 21.707 21.7071C21.3165 22.0976 20.6833 22.0976 20.2928 21.7071L16.6176 18.0319Z"
-                      fill="#1B1B1B"
-                    />
-                  </svg>
-                </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="max-w-full border-none shadow-none">
-                <form
-                  action=""
-                  className="flex w-full gap-2 rounded-[30px] border border-black bg-white px-4 py-3 text-black"
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button className="block md:hidden">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <Search />
-                  <input
-                    type="text"
-                    name="search"
-                    placeholder="Search"
-                    className="m-0 w-full border-none bg-transparent p-0 text-base outline-none placeholder:text-black hover:outline-none"
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M4 11C4 7.13401 7.13401 4 11 4C14.866 4 18 7.13401 18 11C18 12.8858 17.2543 14.5974 16.0417 15.8561C16.0073 15.8825 15.9743 15.9114 15.9428 15.9429C15.9113 15.9744 15.8824 16.0074 15.856 16.0418C14.5973 17.2543 12.8857 18 11 18C7.13401 18 4 14.866 4 11ZM16.6176 18.0319C15.078 19.2635 13.125 20 11 20C6.02944 20 2 15.9706 2 11C2 6.02944 6.02944 2 11 2C15.9706 2 20 6.02944 20 11C20 13.125 19.2635 15.0781 18.0319 16.6177L21.707 20.2929C22.0975 20.6834 22.0975 21.3166 21.707 21.7071C21.3165 22.0976 20.6833 22.0976 20.2928 21.7071L16.6176 18.0319Z"
+                    fill="#1B1B1B"
                   />
-                </form>
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            {currentUser ? (
-              <button className="block shrink-0 -rotate-90 lg:hidden">
-                <LogOut className="text-black" />
+                </svg>
               </button>
-            ) : (
-              <button className="block shrink-0 lg:hidden">
-                <LogIn className="text-black" />
-              </button>
-            )}
-
-            {currentUser ? (
-              <>
-                <button
-                  className="c-outline hidden pb-6 lg:block"
-                  onClick={() => setShowAuthModal(true)}
-                >
-                  Submit Work
-                </button>
-
-                <Image
-                  src={currentUser?.photoURL || ""}
-                  alt="user-avatar"
-                  width={49}
-                  height={48}
-                  className="size-[48px] shrink-0 cursor-pointer rounded-full object-cover"
-                  onClick={() => logout}
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="max-w-full border-none shadow-none">
+              <form
+                action=""
+                className="flex w-full gap-2 rounded-[30px] border border-black bg-white px-4 py-3 text-black"
+              >
+                <Search />
+                <input
+                  type="text"
+                  name="search"
+                  placeholder={t("navSearch")}
+                  className="m-0 w-full border-none bg-transparent p-0 text-base outline-none placeholder:text-black hover:outline-none"
                 />
-              </>
-            ) : (
+              </form>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          {currentUser ? (
+            <button className="block shrink-0 -rotate-90 lg:hidden">
+              <LogOut className="text-black" />
+            </button>
+          ) : (
+            <button className="block shrink-0 lg:hidden">
+              <LogIn className="text-black" />
+            </button>
+          )}
+
+          {currentUser ? (
+            <>
               <button
-                className="c-primary hidden pb-6 lg:block"
+                className="c-outline hidden pb-6 lg:block"
                 onClick={() => setShowAuthModal(true)}
               >
-                REGISTER
+                Submit Work
               </button>
-            )}
-          </div>
-        </nav>
+
+              <Image
+                src={currentUser?.photoURL || ""}
+                alt="user-avatar"
+                width={49}
+                height={48}
+                className="size-[48px] shrink-0 cursor-pointer rounded-full object-cover"
+                onClick={() => logout}
+              />
+            </>
+          ) : (
+            <button
+              className="c-primary hidden pb-6 lg:block"
+              onClick={() => setShowAuthModal(true)}
+            >
+              {t("navBtn1")}
+            </button>
+          )}
+        </div>
       </div>
     </>
   );

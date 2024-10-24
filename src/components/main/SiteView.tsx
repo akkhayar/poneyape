@@ -2,10 +2,9 @@
 import Image from "next/image";
 import PieChart from "@/components/common/PieChart";
 import TagBar from "@/components/common/TagBar";
-import { SocialIcon } from "@/icons/SocialIcon";
-import FontDisplay from "@/components/common/FontDisplay";
-import { getDomain } from "@/lib/util";
 import Link from "next/link";
+import SiteViewDescription from "../common/SiteViewDescription";
+import DesignerInfo from "../common/DesignerInfo";
 
 const SiteView = ({ data, user }: { data: WebsiteData; user: UserData }) => {
   return (
@@ -192,140 +191,20 @@ const SiteView = ({ data, user }: { data: WebsiteData; user: UserData }) => {
           </div>
         </div>
       </section>
-
-      <section
-        className="flex flex-col gap-10 px-6 py-10 text-black md:gap-16 md:px-16 md:py-[120px]"
-        aria-label="Website Details"
-      >
-        <div className="border-b border-dashed border-black pb-10 md:flex md:justify-between md:pb-16">
-          <h5 className="mb-4 flex-1 font-bold">Description</h5>
-          <p className="flex-1">{data.description}</p>
-        </div>
-        <div className="border-b border-dashed border-black pb-10 md:flex md:justify-between md:pb-16">
-          <h5 className="mb-4 flex-1 font-bold">Vision</h5>
-          <p className="flex-1">{data.vision}</p>
-        </div>
-        <div className="border-b border-dashed border-black pb-10 md:flex md:justify-between md:pb-16">
-          <h5 className="mb-4 flex-1 font-bold">Typography</h5>
-          <FontDisplay typography={data.typography} />
-        </div>
-        <div className="border-b border-dashed border-black pb-10 md:flex md:justify-between md:pb-16">
-          <h5 className="mb-4 flex-1 font-bold">Color Palette</h5>
-          <div className="flex flex-1 flex-wrap items-center justify-start gap-4">
-            {data.colorPalette.map((color) => (
-              <div
-                key={color}
-                className="flex h-[170px] w-16 items-end justify-center rounded-[40px] pb-[11px]"
-                style={{ background: color }}
-              >
-                <span
-                  className="mix-blend-difference invert"
-                  style={{ writingMode: "vertical-rl" }}
-                >
-                  {color}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="border-b border-dashed border-black pb-10 md:flex md:justify-between md:pb-16">
-          <h5 className="mb-4 flex-1 font-bold">Tags</h5>
-          <div className="flex flex-1 flex-wrap gap-2">
-            {data.tags.map((tag) => (
-              <div
-                key={tag}
-                className="rounded-[35px] border border-black px-4 py-2"
-              >
-                {tag}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <h1 className="mt-10 text-4xl font-bold md:text-5xl">
-          Other Screens of the Website
-        </h1>
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 xl:grid-cols-3">
-          <Link href="/" className="w-full">
-            <Image
-              src="/eg.jpg"
-              alt="Other Screen"
-              width={416}
-              height={416}
-              className="w-full"
-            />
-          </Link>
-          <Link href="/" className="w-full">
-            <Image
-              src="/eg.jpg"
-              alt="Other Screen"
-              width={416}
-              height={416}
-              className="w-full"
-            />
-          </Link>
-          <Link href="/" className="w-full">
-            <Image
-              src="/eg.jpg"
-              alt="Other Screen"
-              width={416}
-              height={416}
-              className="w-full"
-            />
-          </Link>
-        </div>
-      </section>
-      <section
-        className="relative -z-20 bg-[#1B1B1B] px-6 py-20 text-white md:px-16 md:py-[120px]"
-        aria-label="Designers' Information"
-      >
-        <div
-          className="absolute -left-[380px] top-[45px] -z-10 h-[644px] w-[644px] rounded-[644px] blur-[59px]"
-          style={{
-            background:
-              "linear-gradient(236deg, rgba(0, 10, 96, 0.00) 16.76%, rgba(0, 20, 198, 0.21) 63.4%)",
-          }}
-        />
-        <h3 className="mb-10 text-[32px] font-semibold md:text-4xl">
-          Designer Information
-        </h3>
-        <div className="flex flex-col gap-20 md:flex-row">
-          {data.authors.map((author) => (
-            <div key={author} className="flex flex-col gap-4">
-              <div className="flex items-center gap-6">
-                <Image
-                  src={user.profilePicture}
-                  alt="Profile Picture"
-                  width={80}
-                  height={80}
-                  className="rounded-[100px]"
-                />
-                <div>
-                  <p>{user.name}</p>
-                  <p>{user.profession}</p>
-                </div>
-              </div>
-              <p>{user.about}</p>
-              <div className="flex gap-[14px]">
-                {user.socials.map((link) => {
-                  const domain = getDomain(link);
-                  if (!domain) {
-                    return;
-                  }
-                  return (
-                    <Link key={domain} href={link}>
-                      <SocialIcon
-                        domain={domain}
-                        className="h-[14px] w-[14px]"
-                      />
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+      <SiteViewDescription
+        data={{
+          ownerId: data.ownerId,
+          title: data.title,
+          description: data.description,
+          vision: data.vision,
+          publishDate: data.publishDate,
+          tags: data.tags,
+          typography: data.typography,
+          colorPalette: data.colorPalette,
+          authors: data.authors,
+        }}
+      />
+      <DesignerInfo data={data} user={user} />
     </>
   );
 };
