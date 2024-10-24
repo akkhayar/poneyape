@@ -2,9 +2,11 @@ import { createStringExtractor } from "@/lib/util";
 import Link from "next/link";
 import React from "react";
 
-const LatestNews = () => {
-  const lang = "en";
-  const t = createStringExtractor(lang);
+interface LatestNewsProps {
+  t: (key: string) => string;
+}
+
+const LatestNews = ({ t }: LatestNewsProps) => {
   return (
     <section className="bg-[url('/assets/images/subscribe-bg.webp')] px-6 py-20 text-white md:px-16 md:py-[120px]">
       <div className="flex flex-col gap-6">
@@ -22,9 +24,9 @@ const LatestNews = () => {
             </button>
           </div>
           <p>
-            By subscribing, you agree to our{" "}
+            {t("ltNewsLetter_1")}{" "}
             <Link href="/" className="underline">
-              Terms and Conditions
+              {t("ltNewsLetter_2")}
             </Link>
           </p>
         </div>

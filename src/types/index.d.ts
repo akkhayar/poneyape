@@ -18,7 +18,9 @@ declare type WebsiteCardProps = {
   profile: string;
 };
 
-declare type PageProps = { params: { slug: string } };
+declare type PageProps = {
+  params: { slug: string };
+};
 
 declare type AuthModalProps = {
   show: boolean;

@@ -239,6 +239,25 @@ export const routes = {
   Explore: "/explore",
 };
 
+export const winRoutes = [
+  {
+    route: "/",
+    label: "navHome",
+  },
+  {
+    route: "/contests",
+    label: "navContests",
+  },
+  {
+    route: "/learning",
+    label: "navLearning",
+  },
+  {
+    route: "/explore",
+    label: "navExplore",
+  },
+];
+
 export const Testimonials: TestimonialProps[] = [
   {
     id: 1,
@@ -285,6 +304,94 @@ export const websiteCard: websiteCardFormat[] = [
   },
   {
     id: 4,
+    image: "/eg.png",
+    title: "Website Title",
+    author_name: "Author Name",
+    author_image: "/profile.png",
+    link: "https://www.example.com",
+  },
+  {
+    id: 5,
+    image: "/eg.png",
+    title: "Website Title",
+    author_name: "Author Name",
+    author_image: "/profile.png",
+    link: "https://www.example.com",
+  },
+  {
+    id: 6,
+    image: "/eg.png",
+    title: "Website Title",
+    author_name: "Author Name",
+    author_image: "/profile.png",
+    link: "https://www.example.com",
+  },
+  {
+    id: 7,
+    image: "/eg.png",
+    title: "Website Title",
+    author_name: "Author Name",
+    author_image: "/profile.png",
+    link: "https://www.example.com",
+  },
+  {
+    id: 8,
+    image: "/eg.png",
+    title: "Website Title",
+    author_name: "Author Name",
+    author_image: "/profile.png",
+    link: "https://www.example.com",
+  },
+  {
+    id: 9,
+    image: "/eg.png",
+    title: "Website Title",
+    author_name: "Author Name",
+    author_image: "/profile.png",
+    link: "https://www.example.com",
+  },
+  {
+    id: 10,
+    image: "/eg.png",
+    title: "Website Title",
+    author_name: "Author Name",
+    author_image: "/profile.png",
+    link: "https://www.example.com",
+  },
+  {
+    id: 11,
+    image: "/eg.png",
+    title: "Website Title",
+    author_name: "Author Name",
+    author_image: "/profile.png",
+    link: "https://www.example.com",
+  },
+  {
+    id: 12,
+    image: "/eg.png",
+    title: "Website Title",
+    author_name: "Author Name",
+    author_image: "/profile.png",
+    link: "https://www.example.com",
+  },
+  {
+    id: 13,
+    image: "/eg.png",
+    title: "Website Title",
+    author_name: "Author Name",
+    author_image: "/profile.png",
+    link: "https://www.example.com",
+  },
+  {
+    id: 14,
+    image: "/eg.png",
+    title: "Website Title",
+    author_name: "Author Name",
+    author_image: "/profile.png",
+    link: "https://www.example.com",
+  },
+  {
+    id: 15,
     image: "/eg.png",
     title: "Website Title",
     author_name: "Author Name",

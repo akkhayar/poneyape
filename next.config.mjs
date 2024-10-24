@@ -1,4 +1,8 @@
+import createNextIntlPlugin from "next-intl/plugin";
 /** @type {import('next').NextConfig} */
+
+const withNextIntl = createNextIntlPlugin();
+
 const nextConfig = {
   i18n: {
     locales: ["en-US", "mm"],
@@ -25,4 +29,4 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);
