@@ -1,16 +1,20 @@
 "use client";
 
+import { useFirebase } from "@/hooks/useFirebase";
 import { AlignJustify, Award, BookOpen, Home, Search, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
-export const NavLinks = () => {
+export const NavLinks = ({
+  setShowAuthModel,
+}: {
+  setShowAuthModel: Dispatch<SetStateAction<boolean>>;
+}) => {
   const [open, setOpen] = useState(false);
   const router = useRouter();
-
-  const user = true;
+  const { currentUser, logout } = useFirebase();
 
   const handleClick = (route: string) => {
     router.push(route);
@@ -27,25 +31,27 @@ export const NavLinks = () => {
       </button>
 
       {open && (
-        <div className="fixed left-0 top-0 z-50 flex h-screen w-full flex-col bg-white p-5 text-black lg:hidden">
+        <div className="fixed left-0 top-0 z-20 flex h-screen w-full flex-col bg-white p-5 text-black lg:hidden">
           <X
             className="absolute right-4 top-4 z-10 cursor-pointer"
             size={24}
             onClick={() => setOpen(false)}
           />
 
-          {user ? (
+          {currentUser ? (
             <div className="flex items-center gap-4">
               <Image
-                src="/eg.png"
+                src={currentUser.photoURL || "/eg.jpg"}
                 alt="Eg"
                 width={48}
                 height={48}
                 className="size-[48px] shrink-0 rounded-full"
               />
               <div className="flex flex-col justify-between">
-                <p className="font-semibold text-[#1B1B1B]">Jenny</p>
-                <p className="text-sm text-[#999999]">Jenny@akkhayar.com</p>
+                <p className="font-semibold text-[#1B1B1B]">
+                  {currentUser.displayName}
+                </p>
+                <p className="text-sm text-[#999999]">{currentUser.email}</p>
               </div>
             </div>
           ) : (
@@ -101,12 +107,18 @@ export const NavLinks = () => {
             </ul>
           </nav>
 
-          {user ? (
-            <button className="mt-[40px] w-full rounded-[5px] border border-[#999999] bg-white py-3 text-black">
+          {currentUser ? (
+            <button
+              onClick={() => logout()}
+              className="mt-[40px] w-full rounded-[5px] border border-[#999999] bg-white py-3 text-black"
+            >
               Log Out
             </button>
           ) : (
-            <button className="mt-[40px] w-full rounded-[5px] bg-[#3D52D5] py-3 text-white">
+            <button
+              onClick={() => setShowAuthModel(true)}
+              className="mt-[40px] w-full rounded-[5px] bg-[#3D52D5] py-3 text-white"
+            >
               Register
             </button>
           )}
