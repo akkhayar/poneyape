@@ -1,33 +1,31 @@
-import {
-  getAdditionalUserInfo,
-  GoogleAuthProvider,
-  signInWithPopup,
-} from "firebase/auth";
-import { auth } from "@/lib/firebase";
 import LoginForm from "@/components/main/LoginForm";
 import SignupForm from "@/components/main/SignupForm";
 import { useState } from "react";
+import { AuthModalProps } from "@/types";
+import { signInWithGoogle } from "@/lib/firebase/auth";
 
 const AuthModal = ({ show, setShow }: AuthModalProps) => {
   const [view, setView] = useState<"signup" | "login">("signup");
 
   const handleGoogleSignIn = () => {
-    const provider = new GoogleAuthProvider();
-    provider.setCustomParameters({
-      prompt: "select_account",
-    });
+    // const provider = new GoogleAuthProvider();
+    // provider.setCustomParameters({
+    //   prompt: "select_account",
+    // });
 
-    signInWithPopup(auth, provider)
-      .then(async (result) => {
-        if (getAdditionalUserInfo(result)?.isNewUser) {
-          // toast.success("Successfully signed in.");
-        }
+    // signInWithPopup(auth, provider)
+    //   .then(async (result) => {
+    //     if (getAdditionalUserInfo(result)?.isNewUser) {
+    //       // toast.success("Successfully signed in.");
+    //     }
 
-        setShow(false);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    //     setShow(false);
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
+    signInWithGoogle();
+    setShow(false);
   };
 
   const closeModal = () => setShow(false);

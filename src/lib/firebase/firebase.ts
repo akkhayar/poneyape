@@ -14,7 +14,7 @@ const firebaseConfig = {
   storageBucket: "poneyape-com.appspot.com",
   messagingSenderId: "774628739093",
   appId: "1:774628739093:web:f2a6c4de68089d00ab661c",
-  measurementId: "G-QN0QW2KX5W"
+  measurementId: "G-QN0QW2KX5W",
 };
 
 // Initialize Firebase

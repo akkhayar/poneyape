@@ -15,6 +15,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { LogIn, LogOut, Search } from "lucide-react";
 import { SurveyPopup } from "./SurveyPopup";
+import { signOut } from "@/lib/firebase/auth";
+
+import { auth } from "@/lib/firebase/firebase";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 
 const getNavItemIcon = (route: keyof typeof routes) => {
   switch (route) {
@@ -105,8 +109,9 @@ const Header = () => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const pathname = usePathname().trim();
   const [showBanner, setShowBanner] = useState(true);
-  const { currentUser, logout } = useFirebase();
+
   const [surveyModel, setSurveyModel] = useState(true);
+  const user = useCurrentUser(auth);
 
   return (
     <>
@@ -285,7 +290,7 @@ const Header = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {currentUser ? (
+            {user ? (
               <button className="block shrink-0 -rotate-90 lg:hidden">
                 <LogOut className="text-black" />
               </button>
@@ -295,7 +300,7 @@ const Header = () => {
               </button>
             )}
 
-            {currentUser ? (
+            {user ? (
               <>
                 <button
                   className="c-outline hidden pb-6 lg:block"
@@ -303,15 +308,23 @@ const Header = () => {
                 >
                   Submit Work
                 </button>
-
-                <Image
-                  src={currentUser?.photoURL || ""}
-                  alt="user-avatar"
-                  width={49}
-                  height={48}
-                  className="size-[48px] shrink-0 cursor-pointer rounded-full object-cover"
-                  onClick={() => logout()}
-                />
+                {user?.photoURL ? (
+                  <Image
+                    src={user.photoURL || ""}
+                    alt="user-avatar"
+                    width={49}
+                    height={48}
+                    className="size-[48px] shrink-0 cursor-pointer rounded-full object-cover"
+                    onClick={() => signOut()}
+                  />
+                ) : (
+                  <div
+                    className="flex size-[48px] shrink-0 cursor-pointer items-center justify-center rounded-full bg-gray-300 text-lg font-medium"
+                    onClick={() => signOut()}
+                  >
+                    {user?.email ? user.email[0].toUpperCase() : "N/A"}
+                  </div>
+                )}
               </>
             ) : (
               <button

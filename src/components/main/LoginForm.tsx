@@ -1,37 +1,33 @@
-import { auth } from "@/lib/firebase";
-import {
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-} from "firebase/auth";
+import { useToast } from "@/hooks/use-toast";
+import { signInWithEmail } from "@/lib/firebase/auth";
 import React, { useState } from "react";
 
 const LoginForm = ({ onHide }: { onHide: () => void }) => {
   const [email, setEmail] = useState("");
   const [pswd, setPswd] = useState("");
+  const { toast } = useToast();
 
   const handleEmailSignUp = async () => {
-    signInWithEmailAndPassword(auth, email, pswd)
-      .then(async ({ user: firebaseUser }) => {
-        console.log("firebaseUser", firebaseUser);
-
+    try {
+      const res = await signInWithEmail(email, pswd);
+      console.log(res);
+      if (res) {
         onHide();
-      })
-      .catch((error) => {
-        if (error.code === "auth/invalid-credential") {
-          createUserWithEmailAndPassword(auth, email, pswd).then(
-            async ({ user: firebaseUser }) => {
-              console.log("firebaseUser", firebaseUser);
-              if (error) {
-                // delete user from firebase auth
-                await firebaseUser.delete();
-                return;
-              }
-              onHide();
-            },
-          );
-        }
+      } else {
+        toast({
+          className: "bg-red-500 border-none ",
+          title: "Uh oh! Something went wrong.",
+          description: "Please check your email and password and try again.",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Uh oh! Something went wrong.",
+        description: "Please check your email and password and try again.",
       });
+    }
   };
+
   return (
     <div className="flex flex-col space-y-4">
       <input

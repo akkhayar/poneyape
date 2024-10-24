@@ -123,9 +123,9 @@ const HomeSection = () => {
         <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
           {Array(6)
             .fill(null)
-            .map((_) => (
+            .map((_, i) => (
               <WebsiteCard
-                key={_}
+                key={i}
                 id="eg"
                 coverImage="/eg.png"
                 primaryAuthor="Ralph Edwards"

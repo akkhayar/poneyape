@@ -6,6 +6,7 @@ import LenisWrapper from "@/lib/lenis-wrapper";
 import Footer from "@/components/common/Footer";
 import Head from "next/head";
 import { FirebaseProvider } from "@/context/firebaseContext";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 const poppins = Poppins({
@@ -38,6 +39,7 @@ export default function RootLayout({
           <Header />
           <LenisWrapper>{children}</LenisWrapper>
           <Footer />
+          <Toaster />
         </FirebaseProvider>
       </body>
     </html>
