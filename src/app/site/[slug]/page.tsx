@@ -3,7 +3,7 @@ import SiteView from "@/components/main/SiteView";
 import { DiscoverCarousel } from "@/components/common/CarouselSlider";
 import { useTranslations } from "next-intl";
 
-export default function Site({ params }: PageProps) {
+export default function Site() {
   const t = useTranslations("HomePage");
   return (
     <>
