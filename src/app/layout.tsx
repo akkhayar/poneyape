@@ -1,4 +1,3 @@
-import Metadata from "next";
 import "./globals.css";
 import Header from "@/components/common/Header";
 import LenisWrapper from "@/lib/lenis-wrapper";
@@ -24,7 +23,7 @@ const roboto = Roboto({
   variable: "--font-roboto",
 });
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "poneyape",
   description: "Poneyape",
 };
