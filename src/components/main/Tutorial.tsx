@@ -9,10 +9,10 @@ const Tutorial = () => {
     <section className="flex flex-col items-center justify-center px-6 py-10 text-black md:flex md:flex-row md:px-16 md:py-[120px]">
       <Image
         alt="tutorial-thumbnail"
-        className="mb-6 aspect-square w-full shrink-0 bg-black md:me-20 md:w-1/2"
+        className="mb-6 aspect-square w-full shrink-0 rounded-lg bg-black object-cover md:me-20 md:w-1/2"
         src="/eg.png"
-        width={100}
-        height={100}
+        width={500}
+        height={500}
       />
       <div className="flex flex-col gap-4">
         <p className="font-semibold">{t("tutorialNote")}</p>

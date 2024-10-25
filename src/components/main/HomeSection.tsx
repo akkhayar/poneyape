@@ -49,9 +49,9 @@ const HomeSection = () => {
         <Image
           src="/eg.png"
           alt="1-of-the-month"
-          width={16}
-          height={9}
-          className="rounded-[8px]"
+          width={1000}
+          height={1000}
+          className="w-full rounded-[8px]"
         />
       </div>
       <div className="flex flex-col gap-3">

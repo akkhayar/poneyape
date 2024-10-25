@@ -17,12 +17,8 @@ const WebsiteCard = ({
         <Image
           src={coverImage}
           alt="cover-image"
-          style={{
-            width: "29svw",
-            height: "auto",
-          }}
-          width={16}
-          height={9}
+          width={750}
+          height={750}
           className="mb-6 w-full cursor-pointer rounded-[8px] transition-all duration-300 md:hover:[filter:brightness(0.6)]"
         />
         <button className="c-outline c-white pointer-events-none absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 transition-all duration-300 md:group-hover:block">
