@@ -10,7 +10,7 @@ const Tutorial = () => {
       <Image
         alt="tutorial-thumbnail"
         className="mb-6 aspect-square w-full shrink-0 bg-black md:me-20 md:w-1/2"
-        src=""
+        src="/eg.png"
         width={100}
         height={100}
       />

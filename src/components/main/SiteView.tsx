@@ -6,6 +6,7 @@ import { SocialIcon } from "@/icons/SocialIcon";
 import FontDisplay from "@/components/common/FontDisplay";
 import { getDomain } from "@/lib/util";
 import Link from "next/link";
+import { UserData, WebsiteData } from "@/types";
 
 const SiteView = ({ data, user }: { data: WebsiteData; user: UserData }) => {
   return (
@@ -50,7 +51,6 @@ const SiteView = ({ data, user }: { data: WebsiteData; user: UserData }) => {
           <Image
             src="/eg.png"
             alt="Cover Image"
-            layout="responsive"
             width={16}
             height={9}
             className="rounded-[8px]"

@@ -17,8 +17,9 @@ import {
 } from "@/components/ui/select";
 import Tag from "@/components/common/Tag";
 import { Input } from "@/components/ui/input";
-import { db } from "@/lib/firebase";
 import { useFirebase } from "@/hooks/useFirebase";
+import { WebsiteData } from "@/types";
+import { db } from "@/lib/firebase/firebase";
 
 export default function CreatePage() {
   const [newColorPalette, setNewColorPalette] = useState("");
@@ -33,7 +34,7 @@ export default function CreatePage() {
     authors: [],
     // set when submitted
     publishDate: 0,
-    ownerId: "", 
+    ownerId: "",
   });
 
   const submit = () => {
@@ -69,13 +70,7 @@ export default function CreatePage() {
         <div className="flex h-[100px] w-full items-center justify-center rounded-xl border border-dashed border-gray-600 bg-gray-100">
           Upload a cover Image
         </div>
-        {/* <Image
-          src="/eg.png"
-          alt="Cover Image"
-          layout="responsive"
-          width={16}
-          height={9}
-        /> */}
+
         <h3 className="font-semibold uppercase">{currentData.title}</h3>
       </section>
       <section

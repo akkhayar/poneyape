@@ -7,7 +7,7 @@ export const firebaseApp =
   getApps().find((it) => it.name === "Test") ||
   initializeApp(
     {
-      credential: cert(process.env.FIREBASE_SERVICE_ACCOUNT_KEY!),
+      credential: cert(JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY!)),
     },
     "Test",
   );

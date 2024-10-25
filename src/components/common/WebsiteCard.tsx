@@ -1,6 +1,7 @@
 import Image from "next/image";
 import TagBar from "./TagBar";
 import Link from "next/link";
+import { WebsiteCardProps } from "@/types";
 
 const WebsiteCard = ({
   id,
@@ -20,7 +21,6 @@ const WebsiteCard = ({
             width: "29svw",
             height: "auto",
           }}
-          layout="responsive"
           width={16}
           height={9}
           className="mb-6 w-full cursor-pointer rounded-[8px] transition-all duration-300 md:hover:[filter:brightness(0.6)]"

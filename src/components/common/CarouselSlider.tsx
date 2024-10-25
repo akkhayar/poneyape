@@ -46,6 +46,7 @@ export const WOTMCarousel = () => {
                   src="/eg.png"
                   alt="Website Image"
                   fill
+                  sizes="100%"
                 />
                 <div className="absolute bottom-0 left-0 h-1/2 w-full rounded-xl bg-gradient-to-t from-[rgba(0,0,0,0.6)] to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
                 <div className="absolute bottom-0 left-0 mx-4 my-6 w-full opacity-0 transition duration-300 group-hover:opacity-100">

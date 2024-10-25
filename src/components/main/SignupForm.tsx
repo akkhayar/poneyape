@@ -1,10 +1,6 @@
 import { useToast } from "@/hooks/use-toast";
 import { signUpWithEmail } from "@/lib/firebase/auth";
-import { auth } from "@/lib/firebase/firebase";
-import {
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-} from "firebase/auth";
+
 import React, { useState } from "react";
 
 const SignupForm = ({ onHide }: { onHide: () => void }) => {
@@ -26,13 +22,14 @@ const SignupForm = ({ onHide }: { onHide: () => void }) => {
 
     try {
       const res = await signUpWithEmail(email, pswd);
+
       console.log(res);
 
       if (res) {
         onHide();
       } else {
         toast({
-          className: "bg-red-500 border-none ",
+          className: "bg-red-500 border-none",
           title: "Uh oh! Something went wrong.",
           description: "Please check your email and password and try again.",
         });

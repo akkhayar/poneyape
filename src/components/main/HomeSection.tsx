@@ -49,7 +49,6 @@ const HomeSection = () => {
         <Image
           src="/eg.png"
           alt="1-of-the-month"
-          layout="responsive"
           width={16}
           height={9}
           className="rounded-[8px]"

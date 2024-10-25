@@ -2,6 +2,7 @@ import {
   createUserWithEmailAndPassword,
   GithubAuthProvider,
   GoogleAuthProvider,
+  sendEmailVerification,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
@@ -108,6 +109,7 @@ export async function signUpWithEmail(email: string, password: string) {
       email,
       password,
     );
+    await sendEmailVerification(userCreds.user);
     const idToken = await userCreds.user.getIdToken();
 
     const response = await fetch("/api/auth/sign-in", {
