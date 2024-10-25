@@ -1,6 +1,7 @@
 import { placeholderSiteData, placeholderUserData } from "@/constants";
 import SiteView from "@/components/main/SiteView";
 import { DiscoverCarousel } from "@/components/common/CarouselSlider";
+import { PageProps } from "@/types";
 
 export default function Site({ params }: PageProps) {
   // we need to use the slug from params to fetch
