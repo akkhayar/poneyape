@@ -1,4 +1,12 @@
 import PlaceholderImage from "@/icons/Placeholder Image.webp";
+import {
+  Card,
+  FAQ,
+  TestimonialProps,
+  UserData,
+  websiteCardFormat,
+  WebsiteData,
+} from "@/types";
 
 export const cards: Card[] = [
   {
