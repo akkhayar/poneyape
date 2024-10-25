@@ -2,30 +2,23 @@ import LoginForm from "@/components/main/LoginForm";
 import SignupForm from "@/components/main/SignupForm";
 import { useState } from "react";
 import { AuthModalProps } from "@/types";
-import { signInWithGoogle } from "@/lib/firebase/auth";
+import { signInWithFacebook, signInWithGoogle } from "@/lib/firebase/auth";
 
 const AuthModal = ({ show, setShow }: AuthModalProps) => {
   const [view, setView] = useState<"signup" | "login">("signup");
 
-  const handleGoogleSignIn = () => {
-    // const provider = new GoogleAuthProvider();
-    // provider.setCustomParameters({
-    //   prompt: "select_account",
-    // });
+  const handleGoogleSignIn = async () => {
+    const res = await signInWithGoogle();
+    if (res) {
+      setShow(false);
+    }
+  };
 
-    // signInWithPopup(auth, provider)
-    //   .then(async (result) => {
-    //     if (getAdditionalUserInfo(result)?.isNewUser) {
-    //       // toast.success("Successfully signed in.");
-    //     }
-
-    //     setShow(false);
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //   });
-    signInWithGoogle();
-    setShow(false);
+  const handleFacebookSignIn = async () => {
+    const res = await signInWithFacebook();
+    if (res) {
+      setShow(false);
+    }
   };
 
   const closeModal = () => setShow(false);
@@ -96,6 +89,7 @@ const AuthModal = ({ show, setShow }: AuthModalProps) => {
             data-modal-hide="default-modal"
             type="button"
             className="c-outline c-black"
+            onClick={handleFacebookSignIn}
           >
             Continue with Facebook
           </button>
