@@ -14,6 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { LogIn, LogOut, Search } from "lucide-react";
+import { SurveyPopup } from "./SurveyPopup";
 
 const getNavItemIcon = (route: keyof typeof routes) => {
   switch (route) {
@@ -100,15 +101,17 @@ const getNavItemIcon = (route: keyof typeof routes) => {
 };
 
 const Header = () => {
-  const [showMenuPage, setShowMenuPage] = useState<boolean>(true);
+  // const [showMenuPage, setShowMenuPage] = useState<boolean>(true);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const pathname = usePathname().trim();
   const [showBanner, setShowBanner] = useState(true);
   const { currentUser, logout } = useFirebase();
+  const [surveyModel, setSurveyModel] = useState(true);
 
   return (
     <>
       <AuthModal show={showAuthModal} setShow={setShowAuthModal} />
+      <SurveyPopup open={surveyModel} setOpen={setSurveyModel} />
 
       {showBanner && (
         <section className="bg-linear-gradient-yellow-to-orange px-6 lg:px-16">
@@ -183,7 +186,7 @@ const Header = () => {
       )}
       <div className="flex w-full items-center justify-between px-6 lg:px-16">
         <div className="mr-10 flex items-center gap-2">
-          <NavLinks />
+          <NavLinks setShowAuthModel={setShowAuthModal} />
           <Link
             href="/"
             className="shrink-0 font-pyidaungsu text-[20px] text-black"
@@ -307,7 +310,7 @@ const Header = () => {
                   width={49}
                   height={48}
                   className="size-[48px] shrink-0 cursor-pointer rounded-full object-cover"
-                  onClick={() => logout}
+                  onClick={() => logout()}
                 />
               </>
             ) : (

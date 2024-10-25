@@ -12,14 +12,6 @@ const Team = () => {
         <p>{t("moreQuestionDescription")}</p>
         <OurTeamSlider />
       </div>
-
-      <div>
-        <div className="mb-6">
-          <h3 className="mb-4 font-semibold">We are open for volunteers</h3>
-          <p>{t("volunteeringDescription")}</p>
-        </div>
-        <button className="c-primary w-full md:w-fit">{t("contactUs")}</button>
-      </div>
     </section>
   );
 };
