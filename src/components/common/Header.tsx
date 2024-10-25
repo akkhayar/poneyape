@@ -2,7 +2,6 @@
 import { useState } from "react";
 import AuthModal from "@/components/common/AuthModal";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { routes } from "@/constants";
 import { useFirebase } from "@/hooks/useFirebase";
 import Image from "next/image";
@@ -13,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { LogIn, LogOut, Search } from "lucide-react";
-import { getUserLocale, setUserLocale } from "@/i18n/locale";
+import { setUserLocale } from "@/i18n/locale";
 import { Locale } from "@/i18n/config";
 import GetNavItemIcon from "./GetNavItemIcon";
 import { useTranslations } from "next-intl";
@@ -103,9 +102,7 @@ const getNavItemIcon = (route: keyof typeof routes) => {
 };
 
 const Header = () => {
-  const [showMenuPage, setShowMenuPage] = useState<boolean>(true);
   const [showAuthModal, setShowAuthModal] = useState(false);
-  const pathname = usePathname().trim();
   const [showBanner, setShowBanner] = useState(true);
   const { currentUser, logout } = useFirebase();
   const t = useTranslations("HomePage");
