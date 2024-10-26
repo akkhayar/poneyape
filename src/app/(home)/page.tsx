@@ -5,9 +5,16 @@ import HomeSection from "@/components/main/HomeSection";
 import HotTrend from "@/components/main/HotTrend";
 import FAQ from "@/components/main/FAQ";
 import Team from "@/components/main/Team";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "@/lib/firebase/firebase";
+import { fetchData } from "@/lib/firestore";
+import { WebsiteDataFetch } from "@/types";
 
-export default function Home() {
+export default async function Home() {
   const lang = "en";
+  const data: WebsiteDataFetch[] = await fetchData("triage-websites");
+  console.log(data);
+
   return (
     <div className={`lang-${lang} bg-[var(--background-blue)]`}>
       <HomeSection />

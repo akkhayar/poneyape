@@ -49,8 +49,23 @@ declare type websiteCardFormat = {
   link: string;
 };
 
+declare type WebsiteDataFetch = {
+  id: string;
+  ownerId: string;
+  cover: string;
+  title: string;
+  description: string;
+  vision: string;
+  publishDate: number;
+  tags: string[];
+  typography: string[];
+  colorPalette: string[];
+  authors: string[];
+};
+
 declare type WebsiteData = {
   ownerId: string;
+  cover: string;
   title: string;
   description: string;
   vision: string;

@@ -33,11 +33,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} ${poppins.variable} ${roboto.variable} overflow-hidden`}
+        className={`${inter.className} ${poppins.variable} ${roboto.variable}`}
       >
         <FirebaseProvider>
           <Header />
-          <LenisWrapper>{children}</LenisWrapper>
+          {/* <LenisWrapper> */}
+          {children}
+          {/* </LenisWrapper> */}
           <Footer />
           <Toaster />
         </FirebaseProvider>

@@ -200,7 +200,7 @@ const Header = () => {
           </Link>
         </div>
 
-        <nav className="flex h-[72px] w-full items-center justify-end gap-2 border-b border-solid border-b-bg1 bg-[#ffffff66]">
+        <nav className="flex h-[72px] w-full items-center justify-end gap-2 border-solid bg-[#ffffff66]">
           <ul
             className="hidden text-[#1B1B1B] lg:flex lg:gap-8"
             aria-label="Navigation Items"
