@@ -7,8 +7,15 @@ import FontDisplay from "@/components/common/FontDisplay";
 import { getDomain } from "@/lib/util";
 import Link from "next/link";
 import { UserData, WebsiteData } from "@/types";
+import { useEffect } from "react";
 
-const SiteView = ({ data, user }: { data: WebsiteData; user: UserData }) => {
+const SiteView = ({
+  data,
+  user,
+}: {
+  data: WebsiteData & { cover: string };
+  user: UserData;
+}) => {
   return (
     <>
       <section className="flex flex-col gap-6 px-6 py-10 md:px-16 md:py-10">
@@ -48,12 +55,17 @@ const SiteView = ({ data, user }: { data: WebsiteData; user: UserData }) => {
         </div>
 
         <div className="relative w-full">
-          <Image
+          {/* <Image
             src="/eg.png"
             alt="Cover Image"
-            width={16}
-            height={9}
-            className="rounded-[8px]"
+            width={1000}
+            height={1000}
+            className="w-full rounded-[8px]"
+          /> */}
+          <img
+            src={data.cover}
+            alt="Preview"
+            className="aspect-video w-full rounded-lg object-cover"
           />
 
           <div
@@ -276,11 +288,11 @@ const SiteView = ({ data, user }: { data: WebsiteData; user: UserData }) => {
         </div>
       </section>
       <section
-        className="relative -z-20 bg-[#1B1B1B] px-6 py-20 text-white md:px-16 md:py-[120px]"
+        className="relative bg-[#1B1B1B] px-6 py-20 text-white md:px-16 md:py-[120px]"
         aria-label="Designers' Information"
       >
         <div
-          className="absolute -left-[380px] top-[45px] -z-10 h-[644px] w-[644px] rounded-[644px] blur-[59px]"
+          className="absolute -left-[380px] top-[45px] h-[644px] w-[644px] rounded-[644px] blur-[59px]"
           style={{
             background:
               "linear-gradient(236deg, rgba(0, 10, 96, 0.00) 16.76%, rgba(0, 20, 198, 0.21) 63.4%)",
