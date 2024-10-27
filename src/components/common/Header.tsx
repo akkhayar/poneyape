@@ -10,12 +10,10 @@ import AuthModal from "@/components/common/AuthModal";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { routes } from "@/constants";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
-import { useFirebase } from "@/hooks/useFirebase";
 import { signOut } from "@/lib/firebase/auth";
 import { auth } from "@/lib/firebase/firebase";
 

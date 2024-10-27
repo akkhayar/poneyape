@@ -5,7 +5,6 @@ import LatestNews from "@/components/main/LatestNews";
 import Team from "@/components/main/Team";
 import Testimonial from "@/components/main/Testimonial";
 import Tutorial from "@/components/main/Tutorial";
-import { auth } from "@/lib/firebase/firebase-admin";
 import { fetchData } from "@/lib/firestore";
 import { WebsiteDataFetch } from "@/types";
 
