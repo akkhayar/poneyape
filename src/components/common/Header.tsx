@@ -19,6 +19,7 @@ import { useFirebase } from "@/hooks/useFirebase";
 import { signOut } from "@/lib/firebase/auth";
 import { auth } from "@/lib/firebase/firebase";
 
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { NavLinks } from "./NavLinks";
 import { SurveyPopup } from "./SurveyPopup";
 
@@ -198,7 +199,13 @@ const Header = () => {
             href="/"
             className="shrink-0 font-pyidaungsu text-[20px] text-black"
           >
-            <Image src="/poneyape.svg" alt="PoneYape" width={85} height={36} />
+            <Image
+              src="/poneyape.svg"
+              alt="PoneYape"
+              width={85}
+              height={36}
+              className="h-auto w-auto"
+            />
           </Link>
         </div>
 
@@ -310,23 +317,40 @@ const Header = () => {
                 >
                   Submit Work
                 </button>
-                {user?.photoURL ? (
-                  <Image
-                    src={user.photoURL || ""}
-                    alt="user-avatar"
-                    width={49}
-                    height={48}
-                    className="size-[48px] shrink-0 cursor-pointer rounded-full object-cover"
-                    onClick={() => signOut()}
-                  />
-                ) : (
-                  <div
-                    className="flex size-[48px] shrink-0 cursor-pointer items-center justify-center rounded-full bg-gray-300 text-lg font-medium"
-                    onClick={() => signOut()}
-                  >
-                    {user?.email ? user.email[0].toUpperCase() : "N/A"}
-                  </div>
-                )}
+                <Popover>
+                  <PopoverTrigger>
+                    {user?.photoURL ? (
+                      <Image
+                        src={user?.photoURL || ""}
+                        alt="user-avatar"
+                        width={48}
+                        height={48}
+                        className="size-auto shrink-0 cursor-pointer rounded-full object-cover"
+                        // onClick={() => signOut()}
+                      />
+                    ) : (
+                      <div
+                        className="flex size-[48px] shrink-0 cursor-pointer items-center justify-center rounded-full bg-gray-300 text-lg font-medium"
+                        // onClick={() => signOut()}
+                      >
+                        {user?.email ? user.email[0].toUpperCase() : "N/A"}
+                      </div>
+                    )}
+                  </PopoverTrigger>
+                  <PopoverContent className="max-w-[140px]">
+                    <div className="flex flex-col items-start gap-2">
+                      <button className="w-full text-left hover:text-gray-500">
+                        Profile
+                      </button>
+                      <button
+                        className="w-full text-left hover:text-gray-500"
+                        onClick={() => signOut()}
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  </PopoverContent>
+                </Popover>
               </>
             ) : (
               <button

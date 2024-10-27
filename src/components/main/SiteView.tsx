@@ -2,16 +2,21 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import useSWR from "swr";
 
 import FontDisplay from "@/components/common/FontDisplay";
 import PieChart from "@/components/common/PieChart";
 import TagBar from "@/components/common/TagBar";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { SocialIcon } from "@/icons/SocialIcon";
 import { getDomain } from "@/lib/util";
 import { UserData, WebsiteData } from "@/types";
-
-import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 
 const SiteView = ({ data, user }: { data: WebsiteData; user: UserData }) => {
   const date = new Date(data.publishDate * 1000).toLocaleString();
@@ -65,6 +70,7 @@ const SiteView = ({ data, user }: { data: WebsiteData; user: UserData }) => {
             alt="Preview"
             width={1500}
             height={1500}
+            priority
             className="h-auto w-full rounded-lg object-cover"
           />
 
@@ -116,7 +122,7 @@ const SiteView = ({ data, user }: { data: WebsiteData; user: UserData }) => {
         </div>
 
         <div className="flex flex-col gap-6">
-          <h3 className="text-[32px] font-bold uppercase text-black md:text-[96px]">
+          <h3 className="text-[32px] font-bold uppercase text-black md:text-[48px] xl:text-[96px]">
             {data.title}
           </h3>
           <div
@@ -281,7 +287,13 @@ const SiteView = ({ data, user }: { data: WebsiteData; user: UserData }) => {
                   className="aspect-square w-full cursor-pointer rounded-lg object-cover"
                 />
               </DialogTrigger>
-              <DialogContent className="overflow-y-auto border-none bg-transparent p-0 sm:max-w-2xl">
+              <DialogContent
+                aria-describedby={undefined}
+                className="overflow-y-auto border-none bg-transparent p-0 sm:max-w-2xl"
+              >
+                <VisuallyHidden.Root>
+                  <DialogTitle>Screen {i + 1}</DialogTitle>
+                </VisuallyHidden.Root>
                 <Image
                   src={screen}
                   alt="Other Screen"
