@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Timestamp } from "firebase/firestore";
@@ -221,9 +222,12 @@ export default function CreateForm() {
                         >
                           <X className="h-4 w-4" />
                         </Button>
-                        <img
+                        <Image
                           src={selectedImage}
                           alt="Preview"
+                          width={1500}
+                          height={1500}
+                          priority
                           className="h-auto w-full rounded-lg"
                         />
                       </div>
@@ -613,8 +617,10 @@ export default function CreateForm() {
                             >
                               <X className="h-4 w-4" />
                             </Button>
-                            <img
+                            <Image
                               src={screen}
+                              height={400}
+                              width={400}
                               alt={`Screen preview ${index + 1}`}
                               className="h-auto w-full rounded-lg"
                             />

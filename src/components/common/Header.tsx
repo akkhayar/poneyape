@@ -199,13 +199,7 @@ const Header = () => {
             href="/"
             className="shrink-0 font-pyidaungsu text-[20px] text-black"
           >
-            <Image
-              src="/poneyape.svg"
-              alt="PoneYape"
-              width={85}
-              height={36}
-              className="h-auto w-auto"
-            />
+            <Image src="/poneyape.svg" alt="PoneYape" width={85} height={36} />
           </Link>
         </div>
 
@@ -311,12 +305,12 @@ const Header = () => {
 
             {user ? (
               <>
-                <button
-                  className="c-outline hidden pb-6 lg:block"
-                  onClick={() => setShowAuthModal(true)}
-                >
-                  Submit Work
-                </button>
+                <Link href="/create">
+                  <button className="c-outline hidden pb-6 lg:block">
+                    Submit Work
+                  </button>
+                </Link>
+
                 <Popover>
                   <PopoverTrigger>
                     {user?.photoURL ? (

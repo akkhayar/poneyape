@@ -197,6 +197,7 @@ export const resources: {
 };
 
 export const placeholderSiteData: WebsiteData = {
+  cover: "/eg.png",
   title: "Future Tracking",
   description:
     "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Provident beatae sequi aut harum neque possimus omnis veniam, quas ab labore sit repellendus, nam ipsum dignissimos numquam illum. Quis, veniam optio!",
@@ -208,6 +209,7 @@ export const placeholderSiteData: WebsiteData = {
   colorPalette: ["#E3EBEE", "#DF463C", "#1B3846"],
   authors: ["Thazin Win", "Julia"],
   ownerId: "",
+  screens: ["/eg.png", "/eg.png", "/eg.png"],
 };
 
 export const placeholderUserData: UserData = {
