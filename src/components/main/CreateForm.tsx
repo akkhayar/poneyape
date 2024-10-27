@@ -1,18 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { useRouter } from "next/navigation";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Timestamp } from "firebase/firestore";
-import { X, Plus } from "lucide-react";
-import { useCurrentUser } from "@/hooks/useCurrentUser";
-import { auth } from "@/lib/firebase/firebase";
-import { uploadImage, uploadWebsite } from "@/lib/firestore";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { Plus, X } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -21,7 +20,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -29,12 +29,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { getStorage, ref, uploadBytes } from "firebase/storage";
-import SiteView from "./SiteView";
+import { Textarea } from "@/components/ui/textarea";
 import { placeholderUserData } from "@/constants";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { auth } from "@/lib/firebase/firebase";
+import {
+  uploadImage,
+  uploadMultipleImages,
+  uploadWebsite,
+} from "@/lib/firestore";
 import { WebsiteData } from "@/types";
+
+import SiteView from "./SiteView";
 
 const formSchema = z.object({
   cover: z.instanceof(File).optional(),
@@ -45,6 +51,7 @@ const formSchema = z.object({
   typography: z.string().array().min(1, "At least one typography is required"),
   colorPalette: z.string().array().min(1, "At least one color is required"),
   authors: z.string().array().min(1, "At least one author is required"),
+  screens: z.instanceof(File).array().optional(),
 });
 
 const availableTags = [
@@ -72,8 +79,8 @@ const availableAuthors = [
 
 export default function CreateForm() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedScreens, setSelectedScreens] = useState<string[]>([]);
   const [currentColor, setCurrentColor] = useState("#000000");
-  const [showPreview, setShowPreview] = useState(false);
 
   const user = useCurrentUser(auth);
   const router = useRouter();
@@ -92,6 +99,7 @@ export default function CreateForm() {
   });
 
   const data = form.watch();
+  const isValid = form.formState.isValid;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     if (!user) {
@@ -100,22 +108,22 @@ export default function CreateForm() {
     }
 
     try {
-      const img = await uploadImage(values.cover!);
+      const cover = await uploadImage(values.cover!);
+      const screens = await uploadMultipleImages(values.screens || []);
+
       // const { cover, ...filteredValues } = values;
 
       const formData = {
         ...values,
         publishDate: Timestamp.fromDate(new Date()).seconds,
         ownerId: user.uid,
-        cover: img.url,
+        cover: cover.url,
+        screens: screens.urls,
       } as WebsiteData;
 
       const res = await uploadWebsite(formData);
       if (res.success) {
         router.push("/");
-      }
-      if (img.success) {
-        console.log(img.url);
       }
     } catch (error) {
       console.error(error);
@@ -133,15 +141,21 @@ export default function CreateForm() {
 
           <Dialog>
             <DialogTrigger asChild>
-              <button className="c-outline">Preview</button>
+              <button
+                className="c-outline disabled:cursor-not-allowed"
+                disabled={!isValid}
+              >
+                Preview
+              </button>
             </DialogTrigger>
             <DialogContent className="max-h-screen max-w-screen-md overflow-y-scroll bg-white">
               <SiteView
                 data={{
                   ...data,
-                  cover: selectedImage!,
+                  cover: selectedImage || "/eg.png",
                   ownerId: user?.uid || "",
                   publishDate: Timestamp.fromDate(new Date()).seconds,
+                  screens: selectedScreens,
                 }}
                 user={placeholderUserData}
               />
@@ -210,7 +224,7 @@ export default function CreateForm() {
                         <img
                           src={selectedImage}
                           alt="Preview"
-                          className="aspect-video w-full rounded-lg object-cover"
+                          className="h-auto w-full rounded-lg"
                         />
                       </div>
                     )}
@@ -535,6 +549,85 @@ export default function CreateForm() {
               </FormItem>
             )}
           />
+
+          <div className="w-full">
+            <p className="mb-10 mt-[120px] font-roboto text-[32px] capitalize md:text-[48px]">
+              Other Screens of the Website
+            </p>{" "}
+            <FormField
+              control={form.control}
+              name="screens"
+              render={({ field }) => (
+                <FormItem className="mb-[120px]">
+                  <FormControl>
+                    <div className="space-y-10">
+                      <Label
+                        htmlFor="screen"
+                        className="flex h-[100px] w-full cursor-pointer items-center justify-center rounded-xl border border-dashed border-gray-600 bg-gray-100"
+                      >
+                        {selectedScreens.length > 0
+                          ? "Add more screens"
+                          : "Upload screens"}
+                      </Label>
+                      <Input
+                        id="screen"
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        multiple
+                        onChange={(e) => {
+                          const files = e.target.files;
+                          if (files) {
+                            const newFiles = Array.from(files);
+                            field.onChange(newFiles);
+                            newFiles.forEach((file) => {
+                              const reader = new FileReader();
+                              reader.onload = (event) => {
+                                setSelectedScreens((prev) => [
+                                  ...prev,
+                                  event.target?.result as string,
+                                ]);
+                              };
+                              reader.readAsDataURL(file);
+                            });
+                          }
+                        }}
+                      />
+                      <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+                        {selectedScreens.map((screen, index) => (
+                          <div key={index} className="relative w-full">
+                            <Button
+                              type="button"
+                              variant="outline"
+                              size="icon"
+                              className="absolute -right-2 -top-2 h-8 w-8 rounded-full"
+                              onClick={() => {
+                                setSelectedScreens((prev) =>
+                                  prev.filter((_, i) => i !== index),
+                                );
+                                const newFiles = (field.value ?? []).filter(
+                                  (_, i) => i !== index,
+                                );
+                                field.onChange(newFiles);
+                              }}
+                            >
+                              <X className="h-4 w-4" />
+                            </Button>
+                            <img
+                              src={screen}
+                              alt={`Screen preview ${index + 1}`}
+                              className="h-auto w-full rounded-lg"
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </FormControl>
+                  <FormMessage className="text-red-500" />
+                </FormItem>
+              )}
+            />
+          </div>
 
           <Button type="submit" className="c-primary h-auto w-full">
             Submit

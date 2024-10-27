@@ -1,21 +1,26 @@
 "use client";
+
 import Image from "next/image";
+import Link from "next/link";
+import useSWR from "swr";
+
+import FontDisplay from "@/components/common/FontDisplay";
 import PieChart from "@/components/common/PieChart";
 import TagBar from "@/components/common/TagBar";
 import { SocialIcon } from "@/icons/SocialIcon";
-import FontDisplay from "@/components/common/FontDisplay";
 import { getDomain } from "@/lib/util";
-import Link from "next/link";
 import { UserData, WebsiteData } from "@/types";
-import { useEffect } from "react";
 
-const SiteView = ({
-  data,
-  user,
-}: {
-  data: WebsiteData & { cover: string };
-  user: UserData;
-}) => {
+import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
+
+const SiteView = ({ data, user }: { data: WebsiteData; user: UserData }) => {
+  const date = new Date(data.publishDate * 1000).toLocaleString();
+  const fetcher = (url: string) => fetch(url).then((res) => res.json());
+  const { data: owner, isLoading } = useSWR(
+    `/api/users/${data.ownerId}`,
+    fetcher,
+  );
+
   return (
     <>
       <section className="flex flex-col gap-6 px-6 py-10 md:px-16 md:py-10">
@@ -55,17 +60,12 @@ const SiteView = ({
         </div>
 
         <div className="relative w-full">
-          {/* <Image
-            src="/eg.png"
-            alt="Cover Image"
-            width={1000}
-            height={1000}
-            className="w-full rounded-[8px]"
-          /> */}
-          <img
+          <Image
             src={data.cover}
             alt="Preview"
-            className="aspect-video w-full rounded-lg object-cover"
+            width={1500}
+            height={1500}
+            className="h-auto w-full rounded-lg object-cover"
           />
 
           <div
@@ -124,6 +124,18 @@ const SiteView = ({
             className="flex flex-col gap-3 md:flex-row md:items-center"
           >
             <div className="flex items-center gap-4" aria-label="Authors">
+              <div className="flex items-center gap-2">
+                <Image
+                  src={owner?.photoURL || "/profile.png"}
+                  className="size-8 shrink-0 rounded-full"
+                  alt="Profile Picture"
+                  width={32}
+                  height={32}
+                />
+                <p className="c-small md:c-body font-semibold text-black underline">
+                  {owner?.name}
+                </p>
+              </div>
               {data.authors.map((author) => (
                 <div className="flex items-center gap-2" key={author}>
                   <Image
@@ -146,7 +158,7 @@ const SiteView = ({
             >
               <span className="text-3xl font-bold text-black">·</span>
               <span className="text-sm text-black md:text-lg">
-                Submitted on <span>{data.publishDate}</span>
+                Submitted on <span>{date}</span>
               </span>
               <span className="text-3xl font-bold text-black">·</span>
               <span className="text-sm font-semibold text-black md:text-lg">
@@ -258,33 +270,28 @@ const SiteView = ({
           Other Screens of the Website
         </h1>
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 xl:grid-cols-3">
-          <Link href="/" className="w-full">
-            <Image
-              src="/eg.jpg"
-              alt="Other Screen"
-              width={416}
-              height={416}
-              className="w-full"
-            />
-          </Link>
-          <Link href="/" className="w-full">
-            <Image
-              src="/eg.jpg"
-              alt="Other Screen"
-              width={416}
-              height={416}
-              className="w-full"
-            />
-          </Link>
-          <Link href="/" className="w-full">
-            <Image
-              src="/eg.jpg"
-              alt="Other Screen"
-              width={416}
-              height={416}
-              className="w-full"
-            />
-          </Link>
+          {data?.screens?.map((screen, i) => (
+            <Dialog key={i}>
+              <DialogTrigger asChild>
+                <Image
+                  src={screen}
+                  alt="Other Screen"
+                  width={416}
+                  height={416}
+                  className="aspect-square w-full cursor-pointer rounded-lg object-cover"
+                />
+              </DialogTrigger>
+              <DialogContent className="overflow-y-auto border-none bg-transparent p-0 sm:max-w-2xl">
+                <Image
+                  src={screen}
+                  alt="Other Screen"
+                  width={416}
+                  height={416}
+                  className="w-full rounded-lg object-cover"
+                />
+              </DialogContent>
+            </Dialog>
+          ))}
         </div>
       </section>
       <section

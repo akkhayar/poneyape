@@ -1,3 +1,4 @@
+import { FirebaseError } from "firebase/app";
 import {
   createUserWithEmailAndPassword,
   FacebookAuthProvider,
@@ -10,8 +11,8 @@ import {
 } from "firebase/auth";
 
 import { APIResponse } from "@/types";
+
 import { auth } from "./firebase";
-import { FirebaseError } from "firebase/app";
 
 export async function signInWithGoogle() {
   const provider = new GoogleAuthProvider();

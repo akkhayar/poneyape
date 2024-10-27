@@ -1,9 +1,10 @@
-import { cn } from "@/lib/utils";
 import { useState } from "react";
+
+import { cn } from "@/lib/utils";
 
 const FontDisplay = ({ typography }: { typography: string[] }) => {
   const [selectedFont, setSelectedFont] = useState(0);
-  console.log(selectedFont);
+
   return (
     <div className="flex flex-1 gap-4">
       <div className="w-fit">

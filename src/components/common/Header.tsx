@@ -1,24 +1,26 @@
 "use client";
+
 import { useState } from "react";
-import AuthModal from "@/components/common/AuthModal";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { routes } from "@/constants";
-import { useFirebase } from "@/hooks/useFirebase";
-import Image from "next/image";
-import { NavLinks } from "./NavLinks";
+import { LogIn, LogOut, Search } from "lucide-react";
+
+import AuthModal from "@/components/common/AuthModal";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LogIn, LogOut, Search } from "lucide-react";
-import { SurveyPopup } from "./SurveyPopup";
-import { signOut } from "@/lib/firebase/auth";
-
-import { auth } from "@/lib/firebase/firebase";
+import { routes } from "@/constants";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { useFirebase } from "@/hooks/useFirebase";
+import { signOut } from "@/lib/firebase/auth";
+import { auth } from "@/lib/firebase/firebase";
+
+import { NavLinks } from "./NavLinks";
+import { SurveyPopup } from "./SurveyPopup";
 
 const getNavItemIcon = (route: keyof typeof routes) => {
   switch (route) {
@@ -110,7 +112,7 @@ const Header = () => {
   const pathname = usePathname().trim();
   const [showBanner, setShowBanner] = useState(true);
 
-  const [surveyModel, setSurveyModel] = useState(true);
+  const [surveyModel, setSurveyModel] = useState(false);
   const user = useCurrentUser(auth);
 
   return (

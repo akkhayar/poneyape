@@ -1,7 +1,7 @@
+import React, { useState } from "react";
+
 import { useToast } from "@/hooks/use-toast";
 import { signUpWithEmail } from "@/lib/firebase/auth";
-
-import React, { useState } from "react";
 
 const SignupForm = ({ onHide }: { onHide: () => void }) => {
   const [email, setEmail] = useState("");
@@ -22,8 +22,6 @@ const SignupForm = ({ onHide }: { onHide: () => void }) => {
 
     try {
       const res = await signUpWithEmail(email, pswd);
-
-      console.log(res);
 
       if (res) {
         onHide();

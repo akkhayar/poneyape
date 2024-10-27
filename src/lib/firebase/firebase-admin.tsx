@@ -1,6 +1,5 @@
-import "server-only";
-import { cert, getApps, initializeApp } from "firebase-admin/app";
 import { cookies } from "next/headers";
+import { cert, getApps, initializeApp } from "firebase-admin/app";
 import { getAuth, SessionCookieOptions } from "firebase-admin/auth";
 
 export const firebaseApp =

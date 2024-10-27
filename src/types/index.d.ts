@@ -15,7 +15,7 @@ declare type WebsiteCardProps = {
   tags: string[];
   primaryAuthor: string;
   coverImage: string;
-  profile: string;
+  // profile: string;
 };
 
 declare type PageProps = { params: { slug: string } };
@@ -61,6 +61,7 @@ declare type WebsiteDataFetch = {
   typography: string[];
   colorPalette: string[];
   authors: string[];
+  screens: string[];
 };
 
 declare type WebsiteData = {
@@ -74,6 +75,7 @@ declare type WebsiteData = {
   typography: string[];
   colorPalette: string[];
   authors: string[];
+  screens: string[];
 };
 
 declare type UserData = {
