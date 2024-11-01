@@ -2,12 +2,9 @@ import { cookies } from "next/headers";
 import { cert, getApps, initializeApp } from "firebase-admin/app";
 import { getAuth, SessionCookieOptions } from "firebase-admin/auth";
 
-const certificate =
-  process.env.FIREBASE_SERVICE_ACCOUNT_KEY ||
-  process.env.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT_KEY;
+const certificate = process.env.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT_KEY;
 
-if (!certificate)
-  throw Error("Missing firebase environment variable");
+if (!certificate) throw Error("Missing firebase environment variable");
 
 export const firebaseApp =
   getApps().find((it) => it.name === "Test") ||
