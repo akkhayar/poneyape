@@ -5,21 +5,24 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LogIn, LogOut, Search } from "lucide-react";
+import useSWR from "swr";
 
 import AuthModal from "@/components/common/AuthModal";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { routes } from "@/constants";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
-import { useFirebase } from "@/hooks/useFirebase";
 import { signOut } from "@/lib/firebase/auth";
 import { auth } from "@/lib/firebase/firebase";
+import { getUserLocale, setUserLocale } from "@/locale";
+import useLocale from "@/locale/client";
+import { Locale } from "@/locale/config";
 
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Skeleton } from "../ui/skeleton";
 import { NavLinks } from "./NavLinks";
 import { SurveyPopup } from "./SurveyPopup";
 
@@ -115,6 +118,8 @@ const Header = () => {
 
   const [surveyModel, setSurveyModel] = useState(false);
   const user = useCurrentUser(auth);
+
+  const { locale, isLoading, error } = useLocale();
 
   return (
     <>
@@ -253,10 +258,18 @@ const Header = () => {
           </div>
 
           <div className="flex shrink-0 items-center gap-2">
-            <select className="rounded-[5px] border border-midGrey bg-transparent px-4 py-[10px] text-black">
-              <option>ENG</option>
-              <option>MY</option>
-            </select>
+            {isLoading ? (
+              <Skeleton className="h-[45px] w-[90px] bg-gray-300" />
+            ) : (
+              <select
+                value={locale}
+                onChange={(e) => setUserLocale(e.target.value as Locale)}
+                className="rounded-[5px] border border-midGrey bg-transparent px-4 py-[10px] text-black"
+              >
+                <option value={"en-US"}>ENG</option>
+                <option value={"my-mm"}>MY</option>
+              </select>
+            )}
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

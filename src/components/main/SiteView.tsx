@@ -15,7 +15,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { SocialIcon } from "@/icons/SocialIcon";
-import { getDomain } from "@/lib/util";
+import { getDomain } from "@/lib/utils";
 import { UserData, WebsiteData } from "@/types";
 
 const SiteView = ({ data, user }: { data: WebsiteData; user: UserData }) => {

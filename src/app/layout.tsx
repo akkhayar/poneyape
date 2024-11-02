@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
 import { Inter, Poppins, Roboto } from "next/font/google";
+
 import "./globals.css";
-import Header from "@/components/common/Header";
-import LenisWrapper from "@/lib/lenis-wrapper";
+
+import { PrismicPreview } from "@prismicio/next";
+
 import Footer from "@/components/common/Footer";
-import Head from "next/head";
-import { FirebaseProvider } from "@/context/firebaseContext";
+import Header from "@/components/common/Header";
 import { Toaster } from "@/components/ui/toaster";
+import { FirebaseProvider } from "@/context/firebaseContext";
+import LenisWrapper from "@/lib/lenis-wrapper";
+import { repositoryName } from "@/prismicio";
 
 const inter = Inter({ subsets: ["latin"] });
 const poppins = Poppins({
@@ -43,6 +47,7 @@ export default function RootLayout({
           <Footer />
           <Toaster />
         </FirebaseProvider>
+        <PrismicPreview repositoryName={repositoryName} />
       </body>
     </html>
   );
