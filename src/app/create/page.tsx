@@ -1,10 +1,10 @@
 import { redirect } from "next/navigation";
 
 import CreateForm from "@/components/main/CreateForm";
-import { getCurrentUser } from "@/lib/firebase/firebase-admin";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 
 export default async function CreatePage() {
-  const user = await getCurrentUser();
+  const user = useCurrentUser();
 
   if (!user) redirect("/");
 
