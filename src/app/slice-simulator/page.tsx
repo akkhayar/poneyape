@@ -10,7 +10,8 @@ import { components } from "@/slices";
 export default function SliceSimulatorPage({
   searchParams,
 }: SliceSimulatorParams) {
-  const slices = getSlices(searchParams.state);
+  const state = searchParams.state as string | undefined;
+  const slices = getSlices(state);
 
   return (
     <SliceSimulator>
