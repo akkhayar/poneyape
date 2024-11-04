@@ -1,10 +1,9 @@
 "use client";
 
-import { profile } from "console";
 import Image from "next/image";
 import Link from "next/link";
-import useSWR from "swr";
 
+import { useFirestoreUser } from "@/hooks/useFirestoreUser";
 import { WebsiteCardProps } from "@/types";
 
 import TagBar from "./TagBar";
@@ -16,11 +15,7 @@ const WebsiteCard = ({
   primaryAuthor,
   coverImage,
 }: WebsiteCardProps) => {
-  const fetcher = (url: string) => fetch(url).then((res) => res.json());
-  const { data: user, isLoading } = useSWR(
-    `/api/users/${primaryAuthor}`,
-    fetcher,
-  );
+  const { userInfo: user, isLoading, error } = useFirestoreUser(primaryAuthor);
 
   return (
     <div className="flex w-full flex-col justify-center">
@@ -53,7 +48,7 @@ const WebsiteCard = ({
             className="rounded-[32px]"
           />
           <p className="font-roboto underline">
-            {isLoading ? "Loading..." : user?.name}
+            {isLoading ? "Loading..." : user?.displayName}
           </p>
         </div>
       </div>

@@ -1,12 +1,9 @@
 "use client";
 
 import { useCurrentUser } from "@/hooks/useCurrentUser";
-import { useFirebase } from "@/hooks/useFirebase";
-import { signOut } from "@/lib/firebase/auth";
-import { auth } from "@/lib/firebase/firebase";
+import { firebaseClient } from "@/lib/firebase";
 import { AlignJustify, Award, BookOpen, Home, Search, X } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction, useState } from "react";
 
@@ -17,7 +14,7 @@ export const NavLinks = ({
 }) => {
   const [open, setOpen] = useState(false);
   const router = useRouter();
-  const user = useCurrentUser(auth);
+  const user = useCurrentUser();
 
   const handleClick = (route: string) => {
     router.push(route);
@@ -50,12 +47,12 @@ export const NavLinks = ({
                   width={49}
                   height={48}
                   className="size-[48px] shrink-0 cursor-pointer rounded-full object-cover"
-                  onClick={() => signOut()}
+                  onClick={() => firebaseClient.signOut()}
                 />
               ) : (
                 <div
                   className="flex size-[48px] shrink-0 cursor-pointer items-center justify-center rounded-full bg-gray-300 text-lg font-medium"
-                  onClick={() => signOut()}
+                  onClick={() => firebaseClient.signOut()}
                 >
                   {user?.email ? user.email[0].toUpperCase() : "N/A"}
                 </div>
@@ -122,7 +119,7 @@ export const NavLinks = ({
 
           {user ? (
             <button
-              onClick={() => signOut()}
+              onClick={() => firebaseClient.signOut()}
               className="mt-[40px] w-full rounded-[5px] border border-[#999999] bg-white py-3 text-black"
             >
               Log Out

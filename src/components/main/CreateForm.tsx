@@ -33,7 +33,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { placeholderUserData } from "@/constants";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
-import { auth } from "@/lib/firebase/firebase";
+import { auth } from "@/lib/firebase";
 import {
   uploadImage,
   uploadMultipleImages,
