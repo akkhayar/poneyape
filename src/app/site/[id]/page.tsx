@@ -1,12 +1,13 @@
 import { DiscoverCarousel } from "@/components/common/CarouselSlider";
 import SiteView from "@/components/main/SiteView";
-import { placeholderSiteData, placeholderUserData } from "@/constants";
-import { fetchData, fetchDataById } from "@/lib/firestore";
+import { placeholderUserData } from "@/constants";
+import { firebaseClient } from "@/lib/firebase";
 import { WebsiteDataFetch } from "@/types";
 
 export default async function SitePage({ params }: { params: { id: string } }) {
-  const websites: WebsiteDataFetch[] = await fetchData("triage-websites");
-  const data: WebsiteDataFetch = await fetchDataById(
+  const websites: WebsiteDataFetch[] =
+    await firebaseClient.fetchData("triage-websites");
+  const data: WebsiteDataFetch = await firebaseClient.fetchDataById(
     "triage-websites",
     params.id,
   );

@@ -5,12 +5,13 @@ import LatestNews from "@/components/main/LatestNews";
 import Team from "@/components/main/Team";
 import Testimonial from "@/components/main/Testimonial";
 import Tutorial from "@/components/main/Tutorial";
-import { fetchData } from "@/lib/firestore";
+import { firebaseClient } from "@/lib/firebase";
 import { WebsiteDataFetch } from "@/types";
 
 export default async function Home() {
   const lang = "en";
-  const data: WebsiteDataFetch[] = await fetchData("triage-websites");
+  const data: WebsiteDataFetch[] =
+    await firebaseClient.fetchData("triage-websites");
 
   return (
     <div className={`lang-${lang} bg-[var(--background-blue)]`}>
