@@ -34,11 +34,11 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const storage = getStorage(app);
 
-export class FirebaseClient {
+class FirebaseClient {
   private auth: Auth;
 
   constructor(auth: Auth) {
@@ -49,7 +49,7 @@ export class FirebaseClient {
     try {
       const provider = new GoogleAuthProvider();
       provider.setCustomParameters({ prompt: "select_account" });
-      await signInWithPopup(auth, provider);
+      await signInWithPopup(this.auth, provider);
       return true;
     } catch (error) {
       console.log("FirebaseClient loginWithGoogle error", error);
@@ -61,7 +61,7 @@ export class FirebaseClient {
     const provider = new FacebookAuthProvider();
 
     try {
-      const userCreds = await signInWithPopup(auth, provider);
+      const userCreds = await signInWithPopup(this.auth, provider);
       const idToken = await userCreds.user.getIdToken();
 
       const response = await fetch("/api/auth/sign-in", {
@@ -92,7 +92,7 @@ export class FirebaseClient {
     const provider = new GithubAuthProvider();
 
     try {
-      const userCreds = await signInWithPopup(auth, provider);
+      const userCreds = await signInWithPopup(this.auth, provider);
       const idToken = await userCreds.user.getIdToken();
       const response = await fetch("/api/auth/sign-in", {
         method: "POST",
@@ -120,7 +120,7 @@ export class FirebaseClient {
 
   async signInWithEmail(email: string, password: string) {
     try {
-      const userCreds = await signInWithEmailAndPassword(auth, email, password);
+      const userCreds = await signInWithEmailAndPassword(this.auth, email, password);
       const idToken = await userCreds.user.getIdToken();
 
       const response = await fetch("/api/auth/sign-in", {
@@ -150,7 +150,7 @@ export class FirebaseClient {
   async signUpWithEmail(email: string, password: string) {
     try {
       const userCreds = await createUserWithEmailAndPassword(
-        auth,
+        this.auth,
         email,
         password,
       );
@@ -164,11 +164,20 @@ export class FirebaseClient {
 
   async resetPassword(email: string) {
     try {
-      const response = await sendPasswordResetEmail(auth, email);
+      const response = await sendPasswordResetEmail(this.auth, email);
 
       return true;
     } catch (error) {
       console.error("Error resetting link", error);
+      return false;
+    }
+  }
+  
+  async logout() {
+    try {
+      await this.auth.signOut();
+      return true;
+    } catch (error) {
       return false;
     }
   }
