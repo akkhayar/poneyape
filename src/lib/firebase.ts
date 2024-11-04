@@ -45,6 +45,9 @@ class FirebaseClient {
     this.auth = auth;
   }
 
+  async createFirestoreUser() {
+  }
+
   async signInWithGoogle() {
     try {
       const provider = new GoogleAuthProvider();
@@ -61,21 +64,8 @@ class FirebaseClient {
     const provider = new FacebookAuthProvider();
 
     try {
-      const userCreds = await signInWithPopup(this.auth, provider);
-      const idToken = await userCreds.user.getIdToken();
-
-      const response = await fetch("/api/auth/sign-in", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ idToken }),
-      });
-
-      const resBody = (await response.json()) as unknown as APIResponse<string>;
-      if (response.ok && resBody.success) {
-        return true;
-      } else return false;
+      await signInWithPopup(this.auth, provider);
+      return true;
     } catch (error) {
       console.error("Error signing in with Google", error);
       if (
@@ -92,20 +82,8 @@ class FirebaseClient {
     const provider = new GithubAuthProvider();
 
     try {
-      const userCreds = await signInWithPopup(this.auth, provider);
-      const idToken = await userCreds.user.getIdToken();
-      const response = await fetch("/api/auth/sign-in", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ idToken }),
-      });
-
-      const resBody = (await response.json()) as unknown as APIResponse<string>;
-      if (response.ok && resBody.success) {
-        return true;
-      } else return false;
+      await signInWithPopup(this.auth, provider);
+      return true;
     } catch (error) {
       console.error("Error signing in with Github", error);
       if (
@@ -120,7 +98,11 @@ class FirebaseClient {
 
   async signInWithEmail(email: string, password: string) {
     try {
-      const userCreds = await signInWithEmailAndPassword(this.auth, email, password);
+      const userCreds = await signInWithEmailAndPassword(
+        this.auth,
+        email,
+        password,
+      );
       const idToken = await userCreds.user.getIdToken();
 
       const response = await fetch("/api/auth/sign-in", {
@@ -172,8 +154,8 @@ class FirebaseClient {
       return false;
     }
   }
-  
-  async logout() {
+
+  async signOut() {
     try {
       await this.auth.signOut();
       return true;
