@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { SliceZone } from "@prismicio/react";
 import {
   getSlices,
@@ -5,13 +7,12 @@ import {
   SliceSimulatorParams,
 } from "@slicemachine/adapter-next/simulator";
 
-import { components } from "@/slices";
+import { components } from "../../slices";
 
-export default async function SliceSimulatorPage({
+export default function SliceSimulatorPage({
   searchParams,
 }: SliceSimulatorParams) {
-  const state = (await searchParams.state) as string | undefined;
-  const slices = await getSlices(state);
+  const slices = getSlices(searchParams.state);
 
   return (
     <SliceSimulator>
