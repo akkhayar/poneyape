@@ -31,7 +31,7 @@ const SiteView = ({
   user: UserData;
   details: WebsiteDetailDocument<string>;
 }) => {
-  const date = new Date(dasta.publishDate * 1000).toLocaleString();
+  const date = new Date(data.publishDate * 1000).toLocaleString();
   const { userInfo: owner, isLoading, error } = useFirestoreUser(data.ownerId);
 
   return (
