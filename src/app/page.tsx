@@ -9,8 +9,7 @@ import LatestNews from "@/components/main/LatestNews";
 import Team from "@/components/main/Team";
 import Testimonial from "@/components/main/Testimonial";
 import Tutorial from "@/components/main/Tutorial";
-import { auth } from "@/lib/firebase/firebase-admin";
-import { fetchData } from "@/lib/firestore";
+import { firebaseClient } from "@/lib/firebase";
 import { getUserLocale } from "@/locale";
 import { createClient } from "@/prismicio";
 import { components } from "@/slices";
@@ -36,7 +35,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Home() {
-  const data: WebsiteDataFetch[] = await fetchData("triage-websites");
+  const data: WebsiteDataFetch[] = await firebaseClient.fetchData("triage-websites");
   const lang = await getUserLocale();
 
   const client = createClient();
