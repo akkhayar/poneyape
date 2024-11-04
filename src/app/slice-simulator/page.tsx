@@ -1,4 +1,4 @@
-/* eslint-disable */
+// @ts-nocheck
 
 import { SliceZone } from "@prismicio/react";
 import {
