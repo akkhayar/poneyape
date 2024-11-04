@@ -35,6 +35,7 @@ import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { firebaseClient } from "@/lib/firebase";
 import { WebsiteData } from "@/types";
 
+import { WebsiteDetailDocument } from "../../../prismicio-types";
 import SiteView from "./SiteView";
 
 const formSchema = z.object({
@@ -72,7 +73,11 @@ const availableAuthors = [
   { name: "Emma Brown", id: "5" },
 ];
 
-export default function CreateForm() {
+export default function CreateForm({
+  details,
+}: {
+  details: WebsiteDetailDocument<string>;
+}) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [selectedScreens, setSelectedScreens] = useState<string[]>([]);
   const [currentColor, setCurrentColor] = useState("#000000");
@@ -145,6 +150,7 @@ export default function CreateForm() {
             </DialogTrigger>
             <DialogContent className="max-h-screen max-w-screen-md overflow-y-scroll bg-white">
               <SiteView
+                details={details}
                 data={{
                   ...data,
                   cover: selectedImage || "/eg.png",

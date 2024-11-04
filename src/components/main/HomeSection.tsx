@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { buttonLinks, filters } from "@/constants";
-import { cn, createStringExtractor } from "@/lib/util";
+import { cn, createStringExtractor } from "@/lib/utils";
 import { WebsiteDataFetch } from "@/types";
 
 import WebsiteCard from "../common/WebsiteCard";
