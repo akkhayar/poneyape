@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { Inter, Poppins, Roboto } from "next/font/google";
+
 import "./globals.css";
-import Header from "@/components/common/Header";
-import LenisWrapper from "@/lib/lenis-wrapper";
+
 import Footer from "@/components/common/Footer";
-import Head from "next/head";
-import { FirebaseProvider } from "@/context/firebaseContext";
+import Header from "@/components/common/Header";
 import { Toaster } from "@/components/ui/toaster";
+import LenisWrapper from "@/lib/lenis-wrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 const poppins = Poppins({
@@ -35,14 +35,12 @@ export default function RootLayout({
       <body
         className={`${inter.className} ${poppins.variable} ${roboto.variable}`}
       >
-        <FirebaseProvider>
-          <Header />
-          {/* <LenisWrapper> */}
-          {children}
-          {/* </LenisWrapper> */}
-          <Footer />
-          <Toaster />
-        </FirebaseProvider>
+        <Header />
+        {/* <LenisWrapper> */}
+        {children}
+        {/* </LenisWrapper> */}
+        <Footer />
+        <Toaster />
       </body>
     </html>
   );
