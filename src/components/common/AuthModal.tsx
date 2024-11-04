@@ -2,20 +2,21 @@ import LoginForm from "@/components/main/LoginForm";
 import SignupForm from "@/components/main/SignupForm";
 import { useState } from "react";
 import { AuthModalProps } from "@/types";
-import { signInWithFacebook, signInWithGoogle } from "@/lib/firebase/auth";
+import { firebaseClient } from "@/lib/firebase";
+import GoogleIcon from "../icons/GoogleIcon";
 
 const AuthModal = ({ show, setShow }: AuthModalProps) => {
   const [view, setView] = useState<"signup" | "login">("signup");
 
   const handleGoogleSignIn = async () => {
-    const res = await signInWithGoogle();
+    const res = await firebaseClient.signInWithGoogle();
     if (res) {
       setShow(false);
     }
   };
 
   const handleFacebookSignIn = async () => {
-    const res = await signInWithFacebook();
+    const res = await firebaseClient.signInWithFacebook();
     if (res) {
       setShow(false);
     }
@@ -80,9 +81,10 @@ const AuthModal = ({ show, setShow }: AuthModalProps) => {
           <button
             data-modal-hide="default-modal"
             type="button"
-            className="c-outline c-black"
+            className="c-outline c-black flex gap-2 justify-center items-center"
             onClick={handleGoogleSignIn}
           >
+            <GoogleIcon />
             Continue with Google
           </button>
           <button
