@@ -53,7 +53,7 @@ const WebsiteCard = ({
             className="rounded-[32px]"
           />
           <p className="font-roboto underline">
-            {isLoading ? "Loading..." : user?.name}
+            {isLoading ? "Loading..." : user?.name || user?.email}
           </p>
         </div>
       </div>

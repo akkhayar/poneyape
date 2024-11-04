@@ -3,8 +3,10 @@
 import dynamic from "next/dynamic";
 
 export const components = {
+  faq: dynamic(() => import("./Faq")),
   hero: dynamic(() => import("./Hero")),
   hot_trend: dynamic(() => import("./HotTrend")),
+  notification: dynamic(() => import("./Notification")),
   popular_websites: dynamic(() => import("./PopularWebsites")),
   subscribe: dynamic(() => import("./Subscribe")),
   team: dynamic(() => import("./Team")),

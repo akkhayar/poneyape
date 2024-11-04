@@ -37,7 +37,7 @@ export const WOTMCarousel = ({ data }: { data: WebsiteDataFetch[] }) => {
     <div className="flex flex-col">
       <Carousel className="w-full" setApi={setApi}>
         <CarouselContent className="-ml-12">
-          {data.map((item, index) => (
+          {data?.map((item, index) => (
             <WOTMCarouselCard key={item.id} item={item} />
           ))}
         </CarouselContent>

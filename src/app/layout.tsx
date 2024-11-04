@@ -10,7 +10,8 @@ import Header from "@/components/common/Header";
 import { Toaster } from "@/components/ui/toaster";
 import { FirebaseProvider } from "@/context/firebaseContext";
 import LenisWrapper from "@/lib/lenis-wrapper";
-import { repositoryName } from "@/prismicio";
+import { getUserLocale } from "@/locale";
+import { createClient, repositoryName } from "@/prismicio";
 
 const inter = Inter({ subsets: ["latin"] });
 const poppins = Poppins({
@@ -29,18 +30,23 @@ export const metadata: Metadata = {
   description: "Poneyape",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getUserLocale();
+  const client = createClient();
+
+  const data = await client.getSingle("header_links", { lang: locale });
+
   return (
     <html lang="en">
       <body
         className={`${inter.className} ${poppins.variable} ${roboto.variable}`}
       >
         <FirebaseProvider>
-          <Header />
+          <Header locale={locale} data={data} />
           {/* <LenisWrapper> */}
           {children}
           {/* </LenisWrapper> */}

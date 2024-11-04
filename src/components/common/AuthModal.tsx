@@ -1,8 +1,9 @@
+import { useState } from "react";
+
 import LoginForm from "@/components/main/LoginForm";
 import SignupForm from "@/components/main/SignupForm";
-import { useState } from "react";
-import { AuthModalProps } from "@/types";
 import { signInWithFacebook, signInWithGoogle } from "@/lib/firebase/auth";
+import { AuthModalProps } from "@/types";
 
 const AuthModal = ({ show, setShow }: AuthModalProps) => {
   const [view, setView] = useState<"signup" | "login">("signup");
@@ -71,11 +72,10 @@ const AuthModal = ({ show, setShow }: AuthModalProps) => {
           ) : (
             <SignupForm onHide={closeModal} />
           )}
-          <div className="relative py-4">
-            <span className="absolute left-[220px] top-1 bg-black px-1 text-white">
-              OR
-            </span>
-            <hr className="border border-dashed border-[#1B1B1B]" />
+          <div className="relative flex w-full items-center py-4">
+            <div className="w-full border border-dashed border-[#1B1B1B]" />
+            <span className="px-1">OR</span>
+            <div className="w-full border border-dashed border-[#1B1B1B]" />
           </div>
           <button
             data-modal-hide="default-modal"

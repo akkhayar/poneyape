@@ -4,7 +4,111 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
+/**
+ * Item in *Header Links → Links*
+ */
+export interface HeaderLinksDocumentDataLinksItem {
+  /**
+   * Icon field in *Header Links → Links*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header_links.links[].icon
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  icon: prismic.ImageField<never>;
+
+  /**
+   * Href field in *Header Links → Links*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header_links.links[].href
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  href: prismic.LinkField;
+}
+
+type HeaderLinksDocumentDataSlicesSlice = NotificationSlice;
+
+/**
+ * Content for Header Links documents
+ */
+interface HeaderLinksDocumentData {
+  /**
+   * Links field in *Header Links*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header_links.links[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  links: prismic.GroupField<Simplify<HeaderLinksDocumentDataLinksItem>>;
+
+  /**
+   * Search field in *Header Links*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header_links.search
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  search: prismic.KeyTextField;
+
+  /**
+   * Submit Work field in *Header Links*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header_links.submit_work
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  submit_work: prismic.KeyTextField;
+
+  /**
+   * Register field in *Header Links*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header_links.register
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  register: prismic.KeyTextField;
+
+  /**
+   * Slice Zone field in *Header Links*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header_links.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<HeaderLinksDocumentDataSlicesSlice>;
+}
+
+/**
+ * Header Links document from Prismic
+ *
+ * - **API ID**: `header_links`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type HeaderLinksDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<HeaderLinksDocumentData>,
+    "header_links",
+    Lang
+  >;
+
 type HomeDocumentDataSlicesSlice =
+  | FaqSlice
   | TeamSlice
   | SubscribeSlice
   | TutorialSlice
@@ -73,103 +177,290 @@ export type HomeDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithoutUID<Simplify<HomeDocumentData>, "home", Lang>;
 
 /**
- * Item in *Member → Socials*
+ * Content for Website Detail documents
  */
-export interface MemberDocumentDataSocialsItem {
+interface WebsiteDetailDocumentData {
   /**
-   * Logo field in *Member → Socials*
+   * Nominated field in *Website Detail*
    *
-   * - **Field Type**: Image
+   * - **Field Type**: Text
    * - **Placeholder**: *None*
-   * - **API ID Path**: member.socials[].logo
-   * - **Documentation**: https://prismic.io/docs/field#image
+   * - **API ID Path**: website_detail.nominated
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
    */
-  logo: prismic.ImageField<never>;
+  nominated: prismic.KeyTextField;
 
   /**
-   * Link field in *Member → Socials*
+   * Vote field in *Website Detail*
    *
-   * - **Field Type**: Link
+   * - **Field Type**: Text
    * - **Placeholder**: *None*
-   * - **API ID Path**: member.socials[].link
-   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   * - **API ID Path**: website_detail.vote
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
    */
-  link: prismic.LinkField;
+  vote: prismic.KeyTextField;
+
+  /**
+   * Share field in *Website Detail*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: website_detail.share
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  share: prismic.KeyTextField;
+
+  /**
+   * Copy Link field in *Website Detail*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: website_detail.copy_link
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  copy_link: prismic.KeyTextField;
+
+  /**
+   * Views field in *Website Detail*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: website_detail.views
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  views: prismic.KeyTextField;
+
+  /**
+   * Description field in *Website Detail*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: website_detail.description
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  description: prismic.KeyTextField;
+
+  /**
+   * Vision field in *Website Detail*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: website_detail.vision
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  vision: prismic.KeyTextField;
+
+  /**
+   * Typography field in *Website Detail*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: website_detail.typography
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  typography: prismic.KeyTextField;
+
+  /**
+   * Color Palette field in *Website Detail*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: website_detail.color_palette
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  color_palette: prismic.KeyTextField;
+
+  /**
+   * Tags field in *Website Detail*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: website_detail.tags
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  tags: prismic.KeyTextField;
+
+  /**
+   * Other Screens of the Website field in *Website Detail*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: website_detail.other_screens_of_the_website
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  other_screens_of_the_website: prismic.KeyTextField;
+
+  /**
+   * Designer Information field in *Website Detail*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: website_detail.designer_information
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  designer_information: prismic.KeyTextField;
+
+  /**
+   * Similar Collections field in *Website Detail*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: website_detail.similar_collections
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  similar_collections: prismic.KeyTextField;
 }
 
 /**
- * Content for Member documents
- */
-interface MemberDocumentData {
-  /**
-   * Name field in *Member*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: member.name
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */
-  name: prismic.KeyTextField;
-
-  /**
-   * Position field in *Member*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: member.position
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */
-  position: prismic.KeyTextField;
-
-  /**
-   * Profile field in *Member*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: member.profile
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#image
-   */
-  profile: prismic.ImageField<never>;
-
-  /**
-   * Message field in *Member*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: member.message
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */
-  message: prismic.KeyTextField;
-
-  /**
-   * Socials field in *Member*
-   *
-   * - **Field Type**: Group
-   * - **Placeholder**: *None*
-   * - **API ID Path**: member.socials[]
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#group
-   */
-  socials: prismic.GroupField<Simplify<MemberDocumentDataSocialsItem>>;
-}
-
-/**
- * Member document from Prismic
+ * Website Detail document from Prismic
  *
- * - **API ID**: `member`
- * - **Repeatable**: `true`
+ * - **API ID**: `website_detail`
+ * - **Repeatable**: `false`
  * - **Documentation**: https://prismic.io/docs/custom-types
  *
  * @typeParam Lang - Language API ID of the document.
  */
-export type MemberDocument<Lang extends string = string> =
-  prismic.PrismicDocumentWithUID<Simplify<MemberDocumentData>, "member", Lang>;
+export type WebsiteDetailDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<WebsiteDetailDocumentData>,
+    "website_detail",
+    Lang
+  >;
 
-export type AllDocumentTypes = HomeDocument | MemberDocument;
+export type AllDocumentTypes =
+  | HeaderLinksDocument
+  | HomeDocument
+  | WebsiteDetailDocument;
+
+/**
+ * Item in *Faq → Default → Primary → Questions*
+ */
+export interface FaqSliceDefaultPrimaryQuestionsItem {
+  /**
+   * Question field in *Faq → Default → Primary → Questions*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: faq.default.primary.questions[].question
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  question: prismic.KeyTextField;
+
+  /**
+   * Answer field in *Faq → Default → Primary → Questions*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: faq.default.primary.questions[].answer
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  answer: prismic.KeyTextField;
+}
+
+/**
+ * Primary content in *Faq → Default → Primary*
+ */
+export interface FaqSliceDefaultPrimary {
+  /**
+   * Title field in *Faq → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: faq.default.primary.title
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Description field in *Faq → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: faq.default.primary.description
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  description: prismic.KeyTextField;
+
+  /**
+   * Questions field in *Faq → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: faq.default.primary.questions[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  questions: prismic.GroupField<Simplify<FaqSliceDefaultPrimaryQuestionsItem>>;
+
+  /**
+   * Questioning Title field in *Faq → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: faq.default.primary.questioning_title
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  questioning_title: prismic.KeyTextField;
+
+  /**
+   * Questioning Description field in *Faq → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: faq.default.primary.questioning_description
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  questioning_description: prismic.KeyTextField;
+
+  /**
+   * Questioning Link field in *Faq → Default → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: faq.default.primary.questioning_link
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  questioning_link: prismic.LinkField;
+}
+
+/**
+ * Default variation for Faq Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type FaqSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<FaqSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Faq*
+ */
+type FaqSliceVariation = FaqSliceDefault;
+
+/**
+ * Faq Shared Slice
+ *
+ * - **API ID**: `faq`
+ * - **Description**: Faq
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type FaqSlice = prismic.SharedSlice<"faq", FaqSliceVariation>;
 
 /**
  * Primary content in *Hero → Default → Primary*
@@ -326,6 +617,91 @@ type HotTrendSliceVariation = HotTrendSliceDefault;
 export type HotTrendSlice = prismic.SharedSlice<
   "hot_trend",
   HotTrendSliceVariation
+>;
+
+/**
+ * Primary content in *Notification → Default → Primary*
+ */
+export interface NotificationSliceDefaultPrimary {
+  /**
+   * Icon field in *Notification → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: notification.default.primary.icon
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  icon: prismic.ImageField<never>;
+
+  /**
+   * Title field in *Notification → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: notification.default.primary.title
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Description field in *Notification → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: notification.default.primary.description
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  description: prismic.KeyTextField;
+
+  /**
+   * Gradient 1 field in *Notification → Default → Primary*
+   *
+   * - **Field Type**: Color
+   * - **Placeholder**: *None*
+   * - **API ID Path**: notification.default.primary.gradient_1
+   * - **Documentation**: https://prismic.io/docs/field#color
+   */
+  gradient_1: prismic.ColorField;
+
+  /**
+   * Gradient 2 field in *Notification → Default → Primary*
+   *
+   * - **Field Type**: Color
+   * - **Placeholder**: *None*
+   * - **API ID Path**: notification.default.primary.gradient_2
+   * - **Documentation**: https://prismic.io/docs/field#color
+   */
+  gradient_2: prismic.ColorField;
+}
+
+/**
+ * Default variation for Notification Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type NotificationSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<NotificationSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Notification*
+ */
+type NotificationSliceVariation = NotificationSliceDefault;
+
+/**
+ * Notification Shared Slice
+ *
+ * - **API ID**: `notification`
+ * - **Description**: Notification
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type NotificationSlice = prismic.SharedSlice<
+  "notification",
+  NotificationSliceVariation
 >;
 
 /**
@@ -843,13 +1219,21 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
+      HeaderLinksDocument,
+      HeaderLinksDocumentData,
+      HeaderLinksDocumentDataLinksItem,
+      HeaderLinksDocumentDataSlicesSlice,
       HomeDocument,
       HomeDocumentData,
       HomeDocumentDataSlicesSlice,
-      MemberDocument,
-      MemberDocumentData,
-      MemberDocumentDataSocialsItem,
+      WebsiteDetailDocument,
+      WebsiteDetailDocumentData,
       AllDocumentTypes,
+      FaqSlice,
+      FaqSliceDefaultPrimaryQuestionsItem,
+      FaqSliceDefaultPrimary,
+      FaqSliceVariation,
+      FaqSliceDefault,
       HeroSlice,
       HeroSliceDefaultPrimary,
       HeroSliceVariation,
@@ -858,6 +1242,10 @@ declare module "@prismicio/client" {
       HotTrendSliceDefaultPrimary,
       HotTrendSliceVariation,
       HotTrendSliceDefault,
+      NotificationSlice,
+      NotificationSliceDefaultPrimary,
+      NotificationSliceVariation,
+      NotificationSliceDefault,
       PopularWebsitesSlice,
       PopularWebsitesSliceDefaultPrimary,
       PopularWebsitesSliceVariation,

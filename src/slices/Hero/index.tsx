@@ -8,18 +8,22 @@ import { SliceComponentProps } from "@prismicio/react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import useLocale from "@/locale/client";
+import { Locale } from "@/locale/config";
 
 /**
  * Props for `Hero`.
  */
-export type HeroProps = SliceComponentProps<Content.HeroSlice>;
+export type HeroProps = SliceComponentProps<Content.HeroSlice> & {
+  context: {
+    locale: Locale;
+  };
+};
 
 /**
  * Component for "Hero" Slices.
  */
-const Hero = ({ slice }: HeroProps): JSX.Element => {
-  const { locale, isLoading, isValidating } = useLocale();
-  console.log(locale);
+const Hero = ({ slice, context }: HeroProps): JSX.Element => {
+  const locale = context.locale;
 
   return (
     <section
@@ -31,8 +35,8 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
         <h1
           className={cn(
             "font-poppins text-[40px] font-bold text-black md:text-[86px]",
+            locale === "en-US" ? "leading-[100%]" : "leading-[160%]",
           )}
-          style={{ lineHeight: locale === "en-US" ? "100%" : "160%" }}
         >
           {slice.primary.title_1}{" "}
           <span className="text-primary">{slice.primary.title_2}</span>{" "}

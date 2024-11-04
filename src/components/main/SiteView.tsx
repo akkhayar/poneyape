@@ -18,7 +18,17 @@ import { SocialIcon } from "@/icons/SocialIcon";
 import { getDomain } from "@/lib/utils";
 import { UserData, WebsiteData } from "@/types";
 
-const SiteView = ({ data, user }: { data: WebsiteData; user: UserData }) => {
+import { WebsiteDetailDocument } from "../../../prismicio-types";
+
+const SiteView = ({
+  data,
+  user,
+  details,
+}: {
+  data: WebsiteData;
+  user: UserData;
+  details: WebsiteDetailDocument<string>;
+}) => {
   const date = new Date(data.publishDate * 1000).toLocaleString();
   const fetcher = (url: string) => fetch(url).then((res) => res.json());
   const { data: owner, isLoading } = useSWR(
@@ -41,7 +51,7 @@ const SiteView = ({ data, user }: { data: WebsiteData; user: UserData }) => {
             <div className="flex md:items-center">
               <div className="me-1 mt-[6px] h-[14px] w-[14px] rounded-full border-4 border-[#D7E2FF] bg-[#3D52D5] md:mt-0" />
               <p className="c-body font-semibold uppercase text-primary">
-                nominated
+                {details.data.nominated}
               </p>
             </div>
             <button className="hidden rounded-[8px] border border-black px-4 py-3 md:block">
@@ -59,7 +69,7 @@ const SiteView = ({ data, user }: { data: WebsiteData; user: UserData }) => {
               </svg>
             </button>
             <button className="c-black hidden flex-grow rounded-[8px] bg-black px-6 py-3 text-white md:block">
-              Vote
+              {details.data.vote}
             </button>
           </div>
         </div>
@@ -94,7 +104,9 @@ const SiteView = ({ data, user }: { data: WebsiteData; user: UserData }) => {
                   fill="#1B1B1B"
                 />
               </svg>
-              <span className="hidden text-black md:block">Share</span>
+              <span className="hidden text-black md:block">
+                {details.data.share}
+              </span>
             </button>
             <button className="flex flex-1 flex-grow justify-center gap-3 bg-white py-3">
               <svg
@@ -113,10 +125,12 @@ const SiteView = ({ data, user }: { data: WebsiteData; user: UserData }) => {
                   fill="#1B1B1B"
                 />
               </svg>
-              <span className="hidden text-black md:block">Copy Link</span>
+              <span className="hidden text-black md:block">
+                {details.data.copy_link}
+              </span>
             </button>
             <button className="c-black flex-1 flex-grow rounded-r-full bg-black py-3 text-white">
-              Vote
+              {details.data.vote}
             </button>
           </div>
         </div>
@@ -129,7 +143,10 @@ const SiteView = ({ data, user }: { data: WebsiteData; user: UserData }) => {
             aria-label="Website Card"
             className="flex flex-col gap-3 md:flex-row md:items-center"
           >
-            <div className="flex items-center gap-4" aria-label="Authors">
+            <div
+              className="flex flex-wrap items-center gap-4"
+              aria-label="Authors"
+            >
               <div className="flex items-center gap-2">
                 <Image
                   src={owner?.photoURL || "/profile.png"}
@@ -139,7 +156,7 @@ const SiteView = ({ data, user }: { data: WebsiteData; user: UserData }) => {
                   height={32}
                 />
                 <p className="c-small md:c-body font-semibold text-black underline">
-                  {owner?.name}
+                  {owner?.name || owner?.email}
                 </p>
               </div>
               {data.authors.map((author) => (
@@ -168,7 +185,7 @@ const SiteView = ({ data, user }: { data: WebsiteData; user: UserData }) => {
               </span>
               <span className="text-3xl font-bold text-black">·</span>
               <span className="text-sm font-semibold text-black md:text-lg">
-                61 views
+                61 {details.data.views}
               </span>{" "}
               <span className="text-3xl font-bold text-black">·</span>
               <PieChart percentage={50} />
@@ -195,7 +212,9 @@ const SiteView = ({ data, user }: { data: WebsiteData; user: UserData }) => {
                   fill="#1B1B1B"
                 />
               </svg>
-              <span className="hidden text-black md:block">Share</span>
+              <span className="hidden text-black md:block">
+                {details.data.share}
+              </span>
             </button>
             <button className="flex flex-1 flex-grow justify-center gap-3 bg-white py-3">
               <svg
@@ -214,10 +233,12 @@ const SiteView = ({ data, user }: { data: WebsiteData; user: UserData }) => {
                   fill="#1B1B1B"
                 />
               </svg>
-              <span className="hidden text-black md:block">Copy Link</span>
+              <span className="hidden text-black md:block">
+                {details.data.copy_link}
+              </span>
             </button>
             <button className="c-black flex-1 flex-grow rounded-r-full bg-black py-3 text-white">
-              Vote
+              {details.data.vote}
             </button>
           </div>
         </div>
@@ -228,19 +249,21 @@ const SiteView = ({ data, user }: { data: WebsiteData; user: UserData }) => {
         aria-label="Website Details"
       >
         <div className="border-b border-dashed border-black pb-10 md:flex md:justify-between md:pb-16">
-          <h5 className="mb-4 flex-1 font-bold">Description</h5>
+          <h5 className="mb-4 flex-1 font-bold">{details.data.description}</h5>
           <p className="flex-1">{data.description}</p>
         </div>
         <div className="border-b border-dashed border-black pb-10 md:flex md:justify-between md:pb-16">
-          <h5 className="mb-4 flex-1 font-bold">Vision</h5>
+          <h5 className="mb-4 flex-1 font-bold">{details.data.vision}</h5>
           <p className="flex-1">{data.vision}</p>
         </div>
         <div className="border-b border-dashed border-black pb-10 md:flex md:justify-between md:pb-16">
-          <h5 className="mb-4 flex-1 font-bold">Typography</h5>
+          <h5 className="mb-4 flex-1 font-bold">{details.data.typography}</h5>
           <FontDisplay typography={data.typography} />
         </div>
         <div className="border-b border-dashed border-black pb-10 md:flex md:justify-between md:pb-16">
-          <h5 className="mb-4 flex-1 font-bold">Color Palette</h5>
+          <h5 className="mb-4 flex-1 font-bold">
+            {details.data.color_palette}
+          </h5>
           <div className="flex flex-1 flex-wrap items-center justify-start gap-4">
             {data.colorPalette.map((color) => (
               <div
@@ -259,7 +282,7 @@ const SiteView = ({ data, user }: { data: WebsiteData; user: UserData }) => {
           </div>
         </div>
         <div className="border-b border-dashed border-black pb-10 md:flex md:justify-between md:pb-16">
-          <h5 className="mb-4 flex-1 font-bold">Tags</h5>
+          <h5 className="mb-4 flex-1 font-bold">{details.data.tags}</h5>
           <div className="flex flex-1 flex-wrap gap-2">
             {data.tags.map((tag) => (
               <div
@@ -273,7 +296,7 @@ const SiteView = ({ data, user }: { data: WebsiteData; user: UserData }) => {
         </div>
 
         <h1 className="mt-10 text-4xl font-bold md:text-5xl">
-          Other Screens of the Website
+          {details.data.other_screens_of_the_website}
         </h1>
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 xl:grid-cols-3">
           {data?.screens?.map((screen, i) => (
@@ -318,7 +341,7 @@ const SiteView = ({ data, user }: { data: WebsiteData; user: UserData }) => {
           }}
         />
         <h3 className="mb-10 text-[32px] font-semibold md:text-4xl">
-          Designer Information
+          {details.data.designer_information}
         </h3>
         <div className="flex flex-col gap-20 md:flex-row">
           {data.authors.map((author) => (
