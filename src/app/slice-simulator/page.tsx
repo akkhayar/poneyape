@@ -7,11 +7,11 @@ import {
 
 import { components } from "@/slices";
 
-export default function SliceSimulatorPage({
+export default async function SliceSimulatorPage({
   searchParams,
 }: SliceSimulatorParams) {
-  const state = searchParams.state as string | undefined;
-  const slices = getSlices(state);
+  const state = (await searchParams.state) as string | undefined;
+  const slices = await getSlices(state);
 
   return (
     <SliceSimulator>
