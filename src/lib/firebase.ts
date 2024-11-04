@@ -12,10 +12,18 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  getFirestore,
+} from "firebase/firestore";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { v4 as uuid } from "uuid";
 
-import { APIResponse } from "@/types";
+import { APIResponse, WebsiteData, WebsiteDataFetch } from "@/types";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -45,8 +53,7 @@ class FirebaseClient {
     this.auth = auth;
   }
 
-  async createFirestoreUser() {
-  }
+  async createFirestoreUser() {}
 
   async signInWithGoogle() {
     try {
@@ -162,6 +169,69 @@ class FirebaseClient {
     } catch (error) {
       return false;
     }
+  }
+
+  async uploadWebsite(data: WebsiteData) {
+    try {
+      const res = await addDoc(collection(db, "triage-websites"), data);
+
+      return { success: true, data: res };
+    } catch (error) {
+      return { success: true, error };
+    }
+  }
+
+  async uploadImage(file: File) {
+    try {
+      const storageRef = ref(storage, `sitedata/${file.name + uuid()}`);
+      const res = await uploadBytes(storageRef, file);
+      const url = await getDownloadURL(res.ref);
+
+      return { success: true, res, url };
+    } catch (error) {
+      return { success: false, error };
+    }
+  }
+
+  async uploadMultipleImages(files: File[]) {
+    const uploadPromises = files.map((file) => this.uploadImage(file));
+
+    // Wait for all uploads to complete
+    const results = await Promise.all(uploadPromises);
+
+    // Filter successful uploads and extract URLs
+    const urls = await results.map((result) => result.url);
+
+    // Optional: Log or handle any failed uploads
+    const errors = results.map((result) => result.error);
+
+    // let urls: string[] = [];
+    // for (let i = 0; i < files.length; i++) {
+    //   const storageRef = ref(storage, `sitedata/${files[i].name + uuid()}`);
+    //   const res = await uploadBytes(storageRef, files[i]).then((res) => res);
+    //   const url = await getDownloadURL(res.ref);
+    //   urls.push(url);
+    // }
+
+    return { urls, errors };
+  }
+
+  async fetchData(collectionName: string) {
+    const data: any[] = [];
+    const dataSnapshot = await getDocs(collection(db, collectionName));
+    dataSnapshot.docs.forEach((doc) =>
+      data.push({ id: doc.id, ...doc.data() }),
+    );
+
+    return data;
+  }
+
+  async fetchDataById(collectionName: string, value: string) {
+    const docRef = doc(db, collectionName, value);
+    const dataSnapshot = await getDoc(docRef);
+    const data = dataSnapshot.data() as WebsiteDataFetch;
+
+    return data;
   }
 }
 
