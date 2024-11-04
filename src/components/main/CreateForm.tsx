@@ -5,7 +5,6 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Timestamp } from "firebase/firestore";
-import { getStorage, ref, uploadBytes } from "firebase/storage";
 import { Plus, X } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -33,12 +32,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { placeholderUserData } from "@/constants";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
-import { auth } from "@/lib/firebase/firebase";
-import {
-  uploadImage,
-  uploadMultipleImages,
-  uploadWebsite,
-} from "@/lib/firestore";
+import { firebaseClient } from "@/lib/firebase";
 import { WebsiteData } from "@/types";
 
 import { WebsiteDetailDocument } from "../../../prismicio-types";
@@ -88,7 +82,7 @@ export default function CreateForm({
   const [selectedScreens, setSelectedScreens] = useState<string[]>([]);
   const [currentColor, setCurrentColor] = useState("#000000");
 
-  const user = useCurrentUser(auth);
+  const user = useCurrentUser();
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -114,8 +108,8 @@ export default function CreateForm({
     }
 
     try {
-      const cover = await uploadImage(values.cover!);
-      const screens = await uploadMultipleImages(values.screens || []);
+      const cover = await firebaseClient.uploadImage(values.cover!);
+      const screens = await firebaseClient.uploadMultipleImages(values.screens || []);
 
       // const { cover, ...filteredValues } = values;
 
@@ -127,7 +121,7 @@ export default function CreateForm({
         screens: screens.urls,
       } as WebsiteData;
 
-      const res = await uploadWebsite(formData);
+      const res = await firebaseClient.uploadWebsite(formData);
       if (res.success) {
         router.push("/");
       }

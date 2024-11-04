@@ -17,6 +17,8 @@ import {
 import { SocialIcon } from "@/icons/SocialIcon";
 import { getDomain } from "@/lib/utils";
 import { UserData, WebsiteData } from "@/types";
+import { useFirestoreUser } from "@/hooks/useFirestoreUser";
+import { ChevronLeft } from "lucide-react";
 
 import { WebsiteDetailDocument } from "../../../prismicio-types";
 
@@ -29,26 +31,22 @@ const SiteView = ({
   user: UserData;
   details: WebsiteDetailDocument<string>;
 }) => {
-  const date = new Date(data.publishDate * 1000).toLocaleString();
-  const fetcher = (url: string) => fetch(url).then((res) => res.json());
-  const { data: owner, isLoading } = useSWR(
-    `/api/users/${data.ownerId}`,
-    fetcher,
-  );
+  const date = new Date(dasta.publishDate * 1000).toLocaleString();
+  const { userInfo: owner, isLoading, error } = useFirestoreUser(data.ownerId);
 
   return (
     <>
       <section className="flex flex-col gap-6 px-6 py-10 md:px-16 md:py-10">
         <div className="flex items-start justify-between lg:items-center">
           <div className="flex flex-col gap-2 md:gap-6 lg:flex-row">
-            <Link className="hidden text-primary lg:block" href="\">
-              &lt; Home
+            <Link className="hidden text-primary lg:flex lg:gap-2 " href="\">
+              <ChevronLeft /> Home
             </Link>
             <p className="c-body font-semibold text-[#1B1B1B]">{data.title}</p>
             <TagBar tags={data.tags} />
           </div>
           <div className="flex gap-4">
-            <div className="flex md:items-center">
+            <div className="flex md:items-center opacity-0">
               <div className="me-1 mt-[6px] h-[14px] w-[14px] rounded-full border-4 border-[#D7E2FF] bg-[#3D52D5] md:mt-0" />
               <p className="c-body font-semibold uppercase text-primary">
                 {details.data.nominated}
@@ -156,7 +154,7 @@ const SiteView = ({
                   height={32}
                 />
                 <p className="c-small md:c-body font-semibold text-black underline">
-                  {owner?.name || owner?.email}
+                  {owner?.displayName}
                 </p>
               </div>
               {data.authors.map((author) => (

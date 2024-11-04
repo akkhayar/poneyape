@@ -6,7 +6,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { PrismicNextLink } from "@prismicio/next";
 import { SliceZone } from "@prismicio/react";
-import { LogIn, LogOut, Search } from "lucide-react";
+import {
+  AwardIcon,
+  BookOpen,
+  HomeIcon,
+  LogIn,
+  LogOut,
+  Search,
+} from "lucide-react";
 
 import AuthModal from "@/components/common/AuthModal";
 import {
@@ -15,8 +22,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
-import { signOut } from "@/lib/firebase/auth";
-import { auth } from "@/lib/firebase/firebase";
+import { firebaseClient } from "@/lib/firebase";
 import { cn } from "@/lib/utils";
 import { setUserLocale } from "@/locale";
 import { Locale } from "@/locale/config";
@@ -32,6 +38,19 @@ import { Skeleton } from "../ui/skeleton";
 import { NavLinks } from "./NavLinks";
 import { SurveyPopup } from "./SurveyPopup";
 
+const getNavItemIcon = (route: string) => {
+  switch (route) {
+    case "Home":
+      return <HomeIcon className="lg:hidden" />;
+    case "Contests":
+      return <AwardIcon className="lg:hidden" />;
+    case "Learning":
+      return <BookOpen className="lg:hidden" />;
+    case "Explore":
+      return <Search className="lg:hidden" />;
+  }
+};
+
 const Header = ({
   locale,
   data,
@@ -44,7 +63,7 @@ const Header = ({
   // const [showBanner, setShowBanner] = useState(true);
 
   const [surveyModel, setSurveyModel] = useState(false);
-  const user = useCurrentUser(auth);
+  const user = useCurrentUser();
 
   const links = data.data.links;
 
@@ -62,47 +81,6 @@ const Header = ({
         <section className="bg-linear-gradient-yellow-to-orange px-6 2xl:px-16">
           <div className="container mx-auto flex items-center justify-between py-2">
             <div className="flex items-center gap-10">
-              <div className="w-[43px]">
-                <svg
-                  className="animate-[wiggle_0.7s_ease-in-out_infinite]"
-                  width="36"
-                  height="37"
-                  viewBox="0 0 36 37"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g clipPath="url(#clip0_760_2186)">
-                    <path
-                      d="M10.5 2C10.5 1.17157 9.82843 0.5 9 0.5C8.17157 0.5 7.5 1.17157 7.5 2V6.5C7.5 7.32843 8.17157 8 9 8C9.82843 8 10.5 7.32843 10.5 6.5V2Z"
-                      fill="#1B1B1B"
-                    />
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M1.5 12.5C1.5 11.6716 2.17157 11 3 11H28.5C30.4891 11 32.3968 11.7902 33.8033 13.1967C35.2098 14.6032 36 16.5109 36 18.5C36 20.4891 35.2098 22.3968 33.8033 23.8033C32.3968 25.2098 30.4891 26 28.5 26C28.5 27.9891 27.7098 29.8968 26.3033 31.3033C24.8968 32.7098 22.9891 33.5 21 33.5H9C7.01088 33.5 5.10322 32.7098 3.6967 31.3033C2.29018 29.8968 1.5 27.9891 1.5 26V12.5ZM28.5 23V14C29.6935 14 30.8381 14.4741 31.682 15.318C32.5259 16.1619 33 17.3065 33 18.5C33 19.6935 32.5259 20.8381 31.682 21.682C30.8381 22.5259 29.6935 23 28.5 23ZM25.5 14V26C25.5 27.1935 25.0259 28.3381 24.182 29.182C23.3381 30.0259 22.1935 30.5 21 30.5H9C7.80653 30.5 6.66193 30.0259 5.81802 29.182C4.97411 28.3381 4.5 27.1935 4.5 26V14H25.5Z"
-                      fill="#1B1B1B"
-                    />
-                    <path
-                      d="M15 0.5C15.8284 0.5 16.5 1.17157 16.5 2V6.5C16.5 7.32843 15.8284 8 15 8C14.1716 8 13.5 7.32843 13.5 6.5V2C13.5 1.17157 14.1716 0.5 15 0.5Z"
-                      fill="#1B1B1B"
-                    />
-                    <path
-                      d="M22.5 2C22.5 1.17157 21.8284 0.5 21 0.5C20.1716 0.5 19.5 1.17157 19.5 2V6.5C19.5 7.32843 20.1716 8 21 8C21.8284 8 22.5 7.32843 22.5 6.5V2Z"
-                      fill="#1B1B1B"
-                    />
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_760_2186">
-                      <rect
-                        width="36"
-                        height="36"
-                        fill="white"
-                        transform="translate(0 0.5)"
-                      />
-                    </clipPath>
-                  </defs>
-                </svg>
-              </div>
               <div className="">
                 <h5 className="font-bold">Volunteer Opportunities Available</h5>
                 <p className="lg:text-[14px]">
@@ -285,7 +263,7 @@ const Header = ({
                     </button>
                     <button
                       className="w-full text-left hover:text-gray-500"
-                      onClick={() => signOut()}
+                      onClick={() => firebaseClient.signOut()}
                     >
                       Logout
                     </button>

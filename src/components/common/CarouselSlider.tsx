@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import useSWR from "swr";
 
 import {
   Carousel,
@@ -14,6 +13,7 @@ import {
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
 import { WebsiteDataFetch } from "@/types";
+import { useFirestoreUser } from "@/hooks/useFirestoreUser";
 
 // const data = [1, 2, 3, 4, 5];
 
@@ -79,12 +79,8 @@ export const WOTMCarousel = ({ data }: { data: WebsiteDataFetch[] }) => {
 };
 
 export const WOTMCarouselCard = ({ item }: { item: WebsiteDataFetch }) => {
-  const fetcher = (url: string) => fetch(url).then((res) => res.json());
-  const { data: owner, isLoading } = useSWR(
-    `/api/users/${item.ownerId}`,
-    fetcher,
-  );
-
+  const { userInfo: owner, isLoading, error } = useFirestoreUser(item.ownerId);
+  
   return (
     <CarouselItem key={item.id} className="pl-12 md:basis-1/2 lg:basis-1/3">
       <Link href={`/site/${item.id}`}>
@@ -111,7 +107,7 @@ export const WOTMCarouselCard = ({ item }: { item: WebsiteDataFetch }) => {
               {isLoading ? (
                 <div className="h-4 w-10 animate-pulse rounded-lg bg-gray-700" />
               ) : (
-                <p className="font-bold text-white underline">{owner?.name}</p>
+                <p className="font-bold text-white underline">{owner?.displayName}</p>
               )}
             </div>
           </div>
@@ -183,11 +179,7 @@ export const DiscoverCarousel = ({ data }: { data: WebsiteDataFetch[] }) => {
 };
 
 export const DiscoverCarouselCard = ({ item }: { item: WebsiteDataFetch }) => {
-  const fetcher = (url: string) => fetch(url).then((res) => res.json());
-  const { data: user, isLoading } = useSWR(
-    `/api/users/${item.ownerId}`,
-    fetcher,
-  );
+  const { userInfo: user, isLoading, error } = useFirestoreUser(item.ownerId);
 
   return (
     <CarouselItem className="pl-12 md:basis-1/2 lg:basis-1/3">
@@ -226,7 +218,7 @@ export const DiscoverCarouselCard = ({ item }: { item: WebsiteDataFetch }) => {
             {isLoading ? (
               <div className="h-4 w-10 animate-pulse rounded-lg bg-gray-700" />
             ) : (
-              user?.name
+              user?.displayName
             )}
           </div>
         </div>

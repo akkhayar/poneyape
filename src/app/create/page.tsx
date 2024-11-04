@@ -1,12 +1,12 @@
 import { redirect } from "next/navigation";
 
 import CreateForm from "@/components/main/CreateForm";
-import { getCurrentUser } from "@/lib/firebase/firebase-admin";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { getUserLocale } from "@/locale";
 import { createClient } from "@/prismicio";
 
 export default async function CreatePage() {
-  const user = await getCurrentUser();
+  const user = useCurrentUser();
   const locale = await getUserLocale();
   const client = createClient();
 
