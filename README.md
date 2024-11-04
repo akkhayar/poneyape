@@ -17,17 +17,16 @@ Contributions are welcome! Please read [contribution](https://docs.akkhayar.com/
 Use pnpm to install dependencies.
 
 ```bash
-$ pnpm install
+pnpm install
 ```
 
 Run the development server:
 
 ```bash
-$ pnpm run dev
+pnpm run dev
 ```
 
 Open the link from your terminal to view the app.
-
 
 ### Guidelines
 
@@ -39,3 +38,8 @@ If possible, keep a custom component style to tailwind classes, if not move to a
 
 - Read the [roadmap]() to understand and discuss the journey ahead.
 - See the [figma design doc]()
+
+### Environment Variables
+
+Create a `.env` file in the project.
+Please request the keys for the `.env` file from the project administrator.

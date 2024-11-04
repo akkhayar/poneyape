@@ -1,4 +1,3 @@
-import { SocialIcon } from "@/icons/SocialIcon";
 import Link from "next/link";
 import { Mail } from "lucide-react";
 

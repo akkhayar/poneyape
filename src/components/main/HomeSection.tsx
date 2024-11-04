@@ -1,15 +1,18 @@
 "use client";
 
-import { cn, createStringExtractor } from "@/lib/util";
-import Image from "next/image";
 import React, { useRef, useState } from "react";
-import { buttonLinks, filters } from "@/constants";
-import { usePathname } from "next/navigation";
+import Image from "next/image";
 import Link from "next/link";
-import { Button } from "../ui/button";
-import WebsiteCard from "../common/WebsiteCard";
+import { usePathname } from "next/navigation";
 
-const HomeSection = () => {
+import { buttonLinks, filters } from "@/constants";
+import { cn, createStringExtractor } from "@/lib/util";
+import { WebsiteDataFetch } from "@/types";
+
+import WebsiteCard from "../common/WebsiteCard";
+import { Button } from "../ui/button";
+
+const HomeSection = ({ data }: { data: WebsiteDataFetch[] }) => {
   const lang = "en";
   const t = createStringExtractor(lang);
 
@@ -47,12 +50,11 @@ const HomeSection = () => {
         </h3>
 
         <Image
-          src="/eg.png"
+          src={data[0].cover || "/eg.png"}
           alt="1-of-the-month"
-          layout="responsive"
-          width={16}
-          height={9}
-          className="rounded-[8px]"
+          width={1500}
+          height={1500}
+          className="w-full rounded-[8px]"
         />
       </div>
       <div className="flex flex-col gap-3">
@@ -121,19 +123,16 @@ const HomeSection = () => {
           Neumorphism
         </h3>
         <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
-          {Array(6)
-            .fill(null)
-            .map((_) => (
-              <WebsiteCard
-                key={_}
-                id="eg"
-                coverImage="/eg.png"
-                primaryAuthor="Ralph Edwards"
-                profile="/profile.png"
-                tags={["Blog", "Corporate"]}
-                title="Future Tracking"
-              />
-            ))}
+          {data.map((item, i) => (
+            <WebsiteCard
+              key={item.id}
+              id={item.id}
+              coverImage={item.cover}
+              primaryAuthor={item.ownerId}
+              tags={item.tags}
+              title={item.title}
+            />
+          ))}
         </div>
       </div>
       <Link

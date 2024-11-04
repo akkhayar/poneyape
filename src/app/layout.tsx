@@ -6,6 +6,7 @@ import LenisWrapper from "@/lib/lenis-wrapper";
 import Footer from "@/components/common/Footer";
 import Head from "next/head";
 import { FirebaseProvider } from "@/context/firebaseContext";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 const poppins = Poppins({
@@ -32,12 +33,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} ${poppins.variable} ${roboto.variable} overflow-hidden`}
+        className={`${inter.className} ${poppins.variable} ${roboto.variable}`}
       >
         <FirebaseProvider>
           <Header />
-          <LenisWrapper>{children}</LenisWrapper>
+          {/* <LenisWrapper> */}
+          {children}
+          {/* </LenisWrapper> */}
           <Footer />
+          <Toaster />
         </FirebaseProvider>
       </body>
     </html>

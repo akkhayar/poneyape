@@ -1,17 +1,21 @@
-import Testimonial from "@/components/main/Testimonial";
-import Tutorial from "@/components/main/Tutorial";
-import LatestNews from "@/components/main/LatestNews";
+import FAQ from "@/components/main/FAQ";
 import HomeSection from "@/components/main/HomeSection";
 import HotTrend from "@/components/main/HotTrend";
-import FAQ from "@/components/main/FAQ";
+import LatestNews from "@/components/main/LatestNews";
 import Team from "@/components/main/Team";
+import Testimonial from "@/components/main/Testimonial";
+import Tutorial from "@/components/main/Tutorial";
+import { fetchData } from "@/lib/firestore";
+import { WebsiteDataFetch } from "@/types";
 
-export default function Home() {
+export default async function Home() {
   const lang = "en";
+  const data: WebsiteDataFetch[] = await fetchData("triage-websites");
+
   return (
     <div className={`lang-${lang} bg-[var(--background-blue)]`}>
-      <HomeSection />
-      <HotTrend />
+      <HomeSection data={data} />
+      <HotTrend data={data} />
       <Testimonial />
       <Tutorial />
       <LatestNews />

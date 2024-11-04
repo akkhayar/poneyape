@@ -1,37 +1,45 @@
-import { auth } from "@/lib/firebase";
-import {
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-} from "firebase/auth";
 import React, { useState } from "react";
+
+import { useToast } from "@/hooks/use-toast";
+import { signUpWithEmail } from "@/lib/firebase/auth";
 
 const SignupForm = ({ onHide }: { onHide: () => void }) => {
   const [email, setEmail] = useState("");
   const [pswd, setPswd] = useState("");
+  const [confirm, setConfirm] = useState("");
+
+  const { toast } = useToast();
 
   const handleEmailSignUp = async () => {
-    signInWithEmailAndPassword(auth, email, pswd)
-      .then(async ({ user: firebaseUser }) => {
-        console.log("firebaseUser", firebaseUser);
-
-        onHide();
-      })
-      .catch((error) => {
-        if (error.code === "auth/invalid-credential") {
-          createUserWithEmailAndPassword(auth, email, pswd).then(
-            async ({ user: firebaseUser }) => {
-              console.log("firebaseUser", firebaseUser);
-              if (error) {
-                // delete user from firebase auth
-                await firebaseUser.delete();
-                return;
-              }
-              onHide();
-            },
-          );
-        }
+    if (pswd !== confirm) {
+      toast({
+        className: "bg-red-500 border-none",
+        title: "Your password does not match",
+        description: "Please check your password and try again.",
       });
+      return;
+    }
+
+    try {
+      const res = await signUpWithEmail(email, pswd);
+
+      if (res) {
+        onHide();
+      } else {
+        toast({
+          className: "bg-red-500 border-none",
+          title: "Uh oh! Something went wrong.",
+          description: "Please check your email and password and try again.",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Uh oh! Something went wrong.",
+        description: "Please check your email and password and try again.",
+      });
+    }
   };
+
   return (
     <div className="flex flex-col space-y-4">
       <input
@@ -52,6 +60,8 @@ const SignupForm = ({ onHide }: { onHide: () => void }) => {
         className="rounded bg-transparent placeholder:text-midGrey"
         type="password"
         placeholder="Confirm Password"
+        value={confirm}
+        onChange={(e) => setConfirm(e.target.value)}
       />
       <button className="c-primary c-solid" onClick={handleEmailSignUp}>
         Register

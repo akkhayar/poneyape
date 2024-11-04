@@ -1,19 +1,24 @@
 "use client";
+
 import { useState } from "react";
-import AuthModal from "@/components/common/AuthModal";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { routes } from "@/constants";
-import { useFirebase } from "@/hooks/useFirebase";
-import Image from "next/image";
-import { NavLinks } from "./NavLinks";
+import { LogIn, LogOut, Search } from "lucide-react";
+
+import AuthModal from "@/components/common/AuthModal";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LogIn, LogOut, Search } from "lucide-react";
+import { routes } from "@/constants";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { signOut } from "@/lib/firebase/auth";
+import { auth } from "@/lib/firebase/firebase";
+
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { NavLinks } from "./NavLinks";
 import { SurveyPopup } from "./SurveyPopup";
 
 const getNavItemIcon = (route: keyof typeof routes) => {
@@ -105,8 +110,9 @@ const Header = () => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const pathname = usePathname().trim();
   const [showBanner, setShowBanner] = useState(true);
-  const { currentUser, logout } = useFirebase();
-  const [surveyModel, setSurveyModel] = useState(true);
+
+  const [surveyModel, setSurveyModel] = useState(false);
+  const user = useCurrentUser(auth);
 
   return (
     <>
@@ -195,7 +201,7 @@ const Header = () => {
           </Link>
         </div>
 
-        <nav className="flex h-[72px] w-full items-center justify-end gap-2 border-b border-solid border-b-bg1 bg-[#ffffff66]">
+        <nav className="flex h-[72px] w-full items-center justify-end gap-2 border-solid bg-[#ffffff66]">
           <ul
             className="hidden text-[#1B1B1B] lg:flex lg:gap-8"
             aria-label="Navigation Items"
@@ -285,7 +291,7 @@ const Header = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {currentUser ? (
+            {user ? (
               <button className="block shrink-0 -rotate-90 lg:hidden">
                 <LogOut className="text-black" />
               </button>
@@ -295,23 +301,48 @@ const Header = () => {
               </button>
             )}
 
-            {currentUser ? (
+            {user ? (
               <>
-                <button
-                  className="c-outline hidden pb-6 lg:block"
-                  onClick={() => setShowAuthModal(true)}
-                >
-                  Submit Work
-                </button>
+                <Link href="/create">
+                  <button className="c-outline hidden pb-6 lg:block">
+                    Submit Work
+                  </button>
+                </Link>
 
-                <Image
-                  src={currentUser?.photoURL || ""}
-                  alt="user-avatar"
-                  width={49}
-                  height={48}
-                  className="size-[48px] shrink-0 cursor-pointer rounded-full object-cover"
-                  onClick={() => logout()}
-                />
+                <Popover>
+                  <PopoverTrigger>
+                    {user?.photoURL ? (
+                      <Image
+                        src={user?.photoURL || ""}
+                        alt="user-avatar"
+                        width={48}
+                        height={48}
+                        className="size-auto shrink-0 cursor-pointer rounded-full object-cover"
+                        // onClick={() => signOut()}
+                      />
+                    ) : (
+                      <div
+                        className="flex size-[48px] shrink-0 cursor-pointer items-center justify-center rounded-full bg-gray-300 text-lg font-medium"
+                        // onClick={() => signOut()}
+                      >
+                        {user?.email ? user.email[0].toUpperCase() : "N/A"}
+                      </div>
+                    )}
+                  </PopoverTrigger>
+                  <PopoverContent className="max-w-[140px]">
+                    <div className="flex flex-col items-start gap-2">
+                      <button className="w-full text-left hover:text-gray-500">
+                        Profile
+                      </button>
+                      <button
+                        className="w-full text-left hover:text-gray-500"
+                        onClick={() => signOut()}
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  </PopoverContent>
+                </Popover>
               </>
             ) : (
               <button

@@ -1,21 +1,23 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import useSWR from "swr";
+
 import {
   Carousel,
   CarouselApi,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import Image from "next/image";
-import { useEffect, useState } from "react";
+import { WebsiteDataFetch } from "@/types";
 
-const data = [1, 2, 3, 4, 5];
+// const data = [1, 2, 3, 4, 5];
 
-export const WOTMCarousel = () => {
+export const WOTMCarousel = ({ data }: { data: WebsiteDataFetch[] }) => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
@@ -35,37 +37,8 @@ export const WOTMCarousel = () => {
     <div className="flex flex-col">
       <Carousel className="w-full" setApi={setApi}>
         <CarouselContent className="-ml-12">
-          {data.map((_, index) => (
-            <CarouselItem
-              key={index}
-              className="pl-12 md:basis-1/2 lg:basis-1/3"
-            >
-              <div className="group relative aspect-square rounded-[8px]">
-                <Image
-                  className="cursor-pointer rounded-xl object-cover transition duration-1000"
-                  src="/eg.png"
-                  alt="Website Image"
-                  fill
-                />
-                <div className="absolute bottom-0 left-0 h-1/2 w-full rounded-xl bg-gradient-to-t from-[rgba(0,0,0,0.6)] to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
-                <div className="absolute bottom-0 left-0 mx-4 my-6 w-full opacity-0 transition duration-300 group-hover:opacity-100">
-                  <p className="text-2xl font-semibold text-white">
-                    Website Name
-                  </p>
-                  <div className="flex space-x-2">
-                    <p className="text-white">By</p>
-                    <Image
-                      className="rounded-full"
-                      src="/eg.png"
-                      alt="Author Image"
-                      width={32}
-                      height={32}
-                    />
-                    <p className="font-bold text-white underline">John Doe</p>
-                  </div>
-                </div>
-              </div>
-            </CarouselItem>
+          {data.map((item, index) => (
+            <WOTMCarouselCard key={item.id} item={item} />
           ))}
         </CarouselContent>
       </Carousel>
@@ -105,7 +78,50 @@ export const WOTMCarousel = () => {
   );
 };
 
-export const DiscoverCarousel = () => {
+export const WOTMCarouselCard = ({ item }: { item: WebsiteDataFetch }) => {
+  const fetcher = (url: string) => fetch(url).then((res) => res.json());
+  const { data: owner, isLoading } = useSWR(
+    `/api/users/${item.ownerId}`,
+    fetcher,
+  );
+
+  return (
+    <CarouselItem key={item.id} className="pl-12 md:basis-1/2 lg:basis-1/3">
+      <Link href={`/site/${item.id}`}>
+        <div className="group relative aspect-square rounded-[8px]">
+          <Image
+            className="rounded-xl object-cover transition duration-1000"
+            src={item.cover || "/eg.png"}
+            alt="Website Image"
+            fill
+            sizes="100%"
+          />
+          <div className="absolute bottom-0 left-0 h-1/2 w-full rounded-xl bg-gradient-to-t from-[rgba(0,0,0,0.6)] to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
+          <div className="absolute bottom-0 left-0 mx-4 my-6 w-full opacity-0 transition duration-300 group-hover:opacity-100">
+            <p className="text-2xl font-semibold text-white">{item.title}</p>
+            <div className="flex space-x-2">
+              <p className="text-white">By</p>
+              <Image
+                className="size-8 shrink-0 rounded-full object-cover"
+                src={owner?.photoURL || "/profile.png"}
+                alt="Author Image"
+                width={32}
+                height={32}
+              />
+              {isLoading ? (
+                <div className="h-4 w-10 animate-pulse rounded-lg bg-gray-700" />
+              ) : (
+                <p className="font-bold text-white underline">{owner?.name}</p>
+              )}
+            </div>
+          </div>
+        </div>
+      </Link>
+    </CarouselItem>
+  );
+};
+
+export const DiscoverCarousel = ({ data }: { data: WebsiteDataFetch[] }) => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
@@ -125,46 +141,8 @@ export const DiscoverCarousel = () => {
     <div className="flex flex-col">
       <Carousel className="w-full" setApi={setApi}>
         <CarouselContent className="-ml-12">
-          {data.map((_, index) => (
-            <CarouselItem
-              key={index}
-              className="pl-12 md:basis-1/2 lg:basis-1/3"
-            >
-              <div className="flex flex-col text-black">
-                <Image
-                  className="aspect-square w-full rounded-lg"
-                  src="/eg.png"
-                  alt="Website Image"
-                  width={480}
-                  height={480}
-                />
-
-                <div className="mt-6 flex flex-wrap gap-2">
-                  <div className="shrink-0 rounded-full bg-[#EEEEEE] px-2 py-1 text-sm">
-                    Tag Name
-                  </div>
-                  <div className="shrink-0 rounded-full bg-[#EEEEEE] px-2 py-1 text-sm">
-                    Tag Name
-                  </div>
-                </div>
-
-                <p className="mt-4 text-2xl font-semibold">
-                  Website/Design heading will go here
-                </p>
-
-                <div className="mt-2 flex items-center gap-1">
-                  By{" "}
-                  <Image
-                    src="/eg.png"
-                    alt="Author Image"
-                    width={32}
-                    height={32}
-                    className="size-8 shrink-0 rounded-full"
-                  />{" "}
-                  John Doe
-                </div>
-              </div>
-            </CarouselItem>
+          {data.map((item, index) => (
+            <DiscoverCarouselCard key={item.id} item={item} />
           ))}
         </CarouselContent>
       </Carousel>
@@ -201,5 +179,58 @@ export const DiscoverCarousel = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+export const DiscoverCarouselCard = ({ item }: { item: WebsiteDataFetch }) => {
+  const fetcher = (url: string) => fetch(url).then((res) => res.json());
+  const { data: user, isLoading } = useSWR(
+    `/api/users/${item.ownerId}`,
+    fetcher,
+  );
+
+  return (
+    <CarouselItem className="pl-12 md:basis-1/2 lg:basis-1/3">
+      <Link href={`/site/${item.id}`}>
+        <div className="flex flex-col text-black">
+          <Image
+            className="aspect-square w-full shrink-0 rounded-lg object-cover"
+            src={item.cover || "/eg.png"}
+            alt="Website Image"
+            width={480}
+            height={480}
+          />
+
+          <div className="mt-6 flex flex-wrap gap-2">
+            {item.tags.map((tag, i) => (
+              <div
+                key={i}
+                className="shrink-0 rounded-full bg-[#EEEEEE] px-2 py-1 text-sm"
+              >
+                {tag}
+              </div>
+            ))}
+          </div>
+
+          <p className="mt-4 text-2xl font-semibold">{item.title}</p>
+
+          <div className="mt-2 flex items-center gap-1">
+            By{" "}
+            <Image
+              src="/eg.png"
+              alt="Author Image"
+              width={32}
+              height={32}
+              className="size-8 shrink-0 rounded-full"
+            />{" "}
+            {isLoading ? (
+              <div className="h-4 w-10 animate-pulse rounded-lg bg-gray-700" />
+            ) : (
+              user?.name
+            )}
+          </div>
+        </div>
+      </Link>
+    </CarouselItem>
   );
 };

@@ -15,7 +15,7 @@ declare type WebsiteCardProps = {
   tags: string[];
   primaryAuthor: string;
   coverImage: string;
-  profile: string;
+  // profile: string;
 };
 
 declare type PageProps = { params: { slug: string } };
@@ -49,8 +49,10 @@ declare type websiteCardFormat = {
   link: string;
 };
 
-declare type WebsiteData = {
+declare type WebsiteDataFetch = {
+  id: string;
   ownerId: string;
+  cover: string;
   title: string;
   description: string;
   vision: string;
@@ -59,6 +61,21 @@ declare type WebsiteData = {
   typography: string[];
   colorPalette: string[];
   authors: string[];
+  screens: string[];
+};
+
+declare type WebsiteData = {
+  ownerId: string;
+  cover: string;
+  title: string;
+  description: string;
+  vision: string;
+  publishDate: number;
+  tags: string[];
+  typography: string[];
+  colorPalette: string[];
+  authors: string[];
+  screens: string[];
 };
 
 declare type UserData = {
@@ -69,3 +86,7 @@ declare type UserData = {
   profession: string;
   socials: string[];
 };
+
+export type APIResponse<T = object> =
+  | { success: true; data: T }
+  | { success: false; error: string };
