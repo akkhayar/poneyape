@@ -233,6 +233,12 @@ class FirebaseClient {
 
     return data;
   }
+
+  async getFirestoreUser(uid: string) {
+    const userRef = doc(db, "users", uid);
+    const userSnap = await getDoc(userRef);
+    return userSnap;
+  }
 }
 
 export const firebaseClient = new FirebaseClient(auth);

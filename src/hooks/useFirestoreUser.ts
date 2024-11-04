@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { doc, getDoc } from "firebase/firestore";
-
-import { db } from "@/lib/firebase";
 import Error from "next/error";
+
+import { firebaseClient } from "@/lib/firebase";
 
 type UserInfo = { displayName: string | null; photoURL: string | null };
 
@@ -16,9 +15,7 @@ export const useFirestoreUser = (uid: string) => {
     const fetchUserInfo = async () => {
       setIsLoading(true);
       try {
-        const userRef = doc(db, "users", uid);
-        const userSnap = await getDoc(userRef);
-
+        const userSnap = await firebaseClient.getFirestoreUser(uid);
         if (userSnap.exists()) {
           setUserInfo({
             displayName: userSnap.get("displayName") || null,
