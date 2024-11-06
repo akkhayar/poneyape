@@ -35,13 +35,15 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Home() {
-  const data: WebsiteDataFetch[] = await firebaseClient.fetchData("triage-websites");
+  const data = await firebaseClient.fetchData("triage-websites");
   const lang = await getUserLocale();
 
   const client = createClient();
   const home = await client.getSingle("home", { lang });
 
   const locale = await getUserLocale();
+
+  console.log(data);
 
   return (
     <div className={`lang-${lang} bg-[var(--background-blue)]`}>

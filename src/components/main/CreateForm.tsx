@@ -46,7 +46,7 @@ const formSchema = z.object({
   tags: z.string().array().min(1, "At least one tag is required"),
   typography: z.string().array().min(1, "At least one typography is required"),
   colorPalette: z.string().array().min(1, "At least one color is required"),
-  authors: z.string().array().min(1, "At least one author is required"),
+  authors: z.string().array(),
   screens: z.instanceof(File).array().optional(),
 });
 
@@ -109,14 +109,16 @@ export default function CreateForm({
 
     try {
       const cover = await firebaseClient.uploadImage(values.cover!);
-      const screens = await firebaseClient.uploadMultipleImages(values.screens || []);
+      const screens = await firebaseClient.uploadMultipleImages(
+        values.screens || [],
+      );
 
       // const { cover, ...filteredValues } = values;
 
       const formData = {
         ...values,
         publishDate: Timestamp.fromDate(new Date()).seconds,
-        ownerId: user.uid,
+        owner: user.uid,
         cover: cover.url,
         screens: screens.urls,
       } as WebsiteData;
@@ -154,7 +156,7 @@ export default function CreateForm({
                 data={{
                   ...data,
                   cover: selectedImage || "/eg.png",
-                  ownerId: user?.uid || "",
+                  owner: user?.uid || "",
                   publishDate: Timestamp.fromDate(new Date()).seconds,
                   screens: selectedScreens,
                 }}

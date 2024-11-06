@@ -28,7 +28,7 @@ export type HotTrendProps = SliceComponentProps<Content.HotTrendSlice> & {
  * Component for "HotTrend" Slices.
  */
 const HotTrend = ({ slice, context }: HotTrendProps): JSX.Element => {
-  const data = context?.data as WebsiteDataFetch[];
+  const data = context?.data;
 
   const tabWrapperRef = useRef<HTMLDivElement>(null);
 
@@ -121,7 +121,7 @@ const HotTrend = ({ slice, context }: HotTrendProps): JSX.Element => {
               key={item.id}
               id={item.id}
               coverImage={item.cover}
-              primaryAuthor={item.ownerId}
+              primaryAuthor={item.owner}
               tags={item.tags}
               title={item.title}
             />

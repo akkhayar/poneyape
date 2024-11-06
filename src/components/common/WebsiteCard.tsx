@@ -15,7 +15,7 @@ const WebsiteCard = ({
   primaryAuthor,
   coverImage,
 }: WebsiteCardProps) => {
-  const { userInfo: user, isLoading, error } = useFirestoreUser(primaryAuthor);
+  // const { userInfo: user, isLoading, error } = useFirestoreUser(primaryAuthor);
 
   return (
     <div className="flex w-full flex-col justify-center">
@@ -41,14 +41,14 @@ const WebsiteCard = ({
         <div className="flex items-center gap-2">
           <p>By</p>
           <Image
-            src={user?.photoURL || "/profile.png"}
+            src={primaryAuthor?.profileImage || "/profile.png"}
             width={32}
             height={32}
             alt="profile-picture"
             className="rounded-[32px]"
           />
           <p className="font-roboto underline">
-            {isLoading ? "Loading..." : user?.displayName}
+            {!primaryAuthor ? "Loading..." : primaryAuthor?.username}
           </p>
         </div>
       </div>

@@ -11,6 +11,7 @@ import {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
+  User,
 } from "firebase/auth";
 import {
   addDoc,
@@ -19,6 +20,7 @@ import {
   getDoc,
   getDocs,
   getFirestore,
+  setDoc,
 } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { v4 as uuid } from "uuid";
@@ -53,13 +55,29 @@ class FirebaseClient {
     this.auth = auth;
   }
 
+  async createUserDocument(user: User) {
+    const userDocRef = doc(db, "users", user.uid);
+    const userDoc = await getDoc(userDocRef);
+
+    if (!userDoc.exists()) {
+      const { email, displayName, photoURL } = user;
+      await setDoc(userDocRef, {
+        userId: user.uid,
+        email,
+        username: displayName || "",
+        profileImage: photoURL || "",
+      });
+    }
+  }
+
   async createFirestoreUser() {}
 
   async signInWithGoogle() {
+    const provider = new GoogleAuthProvider();
     try {
-      const provider = new GoogleAuthProvider();
       provider.setCustomParameters({ prompt: "select_account" });
-      await signInWithPopup(this.auth, provider);
+      const res = await signInWithPopup(this.auth, provider);
+      await this.createUserDocument(res.user);
       return true;
     } catch (error) {
       console.log("FirebaseClient loginWithGoogle error", error);
@@ -71,7 +89,8 @@ class FirebaseClient {
     const provider = new FacebookAuthProvider();
 
     try {
-      await signInWithPopup(this.auth, provider);
+      const res = await signInWithPopup(this.auth, provider);
+      await this.createUserDocument(res.user);
       return true;
     } catch (error) {
       console.error("Error signing in with Google", error);
@@ -89,7 +108,8 @@ class FirebaseClient {
     const provider = new GithubAuthProvider();
 
     try {
-      await signInWithPopup(this.auth, provider);
+      const res = await signInWithPopup(this.auth, provider);
+      await this.createUserDocument(res.user);
       return true;
     } catch (error) {
       console.error("Error signing in with Github", error);
@@ -110,20 +130,23 @@ class FirebaseClient {
         email,
         password,
       );
-      const idToken = await userCreds.user.getIdToken();
 
-      const response = await fetch("/api/auth/sign-in", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ idToken }),
-      });
+      await this.createUserDocument(userCreds.user);
+      // const idToken = await userCreds.user.getIdToken();
 
-      const resBody = (await response.json()) as unknown as APIResponse<string>;
-      if (response.ok && resBody.success) {
-        return true;
-      } else return false;
+      // const response = await fetch("/api/auth/sign-in", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({ idToken }),
+      // });
+
+      // const resBody = (await response.json()) as unknown as APIResponse<string>;
+      // if (response.ok && resBody.success) {
+      //   return true;
+      // } else return false;
+      return true;
     } catch (error) {
       console.error("Error signing in with Google", error);
       if (
@@ -143,8 +166,11 @@ class FirebaseClient {
         email,
         password,
       );
+
+      await this.createUserDocument(userCreds.user);
       await sendEmailVerification(userCreds.user);
       await userCreds.user.getIdToken();
+      return true;
     } catch (error) {
       console.error("Error signing in with Google", error);
       return false;
@@ -217,21 +243,74 @@ class FirebaseClient {
   }
 
   async fetchData(collectionName: string) {
-    const data: any[] = [];
-    const dataSnapshot = await getDocs(collection(db, collectionName));
-    dataSnapshot.docs.forEach((doc) =>
-      data.push({ id: doc.id, ...doc.data() }),
+    // const data: any[] = [];
+    // const dataSnapshot = await getDocs(collection(db, collectionName));
+    // dataSnapshot.docs.forEach((doc) =>
+    //   data.push({ id: doc.id, ...doc.data() }),
+    // );
+    // return data;
+
+    const docRef = collection(db, collectionName);
+    const docSnapshots = await getDocs(docRef);
+
+    const docsData = await Promise.all(
+      docSnapshots.docs.map(async (item) => {
+        const docData = item.data();
+        const ownerRef = doc(db, "users", docData.owner);
+        const ownerSnapshot = await getDoc(ownerRef);
+
+        const authorsData = await Promise.all(
+          docData.authors.map(async (authorId: string) => {
+            const authorRef = doc(db, "users", authorId);
+            const authorSnapshot = await getDoc(authorRef);
+            const authorData = authorSnapshot.data();
+            return authorData ? authorData : null;
+          }),
+        );
+
+        return {
+          id: item.id,
+          ...docData,
+          owner: ownerSnapshot.exists() ? ownerSnapshot.data() : null,
+          authors: authorsData,
+        };
+      }),
     );
 
-    return data;
+    return docsData;
   }
 
   async fetchDataById(collectionName: string, value: string) {
-    const docRef = doc(db, collectionName, value);
-    const dataSnapshot = await getDoc(docRef);
-    const data = dataSnapshot.data() as WebsiteDataFetch;
+    // const docRef = doc(db, collectionName, value);
+    // const dataSnapshot = await getDoc(docRef);
+    // const data = dataSnapshot.data() as WebsiteDataFetch;
 
-    return data;
+    // return data;
+
+    const docRef = doc(db, collectionName, value);
+    const docSnapshot = await getDoc(docRef);
+
+    if (!docSnapshot.exists()) {
+      throw new Error("Document not found");
+    }
+
+    const docData = docSnapshot.data();
+    const ownerRef = doc(db, "users", docData?.owner);
+    const ownerSnapshot = await getDoc(ownerRef);
+
+    const authorsData = await Promise.all(
+      docData?.authors.map(async (authorId: string) => {
+        const authorRef = doc(db, "users", authorId);
+        const authorSnapshot = await getDoc(authorRef);
+        return authorSnapshot.data();
+      }),
+    );
+
+    return {
+      ...docData,
+      owner: ownerSnapshot.exists() ? ownerSnapshot.data() : null,
+      authors: authorsData,
+    };
   }
 
   async getFirestoreUser(uid: string) {
