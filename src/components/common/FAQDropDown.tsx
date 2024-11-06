@@ -1,10 +1,7 @@
-// import { faq } from "@/constants";
 "use client";
 
 import React, { useState } from "react";
-import { Content, GroupField } from "@prismicio/client";
-
-import { FAQ } from "@/types";
+import type { Content, GroupField } from "@prismicio/client";
 
 import { Simplify } from "../../../prismicio-types";
 
