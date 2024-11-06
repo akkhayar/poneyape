@@ -1,6 +1,6 @@
 import type { Content } from "@prismicio/client";
 import type { SliceComponentProps } from "@prismicio/react";
-import { PrismicNextLink } from "@prismicio/next";
+import { PrismicNextLink } from "@/lib/prismicio-next";
 
 import OurTeamSlider from "@/components/common/OurTeamSlider";
 

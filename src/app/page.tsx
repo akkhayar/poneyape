@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { SliceZone } from "@prismicio/react";
+import { SliceZone } from "@/lib/prismicio-next";
 
 import FAQ from "@/components/main/FAQ";
 import HomeSection from "@/components/main/HomeSection";
