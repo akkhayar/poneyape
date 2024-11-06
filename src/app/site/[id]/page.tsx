@@ -1,18 +1,19 @@
 import { DiscoverCarousel } from "@/components/common/CarouselSlider";
 import SiteView from "@/components/main/SiteView";
-import { getUserLocale } from "@/locale";
-import { createClient } from "@/prismicio";
 import { placeholderUserData } from "@/constants";
 import { firebaseClient } from "@/lib/firebase";
+import { getUserLocale } from "@/locale";
+import { createClient } from "@/prismicio";
 import { WebsiteDataFetch } from "@/types";
 
 export default async function SitePage({ params }: { params: { id: string } }) {
-  const websites: WebsiteDataFetch[] =
-    await firebaseClient.fetchData("triage-websites");
-  const data: WebsiteDataFetch = await firebaseClient.fetchDataById(
+  const websites = (await firebaseClient.fetchData(
+    "triage-websites",
+  )) as WebsiteDataFetch[];
+  const data = (await firebaseClient.fetchDataById(
     "triage-websites",
     params.id,
-  );
+  )) as WebsiteDataFetch;
   const locale = await getUserLocale();
   const client = createClient();
 

@@ -21,7 +21,7 @@ const PopularWebsites = ({
   slice,
   context,
 }: PopularWebsitesProps): JSX.Element => {
-  const data = context?.data as WebsiteDataFetch[];
+  const data = context?.data;
   return (
     <section
       data-slice-type={slice.slice_type}

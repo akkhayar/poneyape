@@ -1,15 +1,25 @@
 "use client";
 
-import { useCurrentUser } from "@/hooks/useCurrentUser";
-import { firebaseClient } from "@/lib/firebase";
-import { AlignJustify, Award, BookOpen, Home, Search, X } from "lucide-react";
+import { Dispatch, SetStateAction, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Dispatch, SetStateAction, useState } from "react";
+import { GroupField } from "@prismicio/client";
+import { PrismicNextImage } from "@prismicio/next";
+import { AlignJustify, Award, BookOpen, Home, Search, X } from "lucide-react";
+
+import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { firebaseClient } from "@/lib/firebase";
+
+import {
+  HeaderLinksDocumentDataLinksItem,
+  Simplify,
+} from "../../../prismicio-types";
 
 export const NavLinks = ({
+  links,
   setShowAuthModel,
 }: {
+  links: GroupField<Simplify<HeaderLinksDocumentDataLinksItem>>;
   setShowAuthModel: Dispatch<SetStateAction<boolean>>;
 }) => {
   const [open, setOpen] = useState(false);
@@ -44,9 +54,9 @@ export const NavLinks = ({
                 <Image
                   src={user.photoURL || ""}
                   alt="user-avatar"
-                  width={49}
+                  width={48}
                   height={48}
-                  className="size-[48px] shrink-0 cursor-pointer rounded-full object-cover"
+                  className="size-auto shrink-0 cursor-pointer rounded-full object-cover"
                   onClick={() => firebaseClient.signOut()}
                 />
               ) : (
@@ -78,7 +88,22 @@ export const NavLinks = ({
 
           <nav>
             <ul className="flex flex-col gap-9">
-              <li>
+              {links?.map((link, index) => {
+                const url = (link.href as any).url;
+                return (
+                  <li key={index}>
+                    <button
+                      onClick={() => handleClick(url)}
+                      className="flex items-center gap-4 text-lg"
+                    >
+                      {/* <Image src={url} width={24} height={24} al /> */}
+                      <PrismicNextImage field={link.icon} />
+                      {link.href.text}
+                    </button>
+                  </li>
+                );
+              })}
+              {/* <li>
                 <button
                   onClick={() => handleClick("/")}
                   className="flex items-center gap-4 text-lg"
@@ -113,7 +138,7 @@ export const NavLinks = ({
                   <Search />
                   Explore
                 </button>
-              </li>
+              </li> */}
             </ul>
           </nav>
 

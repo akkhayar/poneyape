@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { PrismicNextLink } from "@prismicio/next";
 import { SliceZone } from "@prismicio/react";
 import {
@@ -64,8 +64,17 @@ const Header = ({
 
   const [surveyModel, setSurveyModel] = useState(false);
   const user = useCurrentUser();
-
   const links = data.data.links;
+
+  const router = useRouter();
+  const handleSearch = (e: FormData) => {
+    const search = e.get("search") as string;
+
+    if (search) {
+      router.push(`/search?q=${encodeURIComponent(search)}`);
+      e.set("search", "");
+    }
+  };
 
   return (
     <>
@@ -109,12 +118,18 @@ const Header = ({
       )} */}
       <div className="flex w-full items-center justify-between px-6 lg:px-16">
         <div className="flex items-center gap-2">
-          <NavLinks setShowAuthModel={setShowAuthModal} />
+          <NavLinks links={links} setShowAuthModel={setShowAuthModal} />
           <Link
             href="/"
             className="shrink-0 font-pyidaungsu text-[20px] text-black"
           >
-            <Image src="/poneyape.svg" alt="PoneYape" width={85} height={36} />
+            <Image
+              src="/poneyape.svg"
+              alt="PoneYape"
+              width={85}
+              height={36}
+              className="h-[36px] w-auto shrink-0"
+            />
           </Link>
           <nav className="flex h-[72px] w-full items-center justify-end gap-2 border-solid bg-[#ffffff66]">
             <ul
@@ -141,31 +156,18 @@ const Header = ({
           </nav>
         </div>
 
-        <div className="mx-10 hidden w-full flex-1 rounded-[30px] bg-[#eeeeee] px-4 py-3 text-black md:flex lg:hidden xl:flex">
-          <button>
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="me-[10px]"
-            >
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M4 11C4 7.13401 7.13401 4 11 4C14.866 4 18 7.13401 18 11C18 12.8858 17.2543 14.5974 16.0417 15.8561C16.0073 15.8825 15.9743 15.9114 15.9428 15.9429C15.9113 15.9744 15.8824 16.0074 15.856 16.0418C14.5973 17.2543 12.8857 18 11 18C7.13401 18 4 14.866 4 11ZM16.6176 18.0319C15.078 19.2635 13.125 20 11 20C6.02944 20 2 15.9706 2 11C2 6.02944 6.02944 2 11 2C15.9706 2 20 6.02944 20 11C20 13.125 19.2635 15.0781 18.0319 16.6177L21.707 20.2929C22.0975 20.6834 22.0975 21.3166 21.707 21.7071C21.3165 22.0976 20.6833 22.0976 20.2928 21.7071L16.6176 18.0319Z"
-                fill="#1B1B1B"
-              />
-            </svg>
-          </button>
+        <form
+          action={handleSearch}
+          className="mx-10 hidden w-full flex-1 rounded-[30px] bg-[#eeeeee] px-4 py-3 text-black md:flex lg:hidden xl:flex"
+        >
+          <Search className="mr-[10px]" />
           <input
             type="text"
             name="search"
             placeholder={data.data.search as string}
             className="m-0 w-full border-none bg-transparent p-0 text-base outline-none placeholder:text-black hover:outline-none"
           />
-        </div>
+        </form>
 
         <div className="flex shrink-0 items-center gap-2">
           {!locale ? (
@@ -204,10 +206,10 @@ const Header = ({
             </DropdownMenuTrigger>
             <DropdownMenuContent className="max-w-full border-none shadow-none">
               <form
-                action=""
+                action={handleSearch}
                 className="flex w-full gap-2 rounded-[30px] border border-black bg-white px-4 py-3 text-black"
               >
-                <Search />
+                <Search className="mr-[10px]" />
                 <input
                   type="text"
                   name="search"

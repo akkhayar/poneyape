@@ -155,8 +155,14 @@ export default function CreateForm({
                 details={details}
                 data={{
                   ...data,
+                  authors: [],
                   cover: selectedImage || "/eg.png",
-                  owner: user?.uid || "",
+                  owner: {
+                    email: "",
+                    userId: "",
+                    username: "",
+                    profileImage: "",
+                  },
                   publishDate: Timestamp.fromDate(new Date()).seconds,
                   screens: selectedScreens,
                 }}

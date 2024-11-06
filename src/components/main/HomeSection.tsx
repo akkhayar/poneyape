@@ -126,9 +126,9 @@ const HomeSection = ({ data }: { data: WebsiteDataFetch[] }) => {
           {data.map((item, i) => (
             <WebsiteCard
               key={item.id}
-              id={item.id}
+              id={item.id!}
               coverImage={item.cover}
-              primaryAuthor={item.ownerId}
+              primaryAuthor={item.owner}
               tags={item.tags}
               title={item.title}
             />

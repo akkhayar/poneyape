@@ -43,8 +43,6 @@ export default async function Home() {
 
   const locale = await getUserLocale();
 
-  console.log(data);
-
   return (
     <div className={`lang-${lang} bg-[var(--background-blue)]`}>
       {/* <HomeSection data={data} />

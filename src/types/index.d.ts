@@ -57,7 +57,7 @@ declare type UserCollection = {
 };
 
 declare type WebsiteDataFetch = {
-  id: string;
+  id?: string;
   owner: UserCollection;
   cover: string;
   title: string;

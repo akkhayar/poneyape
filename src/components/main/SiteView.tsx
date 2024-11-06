@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
+import { ChevronLeft } from "lucide-react";
 import useSWR from "swr";
 
 import FontDisplay from "@/components/common/FontDisplay";
@@ -14,11 +15,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { useFirestoreUser } from "@/hooks/useFirestoreUser";
 import { SocialIcon } from "@/icons/SocialIcon";
 import { getDomain } from "@/lib/utils";
-import { UserData, WebsiteData } from "@/types";
-import { useFirestoreUser } from "@/hooks/useFirestoreUser";
-import { ChevronLeft } from "lucide-react";
+import { UserData, WebsiteData, WebsiteDataFetch } from "@/types";
 
 import { WebsiteDetailDocument } from "../../../prismicio-types";
 
@@ -27,26 +27,26 @@ const SiteView = ({
   user,
   details,
 }: {
-  data: WebsiteData;
+  data: WebsiteDataFetch;
   user: UserData;
   details: WebsiteDetailDocument<string>;
 }) => {
   const date = new Date(data.publishDate * 1000).toLocaleString();
-  const { userInfo: owner, isLoading, error } = useFirestoreUser(data.ownerId);
+  // const { userInfo: owner, isLoading, error } = useFirestoreUser(data.ownerId);
 
   return (
     <>
       <section className="flex flex-col gap-6 px-6 py-10 md:px-16 md:py-10">
         <div className="flex items-start justify-between lg:items-center">
           <div className="flex flex-col gap-2 md:gap-6 lg:flex-row">
-            <Link className="hidden text-primary lg:flex lg:gap-2 " href="\">
+            <Link className="hidden text-primary lg:flex lg:gap-2" href="\">
               <ChevronLeft /> Home
             </Link>
             <p className="c-body font-semibold text-[#1B1B1B]">{data.title}</p>
             <TagBar tags={data.tags} />
           </div>
           <div className="flex gap-4">
-            <div className="flex md:items-center opacity-0">
+            <div className="flex opacity-0 md:items-center">
               <div className="me-1 mt-[6px] h-[14px] w-[14px] rounded-full border-4 border-[#D7E2FF] bg-[#3D52D5] md:mt-0" />
               <p className="c-body font-semibold uppercase text-primary">
                 {details.data.nominated}
@@ -147,18 +147,18 @@ const SiteView = ({
             >
               <div className="flex items-center gap-2">
                 <Image
-                  src={owner?.photoURL || "/profile.png"}
+                  src={data?.owner.profileImage || "/profile.png"}
                   className="size-8 shrink-0 rounded-full"
                   alt="Profile Picture"
                   width={32}
                   height={32}
                 />
                 <p className="c-small md:c-body font-semibold text-black underline">
-                  {owner?.displayName}
+                  {data?.owner.username}
                 </p>
               </div>
-              {data.authors.map((author) => (
-                <div className="flex items-center gap-2" key={author}>
+              {data.authors?.map((author) => (
+                <div className="flex items-center gap-2" key={author.userId}>
                   <Image
                     src="/profile.png"
                     className="rounded-full"
@@ -167,7 +167,7 @@ const SiteView = ({
                     height={32}
                   />
                   <p className="c-small md:c-body font-semibold text-black underline">
-                    {author}
+                    {author.username}
                   </p>
                 </div>
               ))}
@@ -255,7 +255,9 @@ const SiteView = ({
           <p className="flex-1">{data.vision}</p>
         </div>
         <div className="border-b border-dashed border-black pb-10 md:flex md:justify-between md:pb-16">
-          <h5 className="mb-4 flex-1 font-bold">{details.data.typography}</h5>
+          <h5 className="mb-4 flex-1 text-nowrap font-bold">
+            {details.data.typography}
+          </h5>
           <FontDisplay typography={data.typography} />
         </div>
         <div className="border-b border-dashed border-black pb-10 md:flex md:justify-between md:pb-16">
@@ -343,7 +345,7 @@ const SiteView = ({
         </h3>
         <div className="flex flex-col gap-20 md:flex-row">
           {data.authors.map((author) => (
-            <div key={author} className="flex flex-col gap-4">
+            <div key={author.userId} className="flex flex-col gap-4">
               <div className="flex items-center gap-6">
                 <Image
                   src={user.profilePicture}

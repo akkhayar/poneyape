@@ -11,9 +11,9 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
+import { useFirestoreUser } from "@/hooks/useFirestoreUser";
 import { cn } from "@/lib/utils";
 import { WebsiteDataFetch } from "@/types";
-import { useFirestoreUser } from "@/hooks/useFirestoreUser";
 
 // const data = [1, 2, 3, 4, 5];
 
@@ -79,8 +79,8 @@ export const WOTMCarousel = ({ data }: { data: WebsiteDataFetch[] }) => {
 };
 
 export const WOTMCarouselCard = ({ item }: { item: WebsiteDataFetch }) => {
-  const { userInfo: owner, isLoading, error } = useFirestoreUser(item.ownerId);
-  
+  // const { userInfo: owner, isLoading, error } = useFirestoreUser(item.ownerId);
+
   return (
     <CarouselItem key={item.id} className="pl-12 md:basis-1/2 lg:basis-1/3">
       <Link href={`/site/${item.id}`}>
@@ -99,15 +99,17 @@ export const WOTMCarouselCard = ({ item }: { item: WebsiteDataFetch }) => {
               <p className="text-white">By</p>
               <Image
                 className="size-8 shrink-0 rounded-full object-cover"
-                src={owner?.photoURL || "/profile.png"}
+                src={item?.owner.profileImage || "/profile.png"}
                 alt="Author Image"
                 width={32}
                 height={32}
               />
-              {isLoading ? (
+              {!item?.owner ? (
                 <div className="h-4 w-10 animate-pulse rounded-lg bg-gray-700" />
               ) : (
-                <p className="font-bold text-white underline">{owner?.displayName}</p>
+                <p className="font-bold text-white underline">
+                  {item?.owner.username}
+                </p>
               )}
             </div>
           </div>
@@ -179,7 +181,7 @@ export const DiscoverCarousel = ({ data }: { data: WebsiteDataFetch[] }) => {
 };
 
 export const DiscoverCarouselCard = ({ item }: { item: WebsiteDataFetch }) => {
-  const { userInfo: user, isLoading, error } = useFirestoreUser(item.ownerId);
+  // const { userInfo: user, isLoading, error } = useFirestoreUser(item.ownerId);
 
   return (
     <CarouselItem className="pl-12 md:basis-1/2 lg:basis-1/3">
@@ -209,16 +211,16 @@ export const DiscoverCarouselCard = ({ item }: { item: WebsiteDataFetch }) => {
           <div className="mt-2 flex items-center gap-1">
             By{" "}
             <Image
-              src="/eg.png"
+              src={item.owner.profileImage || "/profile.png"}
               alt="Author Image"
               width={32}
               height={32}
               className="size-8 shrink-0 rounded-full"
             />{" "}
-            {isLoading ? (
+            {!item?.owner ? (
               <div className="h-4 w-10 animate-pulse rounded-lg bg-gray-700" />
             ) : (
-              user?.displayName
+              item?.owner.username
             )}
           </div>
         </div>

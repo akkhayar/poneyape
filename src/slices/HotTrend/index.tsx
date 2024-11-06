@@ -119,7 +119,7 @@ const HotTrend = ({ slice, context }: HotTrendProps): JSX.Element => {
           {data?.map((item, i) => (
             <WebsiteCard
               key={item.id}
-              id={item.id}
+              id={item.id!}
               coverImage={item.cover}
               primaryAuthor={item.owner}
               tags={item.tags}
