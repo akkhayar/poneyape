@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import * as prismic from "@prismicio/client";
 import { SliceZone } from "@prismicio/react";
 
 import FAQ from "@/components/main/FAQ";
@@ -13,7 +12,6 @@ import { firebaseClient } from "@/lib/firebase";
 import { getUserLocale } from "@/locale";
 import { createClient } from "@/prismicio";
 import { components } from "@/slices";
-import { WebsiteDataFetch } from "@/types";
 
 export async function generateMetadata(): Promise<Metadata> {
   const client = createClient();
