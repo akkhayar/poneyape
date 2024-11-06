@@ -2,8 +2,6 @@ import Image from "next/image";
 
 import Tag from "@/components/common/Tag";
 
-export const runtime = "edge";
-
 export default function SearchPage() {
   return (
     <section className="flex flex-col gap-10 px-6 py-10 md:px-16 md:py-20">

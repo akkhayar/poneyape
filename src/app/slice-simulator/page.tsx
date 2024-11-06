@@ -9,8 +9,6 @@ import {
 
 import { components } from "../../slices";
 
-export const runtime = "edge";
-
 export default function SliceSimulatorPage({
   searchParams,
 }: SliceSimulatorParams) {
