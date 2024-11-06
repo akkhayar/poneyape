@@ -5,6 +5,8 @@ import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { getUserLocale } from "@/locale";
 import { createClient } from "@/prismicio";
 
+export const runtime = "edge";
+
 export default async function CreatePage() {
   // const user = useCurrentUser();
   const locale = await getUserLocale();

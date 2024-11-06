@@ -6,6 +6,8 @@ import { getUserLocale } from "@/locale";
 import { createClient } from "@/prismicio";
 import { WebsiteDataFetch } from "@/types";
 
+export const runtime = "edge";
+
 export default async function SitePage({ params }: { params: { id: string } }) {
   const websites = (await firebaseClient.fetchData(
     "triage-websites",
