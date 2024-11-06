@@ -3,7 +3,7 @@ import { Inter, Poppins, Roboto } from "next/font/google";
 
 import "./globals.css";
 
-import { PrismicPreview } from "@prismicio/next";
+import { PrismicPreview } from "@/lib/prismicio-next";
 
 import Footer from "@/components/common/Footer";
 import Header from "@/components/common/Header";
@@ -55,3 +55,6 @@ export default async function RootLayout({
     </html>
   );
 }
+
+// cloudflare requirement
+export const runtime = "experimental-edge";
