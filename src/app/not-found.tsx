@@ -9,5 +9,3 @@ export default function NotFound() {
     </div>
   );
 }
-
-export const runtime = "experimental-edge";
