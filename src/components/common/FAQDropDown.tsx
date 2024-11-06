@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import type { Content, GroupField } from "@prismicio/client";
 
-import { Simplify } from "../../../prismicio-types";
+import { Simplify } from "@/../prismicio-types";
 
 const FAQDropDown = ({
   faq,
