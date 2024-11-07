@@ -3,9 +3,9 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Content } from "@prismicio/client";
+import type { Content } from "@prismicio/client";
 import { PrismicNextLink } from "@prismicio/next";
-import { SliceComponentProps } from "@prismicio/react";
+import type { SliceComponentProps } from "@prismicio/react";
 
 import WebsiteCard from "@/components/common/WebsiteCard";
 import { Button } from "@/components/ui/button";

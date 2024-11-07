@@ -7,9 +7,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { PrismicNextLink } from "@prismicio/next";
 import { SliceZone } from "@prismicio/react";
 import {
-  AwardIcon,
-  BookOpen,
-  HomeIcon,
   LogIn,
   LogOut,
   Search,
@@ -30,26 +27,12 @@ import { components } from "@/slices";
 
 import {
   HeaderLinksDocument,
-  HeaderLinksDocumentDataLinksItem,
-  Simplify,
 } from "../../../prismicio-types";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Skeleton } from "../ui/skeleton";
 import { NavLinks } from "./NavLinks";
 import { SurveyPopup } from "./SurveyPopup";
 
-const getNavItemIcon = (route: string) => {
-  switch (route) {
-    case "Home":
-      return <HomeIcon className="lg:hidden" />;
-    case "Contests":
-      return <AwardIcon className="lg:hidden" />;
-    case "Learning":
-      return <BookOpen className="lg:hidden" />;
-    case "Explore":
-      return <Search className="lg:hidden" />;
-  }
-};
 
 const Header = ({
   locale,

@@ -1,10 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Content } from "@prismicio/client";
+import type { Content } from "@prismicio/client";
 import { PrismicNextImage } from "@prismicio/next";
-import { SliceComponentProps } from "@prismicio/react";
-
+import type { SliceComponentProps } from "@prismicio/react";
 /**
  * Props for `Notification`.
  */
@@ -28,6 +27,7 @@ const Notification = ({ slice }: NotificationProps): JSX.Element => {
       style={{
         backgroundImage: `linear-gradient(to right, ${slice.primary.gradient_1}, ${slice.primary.gradient_2})`,
       }}
+      hidden
     >
       <div className="container mx-auto flex items-center justify-between py-2">
         <div className="flex items-center gap-10">
