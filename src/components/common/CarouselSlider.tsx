@@ -11,7 +11,6 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import { useFirestoreUser } from "@/hooks/useFirestoreUser";
 import { cn } from "@/lib/utils";
 import { WebsiteDataFetch } from "@/types";
 
