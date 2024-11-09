@@ -1,7 +1,7 @@
-FROM oven/bun:alpine AS base
+FROM oven/bun:1 AS base
 
 # Stage 1: Install dependencies
-FROM base AS deps
+FROM base AS install
 WORKDIR /app
 COPY package.json bun.lockb ./
 RUN bun install --frozen-lockfile
