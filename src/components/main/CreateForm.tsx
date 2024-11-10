@@ -150,7 +150,10 @@ export default function CreateForm({
                 Preview
               </button>
             </DialogTrigger>
-            <DialogContent className="max-h-screen max-w-screen-md overflow-y-scroll bg-white">
+            <DialogContent
+              data-lenis-prevent="true"
+              className="max-h-screen max-w-screen-md overflow-y-scroll bg-white"
+            >
               <SiteView
                 details={details}
                 data={{

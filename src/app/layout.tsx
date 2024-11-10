@@ -4,6 +4,7 @@ import { Inter, Poppins, Roboto } from "next/font/google";
 import "./globals.css";
 
 import { PrismicPreview } from "@prismicio/next";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 import Footer from "@/components/common/Footer";
 import Header from "@/components/common/Header";
@@ -44,13 +45,13 @@ export default async function RootLayout({
       <body
         className={`${inter.className} ${poppins.variable} ${roboto.variable}`}
       >
-        <Header locale={locale} data={data} />
-        {/* <LenisWrapper> */}
-        {children}
-        {/* </LenisWrapper> */}
-        <Footer />
-        <Toaster />
-        <PrismicPreview repositoryName={repositoryName} />
+        <NuqsAdapter>
+          <Header locale={locale} data={data} />
+          <LenisWrapper>{children}</LenisWrapper>
+          <Footer />
+          <Toaster />
+          <PrismicPreview repositoryName={repositoryName} />
+        </NuqsAdapter>
       </body>
     </html>
   );

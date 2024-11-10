@@ -6,11 +6,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { PrismicNextLink } from "@prismicio/next";
 import { SliceZone } from "@prismicio/react";
-import {
-  LogIn,
-  LogOut,
-  Search,
-} from "lucide-react";
+import { LogIn, LogOut, Search } from "lucide-react";
 
 import AuthModal from "@/components/common/AuthModal";
 import {
@@ -25,14 +21,11 @@ import { setUserLocale } from "@/locale";
 import { Locale } from "@/locale/config";
 import { components } from "@/slices";
 
-import {
-  HeaderLinksDocument,
-} from "../../../prismicio-types";
+import { HeaderLinksDocument } from "../../../prismicio-types";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Skeleton } from "../ui/skeleton";
 import { NavLinks } from "./NavLinks";
 import { SurveyPopup } from "./SurveyPopup";
-
 
 const Header = ({
   locale,
@@ -148,7 +141,7 @@ const Header = ({
             type="text"
             name="search"
             placeholder={data.data.search as string}
-            className="m-0 w-full border-none bg-transparent p-0 text-base outline-none placeholder:text-black hover:outline-none"
+            className="m-0 w-full border-none bg-transparent p-0 text-base outline-none placeholder:text-black hover:outline-none focus:bg-transparent"
           />
         </form>
 
@@ -197,7 +190,7 @@ const Header = ({
                   type="text"
                   name="search"
                   placeholder={data.data.search as string}
-                  className="m-0 w-full border-none bg-transparent p-0 text-base outline-none placeholder:text-black hover:outline-none"
+                  className="m-0 w-full border-none bg-transparent p-0 text-base outline-none placeholder:text-black hover:outline-none focus:bg-transparent"
                 />
               </form>
             </DropdownMenuContent>

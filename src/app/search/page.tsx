@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import SearchFilter from "@/components/common/SearchFilter";
 import Tag from "@/components/common/Tag";
 
 export default function SearchPage() {
@@ -19,16 +20,7 @@ export default function SearchPage() {
       <p className="font-roboto text-[148px] capitalize leading-[177px] tracking-[-10px]">
         Neumorphism
       </p>
-      <div>
-        <div className="mb-5 flex justify-between">
-          <button>Filters</button>
-          <button>Sort By</button>
-        </div>
-        <div className="flex justify-between">
-          <Tag tag="test" clickable={true} />
-          <p>Showing 0 of 100</p>
-        </div>
-      </div>
+      <SearchFilter />
     </section>
   );
 }
