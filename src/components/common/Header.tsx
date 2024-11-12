@@ -141,7 +141,7 @@ const Header = ({
             type="text"
             name="search"
             placeholder={data.data.search as string}
-            className="m-0 w-full border-none bg-transparent p-0 text-base outline-none placeholder:text-black hover:outline-none focus:bg-transparent"
+            className="m-0 w-full border-none bg-transparent p-0 text-base outline-none placeholder:text-black focus-within:bg-transparent hover:outline-none focus:bg-transparent"
           />
         </form>
 

@@ -313,6 +313,79 @@ class FirebaseClient {
     };
   }
 
+  async fetchDataWithParams(collectionName: string, q?: string, tag?: string) {
+    const docRef = collection(db, collectionName);
+    const docSnapshots = await getDocs(docRef);
+
+    const docsData = await Promise.all(
+      docSnapshots.docs
+        .filter((doc) => {
+          const data = doc.data();
+          const matchesTag = tag ? data.tags?.includes(tag) : true;
+          const matchesTitle = q
+            ? data.title?.toLowerCase().includes(q.toLowerCase())
+            : true;
+
+          // Returns true if both tag and title match, or if only one of them exists and matches.
+          return matchesTag && matchesTitle;
+        })
+        .map(async (item) => {
+          const docData = item.data();
+          const ownerRef = doc(db, "users", docData.owner);
+          const ownerSnapshot = await getDoc(ownerRef);
+
+          const authorsData = await Promise.all(
+            docData.authors.map(async (authorId: string) => {
+              const authorRef = doc(db, "users", authorId);
+              const authorSnapshot = await getDoc(authorRef);
+              return authorSnapshot.data() ?? null;
+            }),
+          );
+
+          return {
+            id: item.id,
+            ...docData,
+            owner: ownerSnapshot.exists() ? ownerSnapshot.data() : null,
+            authors: authorsData,
+          } as WebsiteDataFetch;
+        }),
+    );
+
+    return docsData;
+  }
+
+  async fetchDataByOwner(collectionName: string, ownerId: string) {
+    const docRef = collection(db, collectionName);
+    const docSnapshots = await getDocs(docRef);
+
+    const docsData = await Promise.all(
+      docSnapshots.docs
+        .filter((doc) => doc.data().owner === ownerId) // filter by ownerId
+        .map(async (item) => {
+          const docData = item.data();
+          const ownerRef = doc(db, "users", docData.owner);
+          const ownerSnapshot = await getDoc(ownerRef);
+
+          const authorsData = await Promise.all(
+            docData.authors.map(async (authorId: string) => {
+              const authorRef = doc(db, "users", authorId);
+              const authorSnapshot = await getDoc(authorRef);
+              return authorSnapshot.data() ?? null;
+            }),
+          );
+
+          return {
+            id: item.id,
+            ...docData,
+            owner: ownerSnapshot.exists() ? ownerSnapshot.data() : null,
+            authors: authorsData,
+          };
+        }),
+    );
+
+    return docsData;
+  }
+
   async getFirestoreUser(uid: string) {
     const userRef = doc(db, "users", uid);
     const userSnap = await getDoc(userRef);
