@@ -2,6 +2,7 @@
 
 import { useCallback } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { useQueryState } from "nuqs";
@@ -36,6 +37,8 @@ export default function WebsiteList() {
       firebaseClient.fetchDataWithParams("triage-websites", q, tag),
   });
 
+  console.log(data);
+
   if (error) return <div>Error: {error.message}</div>;
 
   return (
@@ -58,7 +61,11 @@ export default function WebsiteList() {
       ) : (
         <div className="grid w-full grid-cols-4 gap-5">
           {data?.map((item) => (
-            <div key={item.id} className="flex flex-col gap-2">
+            <Link
+              href={`/site/${item.id}`}
+              key={item.id}
+              className="flex flex-col gap-2"
+            >
               <div className="relative h-[200px] w-full">
                 <Image
                   src={item.cover}
@@ -69,7 +76,7 @@ export default function WebsiteList() {
               </div>
               <p className="font-semibold">{item.title}</p>
               <p className="text-gray-500">{item.description}</p>
-            </div>
+            </Link>
           ))}
         </div>
       )}

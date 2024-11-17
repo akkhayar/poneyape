@@ -321,13 +321,16 @@ class FirebaseClient {
       docSnapshots.docs
         .filter((doc) => {
           const data = doc.data();
-          const matchesTag = tag ? data.tags?.includes(tag) : true;
-          const matchesTitle = q
-            ? data.title?.toLowerCase().includes(q.toLowerCase())
+          const matchesTag = tag
+            ? data.tags?.includes(tag.toLowerCase())
             : true;
-
+          const matchesQuery = q
+            ? ["title", "description", "vision"].some((field) =>
+                data[field]?.toLowerCase().includes(q.toLowerCase()),
+              )
+            : true;
           // Returns true if both tag and title match, or if only one of them exists and matches.
-          return matchesTag && matchesTitle;
+          return matchesTag && matchesQuery;
         })
         .map(async (item) => {
           const docData = item.data();
