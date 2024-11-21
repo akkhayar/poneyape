@@ -22,7 +22,15 @@ import { Locale } from "@/locale/config";
 import { components } from "@/slices";
 
 import { HeaderLinksDocument } from "../../../prismicio-types";
+import { Button } from "../ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 import { Skeleton } from "../ui/skeleton";
 import { NavLinks } from "./NavLinks";
 import { SurveyPopup } from "./SurveyPopup";
@@ -35,11 +43,9 @@ const Header = ({
   data: HeaderLinksDocument<string>;
 }) => {
   const [showAuthModal, setShowAuthModal] = useState(false);
-  const pathname = usePathname().trim();
-  // const [showBanner, setShowBanner] = useState(true);
-
   const [surveyModel, setSurveyModel] = useState(false);
   const user = useCurrentUser();
+  const pathname = usePathname().trim();
   const links = data.data.links;
 
   const router = useRouter();
@@ -61,38 +67,7 @@ const Header = ({
         components={components}
         context={{ locale }}
       />
-
-      {/* {showBanner && (
-        <section className="bg-linear-gradient-yellow-to-orange px-6 2xl:px-16">
-          <div className="container mx-auto flex items-center justify-between py-2">
-            <div className="flex items-center gap-10">
-              <div className="">
-                <h5 className="font-bold">Volunteer Opportunities Available</h5>
-                <p className="lg:text-[14px]">
-                  We’ve opened volunteering opportunities for the following -
-                  full stack developer x1 , front end developer x2
-                </p>
-              </div>
-            </div>
-
-            <button onClick={() => setShowBanner(false)}>
-              <svg
-                width="32"
-                height="33"
-                viewBox="0 0 32 33"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M22.8353 22.864L22.3638 23.3354C22.1035 23.5957 21.6814 23.5957 21.421 23.3354L15.9999 17.9142L10.5787 23.3353C10.3184 23.5957 9.89626 23.5957 9.63591 23.3353L9.1645 22.8639C8.90415 22.6036 8.90415 22.1815 9.1645 21.9211L14.5857 16.5L9.1645 11.0788C8.90415 10.8185 8.90415 10.3964 9.1645 10.136L9.6359 9.66463C9.89625 9.40428 10.3184 9.40428 10.5787 9.66463L15.9999 15.0858L21.421 9.66462C21.6814 9.40427 22.1035 9.40427 22.3638 9.66462L22.8353 10.136C23.0956 10.3964 23.0956 10.8185 22.8353 11.0788L17.4141 16.5L22.8353 21.9211C23.0956 22.1815 23.0956 22.6036 22.8353 22.864Z"
-                  fill="black"
-                />
-              </svg>
-            </button>
-          </div>
-        </section>
-      )} */}
-      <div className="flex w-full items-center justify-between px-6 lg:px-16">
+      <div className="flex w-full items-center justify-between px-6 lg:px-16 border-b bg-white/40 backdrop-blur-xl border-[var(--BG-1,#E5E5E0)] sticky top-[-1px] z-50">
         <div className="flex items-center gap-2">
           <NavLinks links={links} setShowAuthModel={setShowAuthModal} />
           <Link
@@ -107,7 +82,7 @@ const Header = ({
               className="h-[36px] w-auto shrink-0"
             />
           </Link>
-          <nav className="flex h-[72px] w-full items-center justify-end gap-2 border-solid bg-[#ffffff66]">
+          <header className="flex h-[72px] w-full items-center justify-end gap-2 border-solid">
             <ul
               className="hidden text-[#1B1B1B] lg:flex lg:gap-8"
               aria-label="Navigation Items"
@@ -129,7 +104,7 @@ const Header = ({
                 );
               })}
             </ul>
-          </nav>
+          </header>
         </div>
 
         <form
@@ -149,16 +124,31 @@ const Header = ({
           {!locale ? (
             <Skeleton className="h-[45px] w-[90px] bg-gray-300" />
           ) : (
-            <select
+            <Select
               value={locale}
-              onChange={async (e) =>
-                await setUserLocale(e.target.value as Locale)
+              onValueChange={async (value) =>
+                await setUserLocale(value as Locale)
               }
-              className="rounded-[5px] border border-midGrey bg-transparent px-4 py-[10px] text-black"
+              defaultValue="en-US"
             >
-              <option value={"en-US"}>ENG</option>
-              <option value={"my-mm"}>MY</option>
-            </select>
+              <SelectTrigger className="h-[45px] w-[75px]">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="en-US">ENG</SelectItem>
+                <SelectItem value="my-mm">MY</SelectItem>
+              </SelectContent>
+            </Select>
+            // <select
+            //   value={locale}
+            //   onChange={async (e) =>
+            //     await setUserLocale(e.target.value as Locale)
+            //   }
+            //   className="rounded-[5px] border border-midGrey bg-transparent px-4 py-[10px] text-black"
+            // >
+            //   <option value={"en-US"}>ENG</option>
+            //   <option value={"my-mm"}>MY</option>
+            // </select>
           )}
 
           <DropdownMenu>
@@ -250,12 +240,9 @@ const Header = ({
               </Popover>
             </>
           ) : (
-            <button
-              className="c-primary hidden pb-6 lg:block"
-              onClick={() => setShowAuthModal(true)}
-            >
+            <Button variant="bling" size="custom" className="uppercase" onClick={() => setShowAuthModal(true)}>
               {data.data.register}
-            </button>
+            </Button>
           )}
         </div>
       </div>

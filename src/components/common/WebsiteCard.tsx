@@ -1,12 +1,7 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-
-import { useFirestoreUser } from "@/hooks/useFirestoreUser";
-import { WebsiteCardProps } from "@/types";
-
 import TagBar from "./TagBar";
+import { WebsiteCardProps } from "@/types";
 
 const WebsiteCard = ({
   id,
@@ -15,8 +10,7 @@ const WebsiteCard = ({
   primaryAuthor,
   coverImage,
 }: WebsiteCardProps) => {
-  // const { userInfo: user, isLoading, error } = useFirestoreUser(primaryAuthor);
-
+  console.log(coverImage);
   return (
     <div className="flex w-full flex-col justify-center">
       <Link href={`/site/${id}`} className="group relative">

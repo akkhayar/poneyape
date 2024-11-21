@@ -14,8 +14,6 @@ import {
 import { cn } from "@/lib/utils";
 import { WebsiteDataFetch } from "@/types";
 
-// const data = [1, 2, 3, 4, 5];
-
 export const WOTMCarousel = ({ data }: { data: WebsiteDataFetch[] }) => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
@@ -78,8 +76,6 @@ export const WOTMCarousel = ({ data }: { data: WebsiteDataFetch[] }) => {
 };
 
 export const WOTMCarouselCard = ({ item }: { item: WebsiteDataFetch }) => {
-  // const { userInfo: owner, isLoading, error } = useFirestoreUser(item.ownerId);
-
   return (
     <CarouselItem key={item.id} className="pl-12 md:basis-1/2 lg:basis-1/3">
       <Link href={`/site/${item.id}`}>
@@ -180,8 +176,6 @@ export const DiscoverCarousel = ({ data }: { data: WebsiteDataFetch[] }) => {
 };
 
 export const DiscoverCarouselCard = ({ item }: { item: WebsiteDataFetch }) => {
-  // const { userInfo: user, isLoading, error } = useFirestoreUser(item.ownerId);
-
   return (
     <CarouselItem className="pl-12 md:basis-1/2 lg:basis-1/3">
       <Link href={`/site/${item.id}`}>

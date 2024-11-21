@@ -114,7 +114,7 @@ const HotTrend = ({ slice, context }: HotTrendProps): JSX.Element => {
           {slice.primary.title}
         </h3>
         <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
-          {data?.map((item, i) => (
+          {data?.map((item) => (
             <WebsiteCard
               key={item.id}
               id={item.id!}

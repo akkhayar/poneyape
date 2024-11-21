@@ -37,7 +37,7 @@ const AuthModal = ({ show, setShow }: AuthModalProps) => {
     <Dialog open={show} onOpenChange={setShow}>
       <DialogContent
         aria-describedby="Authentication Modal"
-        className="rounded-lg shadow dark:bg-gray-700"
+        className="rounded-lg shadow"
         style={{
           background:
             "linear-gradient(156deg, #F8F0FF 3.55%, #FFF 49.39%, #E2F0FF 98.07%)",

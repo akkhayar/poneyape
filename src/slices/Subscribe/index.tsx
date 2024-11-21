@@ -1,6 +1,7 @@
 import type { Content } from "@prismicio/client";
 import type { SliceComponentProps } from "@prismicio/react";
 import { PrismicNextLink } from "@prismicio/next";
+import { Button } from "@/components/ui/button";
 
 /**
  * Props for `Subscribe`.
@@ -27,7 +28,7 @@ const Subscribe = ({ slice }: SubscribeProps): JSX.Element => {
               type="text"
               placeholder="Enter your email"
             />
-            <button className="c-primary w-full md:w-fit">Subscribe</button>
+            <Button className="w-full md:w-fit" size="custom" variant="bling">Subscribe</Button>
           </div>
           <p>
             {slice.primary.agreement}{" "}

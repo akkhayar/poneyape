@@ -50,7 +50,6 @@ const Hero = ({ slice, context }: HeroProps): JSX.Element => {
         <h3 className="mb-10 text-center font-semibold text-black">
           {slice.primary.featuring_title}
         </h3>
-
         <PrismicNextImage
           field={slice.primary.featuring_image}
           className="w-full rounded-[8px]"
