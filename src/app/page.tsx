@@ -1,13 +1,5 @@
 import { Metadata } from "next";
 import { SliceZone } from "@prismicio/react";
-
-import FAQ from "@/components/main/FAQ";
-import HomeSection from "@/components/main/HomeSection";
-import HotTrend from "@/components/main/HotTrend";
-import LatestNews from "@/components/main/LatestNews";
-import Team from "@/components/main/Team";
-import Testimonial from "@/components/main/Testimonial";
-import Tutorial from "@/components/main/Tutorial";
 import { firebaseClient } from "@/lib/firebase";
 import { getUserLocale } from "@/locale";
 import { createClient } from "@/prismicio";
@@ -43,13 +35,6 @@ export default async function Home() {
 
   return (
     <div className={`lang-${lang} bg-[var(--background-blue)]`}>
-      {/* <HomeSection data={data} />
-      <HotTrend data={data} />
-      <Testimonial />
-      <Tutorial />
-      <LatestNews />
-      <Team />
-      <FAQ /> */}{" "}
       <SliceZone
         slices={home.data.slices}
         components={components}
